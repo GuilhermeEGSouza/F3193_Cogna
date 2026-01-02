@@ -1,4 +1,87 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/model/SerialNumber","scm/ewm/packoutbdlvs1/utils/Util"],function(M,U){"use strict";return{removeSerialNumber:function(s){var i=this.getSerialNumberIndex(s);if(i===-1){return;}var S=this.getSerialNumbersList();S=S.slice(0);S.splice(i,1);this.setSerialNumbersList(S);},getSerialNumbersList:function(){return M.getProperty("/serialNumbers");},getAllSerialNumerKeys:function(){var s=[];var S=this.getSerialNumbersList();S.forEach(function(o){s.push(o.key);});return s;},setSerialNumbersList:function(s){M.setProperty("/serialNumbers",s);},setSerialNumberUiisList:function(s){M.setProperty("/uiis",s);},clearSerialNumbersList:function(){this.setSerialNumbersList([]);},getSerialNumberIndex:function(s){var S=this.getSerialNumbersList();var i=U.findIndex(S,function(o){if(o.key===s){return true;}return false;});return i;},addSerialNumber:function(s){var S=this.getSerialNumbersList();var o={"key":s};S=S.slice(0);S.unshift(o);this.setSerialNumbersList(S);return this;},hasSerialNumber:function(s){var i=this.getSerialNumberIndex(s);if(i!==-1){return true;}return false;},getSerialNumberCount:function(){var s=this.getSerialNumbersList();return s.length;},convertSerialNumbersToString:function(){var s=this.getAllSerialNumerKeys();return U.formatSerialNumber(s);},getPackedUiis:function(s,I,p){var P=[];var a;for(var i=0;i<p.length;i++){a=s.indexOf(p[i]);if(a!==-1){P.push(I[a]);}}return P.join(" ");}};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/model/SerialNumber",
+	"scm/ewm/packoutbdlvs1/utils/Util"
+], function (Model, Util) {
+	"use strict";
+	return {
+		removeSerialNumber: function (sSerialNum) {
+			var iIndex = this.getSerialNumberIndex(sSerialNum);
+			if (iIndex === -1) {
+				return;
+			}
+			var aSerialNumberList = this.getSerialNumbersList();
+			aSerialNumberList = aSerialNumberList.slice(0);
+			aSerialNumberList.splice(iIndex, 1);
+			this.setSerialNumbersList(aSerialNumberList);
+		},
+		getSerialNumbersList: function () {
+			return Model.getProperty("/serialNumbers");
+		},
+		getAllSerialNumerKeys: function () {
+			var aSn = [];
+			var aSerialNumberList = this.getSerialNumbersList();
+			aSerialNumberList.forEach(function (oSn) {
+				aSn.push(oSn.key);
+			});
+			return aSn;
+		},
+		setSerialNumbersList: function (aSerialNumberList) {
+			Model.setProperty("/serialNumbers", aSerialNumberList);
+		},
+		setSerialNumberUiisList: function (aSerialNumberUiiList) {
+			Model.setProperty("/uiis", aSerialNumberUiiList);
+		},
+		clearSerialNumbersList: function () {
+			this.setSerialNumbersList([]);
+		},
+		getSerialNumberIndex: function (sSerialNum) {
+			var aSerialNumberList = this.getSerialNumbersList();
+			var iIndex = Util.findIndex(aSerialNumberList, function (oSerialNumber) {
+				if (oSerialNumber.key === sSerialNum) {
+					return true;
+				}
+				return false;
+			});
+			return iIndex;
+		},
+		addSerialNumber: function (sSerialNum) {
+			var aSerialNumberList = this.getSerialNumbersList();
+			var oSerialNumber = {
+				"key": sSerialNum
+			};
+			aSerialNumberList = aSerialNumberList.slice(0);
+			aSerialNumberList.unshift(oSerialNumber);
+			this.setSerialNumbersList(aSerialNumberList);
+			return this;
+		},
+		hasSerialNumber: function (sSerialNum) {
+			var iIndex = this.getSerialNumberIndex(sSerialNum);
+			if (iIndex !== -1) {
+				return true;
+			}
+			return false;
+		},
+		getSerialNumberCount: function () {
+			var aSerialNumberList = this.getSerialNumbersList();
+			return aSerialNumberList.length;
+		},
+		convertSerialNumbersToString: function () {
+			var aSerialNumberList = this.getAllSerialNumerKeys();
+			return Util.formatSerialNumber(aSerialNumberList);
+		},
+		getPackedUiis: function (aSnList, aIuidList, aPackedSnList) {
+			var aPackedIuidList = [];
+			var index;
+			for (var i = 0; i < aPackedSnList.length; i++) {
+				index = aSnList.indexOf(aPackedSnList[i]);
+				if (index !== -1) {
+					aPackedIuidList.push(aIuidList[index]);
+				}
+			}
+			return aPackedIuidList.join(" ");
+		}
+	};
+});

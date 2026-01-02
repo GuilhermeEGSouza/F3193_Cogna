@@ -1,4 +1,93 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/workflows/WorkFlow","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/utils/Const","scm/ewm/packoutbdlvs1/modelHelper/Message","scm/ewm/packoutbdlvs1/service/ODataService","scm/ewm/packoutbdlvs1/modelHelper/Cache","scm/ewm/packoutbdlvs1/modelHelper/Global"],function(W,U,C,M,S,a,G){"use strict";return function(s,o){var w=new W().then(function(p,P){P.aProducts=p;},s,"set oParams").then(function(){return this.updateItemWeightInNeed();},s,"check if there exists source item which is not in ItemWeight").then(function(p,P){return S.packAll(p);},s).then(function(p,P){P.NetWeight=p.NetWeight;P.WeightUoM=p.WeightUoM;this.oItemHelper.clear();G.setProductId("");this.disableButtons();},s,"remove item from left").then(function(){this.unbindProductInfo();this.unbindImage();},s,"unbind product info").then(function(){this.unbindODOInfo();this.focus(C.ID.PRODUCT_INPUT);},s,"update odo info").then(function(){this.updateInputWithDefault(C.ID.SHIP_INPUT,"");},o,"clear ship input").then(function(p,P){P.bShipHUEmptyBeforePack=this.oItemHelper.isEmpty();return S.getHUItems(G.getCurrentShipHandlingUnit(),C.SHIP_TYPE_HU);},o).then(function(p,P){this.setBusy(false);this.oItemHelper.setItems(p);this.oItemHelper.setItemsStatusToNone();this.oItemHelper.setItemHighlightByIndex(0);this.handleUnpackEnable();},o,"add item in the right table").then(function(p,P){if(P.bShipHUEmptyBeforePack){a.updateShipHUConsGroup(G.getCurrentShipHandlingUnit(),P.aProducts[0].EWMConsolidationGroup);}},o,"if it is the first item in the right, update packing info").then(function(){this.dehilightShipHandlingUnits();},o).then(function(p,P){this.updateNetWeightRelated(P.NetWeight,P.WeightUoM);this.clearGrossWeight();this.clearPackingInstr();},o,"update weight chart, color and text").then(function(p,P){this.updateCacheIsEmptyHU();},o,"update cache").then(function(p,m){this.delayCalledAdjustContainerHeight();},o);w.errors().default(function(e,p,m,c){if(c){this.showErrorMessagePopup(e);}},s).always(function(){this.setBusy(false);this.focus(C.ID.PRODUCT_INPUT);this.playAudio(C.ERROR);},s);return w;};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/workflows/WorkFlow",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"scm/ewm/packoutbdlvs1/modelHelper/Message",
+	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"scm/ewm/packoutbdlvs1/modelHelper/Cache",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global"
+], function (WorkFlow, Util, Const, Message, Service, Cache, Global) {
+	"use strict";
+	return function (oSourceController, oShipController) {
+		var oWorkFlow = new WorkFlow()
+			.then(function (aProducts, oParams) {
+				oParams.aProducts = aProducts;
+			}, oSourceController, "set oParams")
+			.then(function () {
+				return this.updateItemWeightInNeed();
+			}, oSourceController, "check if there exists source item which is not in ItemWeight")
+			.then(function (aProducts, oParams) {
+				//send backend service
+				return Service
+					.packAll(aProducts);
+			}, oSourceController)
+			.then(function (preResult, oParams) {
+				// this.setBusy(false);
+				oParams.NetWeight = preResult.NetWeight;
+				oParams.WeightUoM = preResult.WeightUoM;
+				this.oItemHelper.clear();
+				Global.setProductId("");
+				this.disableButtons();
+			}, oSourceController, "remove item from left")
+			.then(function () {
+				this.unbindProductInfo();
+				this.unbindImage();
+			}, oSourceController, "unbind product info")
+			.then(function () {
+				this.unbindODOInfo();
+				this.focus(Const.ID.PRODUCT_INPUT);
+			}, oSourceController, "update odo info")
+			.then(function () {
+				this.updateInputWithDefault(Const.ID.SHIP_INPUT, "");
+			}, oShipController, "clear ship input")
+			.then(function (preResult, oParam) {
+				oParam.bShipHUEmptyBeforePack = this.oItemHelper.isEmpty();
+				return Service
+					.getHUItems(Global.getCurrentShipHandlingUnit(), Const.SHIP_TYPE_HU);
+			}, oShipController)
+			.then(function (preResult, oPara) {
+				this.setBusy(false);
+				this.oItemHelper.setItems(preResult);
+				this.oItemHelper.setItemsStatusToNone();
+				this.oItemHelper.setItemHighlightByIndex(0);
+				this.handleUnpackEnable();
+			}, oShipController, "add item in the right table")
+			.then(function (preResult, oParam) {
+				if (oParam.bShipHUEmptyBeforePack) {
+					Cache.updateShipHUConsGroup(Global.getCurrentShipHandlingUnit(), oParam.aProducts[0].EWMConsolidationGroup);
+				}
+			}, oShipController, "if it is the first item in the right, update packing info")
+			.then(function () {
+				this.dehilightShipHandlingUnits();
+			}, oShipController)
+			.then(function (preResult, oParam) {
+				this.updateNetWeightRelated(oParam.NetWeight, oParam.WeightUoM);
+				this.clearGrossWeight();
+				this.clearPackingInstr();
+			}, oShipController, "update weight chart, color and text")
+			.then(function (preResult, oParam) {
+				this.updateCacheIsEmptyHU();
+			}, oShipController, "update cache")
+			.then(function (preResult, mSession) {
+				this.delayCalledAdjustContainerHeight();
+			}, oShipController);
+
+		oWorkFlow
+			.errors()
+			.default(function (sError, vPara, mSession, bCustomError) {
+				if (bCustomError) {
+					this.showErrorMessagePopup(sError);
+				}
+			}, oSourceController)
+			.always(function () {
+				this.setBusy(false);
+				this.focus(Const.ID.PRODUCT_INPUT);
+				this.playAudio(Const.ERROR);
+			}, oSourceController);
+		return oWorkFlow;
+
+	};
+});

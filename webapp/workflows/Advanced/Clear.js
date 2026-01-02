@@ -1,4 +1,95 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/workflows/WorkFlow","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/service/ODataService","scm/ewm/packoutbdlvs1/modelHelper/Material","scm/ewm/packoutbdlvs1/modelHelper/Global","scm/ewm/packoutbdlvs1/modelHelper/Message","scm/ewm/packoutbdlvs1/utils/Const","scm/ewm/packoutbdlvs1/modelHelper/Cache","scm/ewm/packoutbdlvs1/modelHelper/PackingMode"],function(W,U,S,M,G,a,C,b,P){"use strict";return function(s,o){var w=new W().then(function(c,m){if(U.isEmpty(c)){m.bClearSource=true;m.bClearShip=true;m.bRemoveExceptionButtons=true;}else{m.bClearSource=c.bClearSource;m.bClearShip=c.bClearShip;m.bRemoveExceptionButtons=c.bRemoveExceptionButtons;}this.removeDuplicatedId();},s,"set mSession").then(function(p,m){if(m.bClearSource){this.clearSourceBeforeLeave();this.unbindODOInfo();this.unbindProductInfo();this.unbindImage();if(m.bRemoveExceptionButtons){this.removeExceptionButtons();}return this.disableButtons();}},s,"clear source side").then(function(p,m){if(m.bClearShip){this.updateInputWithDefault(C.ID.SHIP_INPUT,"");this.clearShipHUTabs();this.oItemHelper.clear();M.setCurrentMaterial({});G.removeAllShipHandlingUnits();this.setCurrentShipHandlingUnit("");}},o,"clear ship side").then(function(p,m){if(m.bClearSource){G.setUnpackEnable(false);this.clearPackingInstr();if(!this.oItemHelper.isEmpty()){this.oItemHelper.setItemsStatusToNone();}}},o,"clear ship side").then(function(p,m){if(m.bClearSource&&m.bClearShip){a.clearAll();b.reset();}},o,"clear message").then(function(p,m){if(m.bClearSource&&m.bClearShip&&!P.isBasicMode()){this.initDefaultColumnSetting();this.initColumnSetting();}},s,"source column setting initialization").then(function(p,m){if(m.bClearSource&&m.bClearShip&&!P.isBasicMode()){this.initDefaultColumnSetting();this.initColumnSetting();}},o,"ship column setting initialization").then(function(p,m){G.setSelectedProductInSource("");},o,"clear");w.errors().always(function(){this.playAudio(C.ERROR);},s);return w;};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/workflows/WorkFlow",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"scm/ewm/packoutbdlvs1/modelHelper/Material",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global",
+	"scm/ewm/packoutbdlvs1/modelHelper/Message",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"scm/ewm/packoutbdlvs1/modelHelper/Cache",
+	"scm/ewm/packoutbdlvs1/modelHelper/PackingMode"
+], function (WorkFlow, Util, Service, MaterialHelper, Global, Message, Const, Cache, PackingMode) {
+	"use strict";
+	//There are 2 entry points for the clear work flow:
+	//1: after click start packing button
+	//2: if user scan a ship hu in the source side, then scan the same ship hu in the ship hu input
+	//then the app will call teh clear work flow to clear the source side
+	return function (oSourceController, oShipController) {
+		var oWorkFlow = new WorkFlow()
+			.then(function (oClearInfo, mSession) {
+				if (Util.isEmpty(oClearInfo)) {
+					mSession.bClearSource = true;
+					mSession.bClearShip = true;
+					mSession.bRemoveExceptionButtons = true;
+				} else {
+					mSession.bClearSource = oClearInfo.bClearSource;
+					mSession.bClearShip = oClearInfo.bClearShip;
+					mSession.bRemoveExceptionButtons = oClearInfo.bRemoveExceptionButtons;
+				}
+				this.removeDuplicatedId();
+			}, oSourceController, "set mSession")
+			.then(function (vPre, mSession) {
+				if (mSession.bClearSource) {
+					this.clearSourceBeforeLeave();
+					this.unbindODOInfo();
+					this.unbindProductInfo();
+					this.unbindImage();
+					if (mSession.bRemoveExceptionButtons) {
+						this.removeExceptionButtons();
+					}
+					return this.disableButtons();
+				}
+			}, oSourceController, "clear source side")
+			.then(function (vPre, mSession) {
+				if (mSession.bClearShip) {
+					this.updateInputWithDefault(Const.ID.SHIP_INPUT, "");
+					this.clearShipHUTabs();
+					this.oItemHelper.clear();
+					MaterialHelper.setCurrentMaterial({});
+					Global.removeAllShipHandlingUnits();
+					this.setCurrentShipHandlingUnit("");
+				}
+			}, oShipController, "clear ship side")
+			.then(function (vPre, mSession) {
+				if (mSession.bClearSource) {
+					Global.setUnpackEnable(false);
+					this.clearPackingInstr();
+					if (!this.oItemHelper.isEmpty()) {
+						this.oItemHelper.setItemsStatusToNone();
+					}
+				}
+			}, oShipController, "clear ship side")
+			.then(function (vPre, mSession) {
+				if (mSession.bClearSource && mSession.bClearShip) {
+					Message.clearAll();
+					Cache.reset();
+				}
+			}, oShipController, "clear message")
+			.then(function (vPre, mSession) {
+				if (mSession.bClearSource && mSession.bClearShip && !PackingMode.isBasicMode()) {
+					this.initDefaultColumnSetting();
+					this.initColumnSetting();
+				}
+			}, oSourceController, "source column setting initialization")
+			.then(function (vPre, mSession) {
+				if (mSession.bClearSource && mSession.bClearShip && !PackingMode.isBasicMode()) {
+					this.initDefaultColumnSetting();
+					this.initColumnSetting();
+				}
+			}, oShipController, "ship column setting initialization")
+			.then(function (vPre, mSession) {
+				Global.setSelectedProductInSource("");
+			}, oShipController, "clear");
+
+		oWorkFlow
+			.errors()
+			.always(function () {
+				this.playAudio(Const.ERROR);
+			}, oSourceController);
+		return oWorkFlow;
+
+	};
+});

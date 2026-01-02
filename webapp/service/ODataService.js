@@ -1,4 +1,395 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["sap/ui/model/Filter","sap/ui/model/FilterOperator","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/utils/Response","scm/ewm/packoutbdlvs1/modelHelper/OData","scm/ewm/packoutbdlvs1/modelHelper/Global","scm/ewm/packoutbdlvs1/utils/Const"],function(F,a,U,R,O,G,C){"use strict";var _;var b="read",c="create",D="remove",P="update";return{getPromise:function(p,m,d,e,h,f){var g=[];if(U.isEmpty(m)){m=b;}if(U.isEmpty(d)){d={};}if(U.isEmpty(e)){e={};}if(!U.isEmpty(h)){_.setHeaders(h);}return new Promise(function(r,i){e=jQuery.sap.extend(e,{success:function(o){if(o===undefined){r(o);}else if(f){if(o.MsgType==="E"||o.MsgSuccess===false){R.parseErrorAsWarning(o);r();}else{R.parseSuccess(o);R.parseWarning(o);o=o.results?o.results:o;r(o);}}else if(!R.parseError(o,i)){R.parseSuccess(o);R.parseWarning(o);o=o.results?o.results:o;r(o);}},error:function(E){i(E);}});if(m===b||m===D){g.push(p,e);}else{g.push(p,d,e);}_[m].apply(_,g);});},init:function(d){_=d;return this;},destroy:function(){_=null;},setOdataHeader:function(m){_.setHeaders({"pack_mode":m});},logonPackStation:function(){return this.getPromise("/PackingStationSet(EWMWarehouse='',EWMWorkCenter='')");},verifyWorkCenter:function(v){return this.getPromise(O.getWorkCenterPath(v),b,{});},verifyWarehouse:function(v){var w=new F("EWMWarehouse",a.EQ,v);return this.getPromise("/EWMWarehouseVH_Set?",b,{},{filters:[w]});},verifyWorkCenterWithWarehouse:function(w,W){var o=new F("EWMWarehouse",a.EQ,w);var d=new F("EWMWorkCenter",a.EQ,W);return this.getPromise("/SearchHelpWorkCenterSet?",b,{},{filters:[o,d]});},verifyStorageBin:function(v){return this.getPromise(O.getDefaultBinPath(v));},verifySource:function(s){var d={"SourceId":s,"EWMWarehouse":G.getWarehouseNumber(),"EWMWorkCenter":G.getPackStation(),"EWMStorageBin":G.getBin()};return this.getPromise("/ValidateActionSet",c,d);},verifyProduct:function(v){var u=O.getVarifyProductEANParameters(v);return this.getPromise("/ValidateProduct",c,{},{urlParameters:u});},getPackagingMaterials:function(n){var w=G.getWarehouseNumber();var W=G.getPackStation();var B=G.getBin();var o=new F("EWMWarehouse",a.EQ,w);var d=new F("EWMWorkCenter",a.EQ,W);var e=new F("EWMStorageBin",a.EQ,B);return this.getPromise("/PackMatSet",b,{},{filters:[o,d,e]});},createShippingHU:function(h,m){var d={"HuIdInput":h,"EWMWarehouse":G.getWarehouseNumber(),"EWMWorkCenter":G.getPackStation(),"PackagingMaterial":m,"EWMRefDeliveryDocumentNumber":"","EWMStorageBin":G.getBin(),"Type":"1"};return this.getPromise("/HUSet",c,d);},exceptionPack:function(p,q,e,u){var o=O.getExceptionPackParameters(p,q,e,u);return this.getPromise("/Pack",c,{},{urlParameters:o});},pack:function(p,q,u){var o=O.getPackParameters(p,q,u);return this.getPromise("/Pack",c,{},{urlParameters:o,changeSetId:p.DocumentReltdStockDocUUID+p.DocumentReltdStockDocItemUUID});},packAll:function(p){var u=O.getPackAllParameters(p);return this.getPromise("/Pack",c,{},{urlParameters:u});},unpack:function(p,n){var u=O.getUnpackParameters(p,n);return this.getPromise("/UnPack",c,{},{urlParameters:u});},unpackAll:function(p){var u=O.getUnpackAllParameters(p);return this.getPromise("/UnPack",c,{},{urlParameters:u});},getExceptionList:function(){var w=G.getWarehouseNumber();var W=G.getPackStation();var o=new F("EWMWarehouse",a.EQ,w);var d=new F("EWMWorkCenter",a.EQ,W);return this.getPromise("/ExceptionListSet",b,{},{filters:[o,d]});},getMaterialAndExceptionList:function(){var m=this.getPackagingMaterials();var e=this.getExceptionList();return Promise.all([m,e]);},verifyWarehouseAndWorkCenter:function(w,W){G.setWarehouseNumber(w);var v=this.verifyWarehouse(w);var V=this.verifyWorkCenterWithWarehouse(w,W);return Promise.all([v,V]);},closeShipHandlingUnit:function(){var u=O.getCloseShipHandlingUnitParameters();return this.getPromise("/Close",c,{},{urlParameters:u});},getScaleWeight:function(){var d=O.getScaleWeightData();return this.getPromise("/ScaleWeightSet",c,d);},verifySerialNumber:function(p,s){var u=O.getValidateSnParamters(p,s);return this.getPromise("/ValidateSn",c,{},{urlParameters:u});},changeMaterial:function(s){var u=O.getChangeMaterialParameters(s);return this.getPromise("/ChangePackMat",c,{},{urlParameters:u});},getHUSet:function(h,H,d){return this.getPromise(O.getHUPath(h,H),null,null,null,null,d);},getHUItemSet:function(h,H){return this.getPromise(O.getHUPath(h,H)+"/Items");},getHUODOSet:function(h,H){return this.getPromise(O.getHUPath(h,H)+"/ODOs");},getHUItems:function(h,H,i){if(!i){var o=this.getHUSet(h,H);}var I=this.getHUItemSet(h,H);var d=this.getHUODOSet(h,H);return Promise.all([o,I,d]).then(function(r){var e=r[1];var f=r[2];var v={};f.forEach(function(g){v[g.DocumentReltdStockDocUUID]=g;});e.forEach(function(g){g.AlterQuan=U.formatNumber(parseFloat(g.AlterQuan),3);g.Quan=U.formatNumber(parseFloat(g.Quan),3);g.NetWeight=U.formatNumber(parseFloat(g.NetWeight),3,3);g.Volume=U.formatNumber(parseFloat(g.Volume),3,3);g.QtyReduced=U.formatNumber(parseFloat(g.QtyReduced),3);if(g.StockItemNumber==="0"){g.StockItemNumber="";}var j=v[g.DocumentReltdStockDocUUID];if(!U.isEmpty(j)){g.CustomerName=j.CustomerName;g.PackInstr=j.PackInstr;}});return e;});},validateShipHUSet:function(h,H){var d=[];for(var i=0;i<h.length;i++){var o=this.getHUSet(h[i],C.SHIP_TYPE_HU,true);d.push(o);}return Promise.all(d);},updateHU:function(h,t){var p=O.getUpdateHUPath();var d={"HuId":h.HuId,"EWMWarehouse":h.EWMWarehouse,"EWMWorkCenter":h.EWMWorkCenter,"PackagingMaterial":h.PackagingMaterial,"WeightUoM":h.WeightUoM,"TotalWeight":t,"EWMRefDeliveryDocumentNumber":h.EWMRefDeliveryDocumentNumber};return this.getPromise(p,P,d);},deleteShippingHU:function(){var u=O.getDeleteHUParameters();return this.getPromise("/ChangePackMat",c,{},{urlParameters:u});},getRuntimeEnvironment:function(){return this.getPromise("/RuntimeEnvSet");},terminateSession:function(){var h={"sap-terminate":"session"};return this.getPromise("/LeavePackStation",c,{},{},h);},getAudiosList:function(){var w=G.getWarehouseNumber();var W=G.getPackStation();var o=new F("EWMWarehouse",a.EQ,w);var d=new F("EWMWorkCenter",a.EQ,W);var B=new F("EWMStorageBin",a.EQ,"");return this.getPromise("/AudioURISet",b,{},{filters:[o,d,B]});},getOpenShippingHU:function(){var w=G.getWarehouseNumber();var W=G.getPackStation();var B=G.getBin();var o=new F("EWMWarehouse",a.EQ,w);var d=new F("EWMWorkCenter",a.EQ,W);var e=new F("EWMStorageBin",a.EQ,B);var i=new F("IsPickHu",a.EQ,false);return this.getPromise("/HUSet",b,{},{filters:[o,d,e,i],urlParameters:{"$expand":"Items"}});},print:function(){return this.getPromise("/Print",c,{},{urlParameters:O.getPrintParameters()});},getItemWeight:function(s,S){if(U.isEmpty(s)){s=G.getSourceId();S=G.getSourceType();}var w=G.getWarehouseNumber();var W=G.getPackStation();var B=G.getBin();var o=new F("EWMWarehouse",a.EQ,w);var d=new F("EWMWorkCenter",a.EQ,W);var e=new F("EWMStorageBin",a.EQ,B);var f=new F("SourceId",a.EQ,s);var g=new F("SourceType",a.EQ,S);var h=new F("PackagingMaterial",a.EQ,O.getPackageMaterial());return this.getPromise("/HUItemWeightSet",b,{},{filters:[o,d,e,f,g,h]});},getWorkCenterSet:function(){var w=G.getWarehouseNumber();var W=new F("EWMWarehouse",a.EQ,w);return this.getPromise("/SearchHelpWorkCenterSet",b,{},{filters:[W]});},getStorageBinSet:function(){var w=G.getWarehouseNumber();var W=new F("EWMWarehouse",a.EQ,w);return this.getPromise("/SearchHelpBinSet",b,{},{filters:[W]});},convertHUID:function(h){var w=G.getWarehouseNumber();var p={"HandlingUnitNumber":"'"+h+"'","EWMWarehouse":"'"+w+"'"};return this.getPromise("/ConvertHUID",b,{},{urlParameters:p});}};});
+sap.ui.define([
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/utils/Response",
+	"scm/ewm/packoutbdlvs1/modelHelper/OData",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global",
+	"scm/ewm/packoutbdlvs1/utils/Const"
+], function (Filter, FilterOperator, Util, Response, ODataHelper, Global, Const) {
+	"use strict";
+	var _oModel;
+	var READ = "read",
+		CREATE = "create",
+		DELETE = "remove",
+		PUT = "update";
+	return {
+		getPromise: function (sPath, sMethod, mData, mPara, mHeader, bDoNotRejectError) {
+			var aParameter = [];
+			if (Util.isEmpty(sMethod)) {
+				sMethod = READ;
+			}
+			if (Util.isEmpty(mData)) {
+				mData = {};
+			}
+			if (Util.isEmpty(mPara)) {
+				mPara = {};
+			}
+			if (!Util.isEmpty(mHeader)) {
+				_oModel.setHeaders(mHeader);
+			}
+
+			return new Promise(function (resolve, reject) {
+				mPara = jQuery.sap.extend(mPara, {
+					success: function (oData) {
+						if (oData === undefined) {
+							resolve(oData);
+						} else if (bDoNotRejectError) {
+							if (oData.MsgType === "E" || oData.MsgSuccess === false) {
+								//remove error from result, do not reject
+								Response.parseErrorAsWarning(oData);
+								resolve();
+							} else {
+								Response.parseSuccess(oData);
+								Response.parseWarning(oData);
+								oData = oData.results ? oData.results : oData;
+								resolve(oData);
+							}
+						} else if (!Response.parseError(oData, reject)) {
+							Response.parseSuccess(oData);
+							Response.parseWarning(oData);
+							oData = oData.results ? oData.results : oData;
+							resolve(oData);
+						}
+					},
+					error: function (oError) {
+						reject(oError);
+					}
+				});
+
+				if (sMethod === READ || sMethod === DELETE) {
+					aParameter.push(sPath, mPara);
+				} else {
+					aParameter.push(sPath, mData, mPara);
+				}
+				_oModel[sMethod].apply(_oModel, aParameter);
+			});
+		},
+
+		init: function (oDataModel) {
+			_oModel = oDataModel;
+			return this;
+		},
+		destroy: function () {
+			_oModel = null;
+		},
+		setOdataHeader: function (sMode) {
+			_oModel.setHeaders({
+				"pack_mode": sMode
+			});
+		},
+		logonPackStation: function () {
+			return this.getPromise("/PackingStationSet(EWMWarehouse='',EWMWorkCenter='')");
+		},
+		verifyWorkCenter: function (sValue) {
+			return this.getPromise(ODataHelper.getWorkCenterPath(sValue), READ, {});
+		},
+
+		verifyWarehouse: function (sValue) {
+			var oWarehouseNumberFilter = new Filter("EWMWarehouse", FilterOperator.EQ, sValue);
+			return this.getPromise("/EWMWarehouseVH_Set?", READ, {}, {
+				filters: [oWarehouseNumberFilter]
+			});
+		},
+
+		verifyWorkCenterWithWarehouse:function(sWarehouseNumber, sWorkCenter) {
+			var oWarehouseNumberFilter = new Filter("EWMWarehouse", FilterOperator.EQ, sWarehouseNumber);
+			var oWorkCenterFilter = new Filter("EWMWorkCenter", FilterOperator.EQ, sWorkCenter);
+			return this.getPromise("/SearchHelpWorkCenterSet?", READ, {}, {
+				filters: [oWarehouseNumberFilter,oWorkCenterFilter]
+			});
+
+		},
+		
+		verifyStorageBin: function (sValue) {
+			return this.getPromise(ODataHelper.getDefaultBinPath(sValue));
+		},
+		//todo:: refine- create a unified promise
+		verifySource: function (sourceId) {
+			var mData = {
+				"SourceId": sourceId,
+				"EWMWarehouse": Global.getWarehouseNumber(),
+				"EWMWorkCenter": Global.getPackStation(),
+				"EWMStorageBin": Global.getBin()
+			};
+			return this.getPromise("/ValidateActionSet", CREATE, mData);
+		},
+		verifyProduct: function (sValue) {
+			var oURLParameters = ODataHelper.getVarifyProductEANParameters(sValue);
+			return this.getPromise("/ValidateProduct", CREATE, {}, {
+				urlParameters: oURLParameters
+			});
+		},
+
+		getPackagingMaterials: function (bNeedRequireMaterial) {
+			var sWarehouseNumber = Global.getWarehouseNumber();
+			var sWorkstation = Global.getPackStation();
+			var sBin = Global.getBin();
+			var oWarehouseNumberFilter = new Filter("EWMWarehouse", FilterOperator.EQ, sWarehouseNumber);
+			var oWorkstationFilter = new Filter("EWMWorkCenter", FilterOperator.EQ, sWorkstation);
+			var oBinFilter = new Filter("EWMStorageBin", FilterOperator.EQ, sBin);
+
+			return this.getPromise("/PackMatSet", READ, {}, {
+				filters: [oWarehouseNumberFilter, oWorkstationFilter, oBinFilter]
+			});
+		},
+
+		createShippingHU: function (sHuId, sMaterialId) {
+			var mData = {
+				"HuIdInput": sHuId,
+				"EWMWarehouse": Global.getWarehouseNumber(),
+				"EWMWorkCenter": Global.getPackStation(),
+				"PackagingMaterial": sMaterialId,
+				"EWMRefDeliveryDocumentNumber": "",
+				"EWMStorageBin": Global.getBin(),
+				"Type": "1"
+			};
+			return this.getPromise("/HUSet", CREATE, mData);
+		},
+
+		exceptionPack: function (oProduct, iQty, sExccode, sUoM) {
+			var oURLParameters = ODataHelper.getExceptionPackParameters(oProduct, iQty, sExccode, sUoM);
+			return this.getPromise("/Pack", CREATE, {}, {
+				urlParameters: oURLParameters
+			});
+		},
+
+		pack: function (oProduct, fQuantity, sUoM) {
+			var oURLParameters = ODataHelper.getPackParameters(oProduct, fQuantity, sUoM);
+			return this.getPromise("/Pack", CREATE, {}, {
+				urlParameters: oURLParameters,
+				changeSetId: oProduct.DocumentReltdStockDocUUID + oProduct.DocumentReltdStockDocItemUUID
+			});
+		},
+
+		packAll: function (aProducts) {
+			var oURLParameters = ODataHelper.getPackAllParameters(aProducts);
+			return this.getPromise("/Pack", CREATE, {}, {
+				urlParameters: oURLParameters
+			});
+		},
+
+		unpack: function (oProduct, bNeedQuantity) {
+			var oURLParameters = ODataHelper.getUnpackParameters(oProduct, bNeedQuantity);
+			return this.getPromise("/UnPack", CREATE, {}, {
+				urlParameters: oURLParameters
+			});
+		},
+
+		unpackAll: function (aProducts) {
+			var oURLParameters = ODataHelper.getUnpackAllParameters(aProducts);
+			return this.getPromise("/UnPack", CREATE, {}, {
+				urlParameters: oURLParameters
+			});
+		},
+
+		/**
+		 * get exception list
+		 *
+		 * @return {Promise} The promise object which represent the exception list
+		 */
+		getExceptionList: function () {
+			var sWarehouseNumber = Global.getWarehouseNumber();
+			var sWorkstation = Global.getPackStation();
+			var oWarehouseNumberFilter = new Filter("EWMWarehouse", FilterOperator.EQ, sWarehouseNumber);
+			var oWorkstationFilter = new Filter("EWMWorkCenter", FilterOperator.EQ, sWorkstation);
+			return this.getPromise("/ExceptionListSet", READ, {}, {
+				filters: [oWarehouseNumberFilter, oWorkstationFilter]
+			});
+		},
+
+		getMaterialAndExceptionList: function () {
+			var oMaterialPromise = this.getPackagingMaterials();
+			var oExceptionPromise = this.getExceptionList();
+			return Promise.all([oMaterialPromise, oExceptionPromise]);
+		},
+
+		verifyWarehouseAndWorkCenter: function (sWarehouse, sWorkCenter) {
+			Global.setWarehouseNumber(sWarehouse);
+			var oVerifyWarehouse = this.verifyWarehouse(sWarehouse);
+			var oVerifyWorkCenter = this.verifyWorkCenterWithWarehouse(sWarehouse, sWorkCenter);
+			return Promise.all([oVerifyWarehouse, oVerifyWorkCenter]);
+		},
+		
+		closeShipHandlingUnit: function () {
+			var oURLParameters = ODataHelper.getCloseShipHandlingUnitParameters();
+			return this.getPromise("/Close", CREATE, {}, {
+				urlParameters: oURLParameters
+			});
+		},
+		getScaleWeight: function () {
+			var mData = ODataHelper.getScaleWeightData();
+			return this.getPromise("/ScaleWeightSet", CREATE, mData);
+		},
+
+		verifySerialNumber: function (oProduct, sSerialNum) {
+			var oURLParemeters = ODataHelper.getValidateSnParamters(oProduct, sSerialNum);
+			return this.getPromise("/ValidateSn", CREATE, {}, {
+				urlParameters: oURLParemeters
+			});
+		},
+
+		changeMaterial: function (sShippingHUId) {
+			var oURLParameters = ODataHelper.getChangeMaterialParameters(sShippingHUId);
+			return this.getPromise("/ChangePackMat", CREATE, {}, {
+				urlParameters: oURLParameters
+			});
+		},
+		getHUSet: function (sHuId, sHuType, bDoNotRejectError) {
+			return this.getPromise(ODataHelper.getHUPath(sHuId, sHuType), null, null, null, null, bDoNotRejectError);
+		},
+		getHUItemSet: function (sHuId, sHuType) {
+			return this.getPromise(ODataHelper.getHUPath(sHuId, sHuType) + "/Items");
+		},
+		getHUODOSet: function (sHuId, sHuType) {
+			return this.getPromise(ODataHelper.getHUPath(sHuId, sHuType) + "/ODOs");
+		},
+		getHUItems: function (sHuId, sHuType, bItemsOnly) {
+			if (!bItemsOnly) {
+				var oHUSetPromise = this.getHUSet(sHuId, sHuType);
+			}
+			var oItemSetPromise = this.getHUItemSet(sHuId, sHuType);
+			var oODOSetPromise = this.getHUODOSet(sHuId, sHuType);
+			return Promise.all([oHUSetPromise, oItemSetPromise, oODOSetPromise])
+				.then(function (aResults) {
+					var aItems = aResults[1];
+					var aODOs = aResults[2];
+					var vODOMap = {};
+					aODOs.forEach(function (oODO) {
+						vODOMap[oODO.DocumentReltdStockDocUUID] = oODO;
+					});
+					aItems.forEach(function (oItem) {
+						oItem.AlterQuan = Util.formatNumber(parseFloat(oItem.AlterQuan), 3);
+						oItem.Quan = Util.formatNumber(parseFloat(oItem.Quan), 3);
+						oItem.NetWeight = Util.formatNumber(parseFloat(oItem.NetWeight), 3, 3);
+						oItem.Volume = Util.formatNumber(parseFloat(oItem.Volume), 3, 3);
+						oItem.QtyReduced = Util.formatNumber(parseFloat(oItem.QtyReduced), 3);
+						if (oItem.StockItemNumber === "0") {
+							oItem.StockItemNumber = "";
+						}
+						var oODO = vODOMap[oItem.DocumentReltdStockDocUUID];
+						if (!Util.isEmpty(oODO)) {
+							oItem.CustomerName = oODO.CustomerName;
+							oItem.PackInstr = oODO.PackInstr;
+						}
+					});
+					return aItems;
+				});
+		},
+
+		validateShipHUSet: function (aHUs, sHuType) {
+			var aHUSetPromise = [];
+			for (var i = 0; i < aHUs.length; i++) {
+				var oHUSetPromise = this.getHUSet(aHUs[i], Const.SHIP_TYPE_HU, true);
+				aHUSetPromise.push(oHUSetPromise);
+			}
+			return Promise.all(aHUSetPromise);
+		},
+		updateHU: function (mHUData, sTotalWeight) {
+			var sPath = ODataHelper.getUpdateHUPath();
+			var mData = {
+				"HuId": mHUData.HuId,
+				"EWMWarehouse": mHUData.EWMWarehouse,
+				"EWMWorkCenter": mHUData.EWMWorkCenter,
+				"PackagingMaterial": mHUData.PackagingMaterial,
+				"WeightUoM": mHUData.WeightUoM,
+				"TotalWeight": sTotalWeight,
+				"EWMRefDeliveryDocumentNumber": mHUData.EWMRefDeliveryDocumentNumber
+			};
+			return this.getPromise(sPath, PUT, mData);
+		},
+		deleteShippingHU: function () {
+			var oURLParameters = ODataHelper.getDeleteHUParameters();
+			return this.getPromise("/ChangePackMat", CREATE, {}, {
+				urlParameters: oURLParameters
+			});
+		},
+		getRuntimeEnvironment: function () {
+			return this.getPromise("/RuntimeEnvSet");
+		},
+
+		terminateSession: function () {
+			var oHeader = {
+				"sap-terminate": "session"
+			};
+			return this.getPromise("/LeavePackStation", CREATE, {}, {}, oHeader);
+		},
+		getAudiosList: function () {
+			var sWarehouseNumber = Global.getWarehouseNumber();
+			var sWorkstation = Global.getPackStation();
+			var oWarehouseNumberFilter = new Filter("EWMWarehouse", FilterOperator.EQ, sWarehouseNumber);
+			var oWorkstationFilter = new Filter("EWMWorkCenter", FilterOperator.EQ, sWorkstation);
+			var oBinFilter = new Filter("EWMStorageBin", FilterOperator.EQ, "");
+			return this.getPromise("/AudioURISet", READ, {}, {
+				filters: [oWarehouseNumberFilter, oWorkstationFilter, oBinFilter]
+			});
+		},
+		getOpenShippingHU: function () {
+			var sWarehouseNumber = Global.getWarehouseNumber();
+			var sWorkstation = Global.getPackStation();
+			var sBin = Global.getBin();
+			var oWarehouseNumberFilter = new Filter("EWMWarehouse", FilterOperator.EQ, sWarehouseNumber);
+			var oWorkstationFilter = new Filter("EWMWorkCenter", FilterOperator.EQ, sWorkstation);
+			var oBinFilter = new Filter("EWMStorageBin", FilterOperator.EQ, sBin);
+			var oIsPickHuFilter = new Filter("IsPickHu", FilterOperator.EQ, false);
+
+			return this.getPromise("/HUSet", READ, {}, {
+				filters: [oWarehouseNumberFilter, oWorkstationFilter, oBinFilter, oIsPickHuFilter],
+				urlParameters: {
+					"$expand": "Items"
+				}
+			});
+		},
+		print: function () {
+			return this.getPromise("/Print", CREATE, {}, {
+				urlParameters: ODataHelper.getPrintParameters()
+			});
+		},
+		getItemWeight: function (sSourceId, sSourceType) {
+			if (Util.isEmpty(sSourceId)) {
+				sSourceId = Global.getSourceId();
+				sSourceType = Global.getSourceType();
+			}
+			var sWarehouseNumber = Global.getWarehouseNumber();
+			var sWorkstation = Global.getPackStation();
+			var sBin = Global.getBin();
+			var oWarehouseNumberFilter = new Filter("EWMWarehouse", FilterOperator.EQ, sWarehouseNumber);
+			var oWorkstationFilter = new Filter("EWMWorkCenter", FilterOperator.EQ, sWorkstation);
+			var oBinFilter = new Filter("EWMStorageBin", FilterOperator.EQ, sBin);
+			var oSourceIdFilter = new Filter("SourceId", FilterOperator.EQ, sSourceId);
+			var oSourceTypeFiler = new Filter("SourceType", FilterOperator.EQ, sSourceType);
+			var oDestMatFilter = new Filter("PackagingMaterial", FilterOperator.EQ, ODataHelper.getPackageMaterial());
+			return this.getPromise("/HUItemWeightSet", READ, {}, {
+				filters: [oWarehouseNumberFilter, oWorkstationFilter, oBinFilter, oSourceIdFilter, oSourceTypeFiler, oDestMatFilter]
+			});
+		},
+		getWorkCenterSet: function () {
+			var sWarehouseNumber = Global.getWarehouseNumber();
+			var oWarehouseNumberFilter = new Filter("EWMWarehouse", FilterOperator.EQ, sWarehouseNumber);
+			return this.getPromise("/SearchHelpWorkCenterSet", READ, {}, {
+				filters: [oWarehouseNumberFilter]
+			});
+		},
+		getStorageBinSet: function () {
+			var sWarehouseNumber = Global.getWarehouseNumber();
+			var oWarehouseNumberFilter = new Filter("EWMWarehouse", FilterOperator.EQ, sWarehouseNumber);
+			return this.getPromise("/SearchHelpBinSet", READ, {}, {
+				filters: [oWarehouseNumberFilter]
+			});
+		},
+		convertHUID: function (sHandlingUnit) {
+			var sWarehouseNumber = Global.getWarehouseNumber();
+			var para = {
+				"HandlingUnitNumber": "'" + sHandlingUnit + "'",
+				"EWMWarehouse": "'" + sWarehouseNumber + "'"
+			};
+			return this.getPromise("/ConvertHUID", READ, {}, {
+				urlParameters: para
+			});
+		}
+
+	};
+});

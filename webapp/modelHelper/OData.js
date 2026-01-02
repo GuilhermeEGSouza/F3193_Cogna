@@ -1,4 +1,261 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/utils/Const","scm/ewm/packoutbdlvs1/modelHelper/Global","scm/ewm/packoutbdlvs1/modelHelper/Material"],function(U,C,G,M){"use strict";var _;return{init:function(d){_=d;return this;},destroy:function(){_=null;},getDefaultBinPath:function(b){var B=this.encodeSpecialCharacter(b);var p=this.encodeSpecialCharacter(G.getPackStation());var t="/PackingStationSet(EWMWarehouse=''{0}'',EWMWorkCenter=''{1}'',EWMStorageBin=''{2}'')";return U.formatText(t,[G.getWarehouseNumber(),p,B]);},getWorkCenterPath:function(w){var W=this.encodeSpecialCharacter(w);var t="/PackingStationSet(EWMWarehouse=''{0}'',EWMWorkCenter=''{1}'',EWMStorageBin='''')";return U.formatText(t,[G.getWarehouseNumber(),W]);},getWarehousePath:function(w){var t="/EWMWarehouseVH_Set(EWMWarehouse=''{0}'',EWMWorkCenter='''',EWMStorageBin='''')";return U.formatText(t,[w]);},getHUPath:function(h,H){if(!h){h=G.getSourceId();}if(H===undefined){H=G.getSourceType();}h=this.encodeSpecialCharacter(h);var b=this.encodeSpecialCharacter(G.getBin());var w=this.encodeSpecialCharacter(G.getPackStation());var t="/HUSet(HuId=''{0}'',EWMStorageBin=''{1}'',EWMWarehouse=''{2}'',EWMWorkCenter=''{3}'',Type=''{4}'')";return U.formatText(t,[h,b,G.getWarehouseNumber(),w,H]);},getUpdateHUPath:function(){var h=this.encodeSpecialCharacter(G.getCurrentShipHandlingUnit());var w=this.encodeSpecialCharacter(G.getPackStation());var b=this.encodeSpecialCharacter(G.getBin());var t="/HUSet(HuId=''{0}'',EWMWarehouse=''{1}'',EWMWorkCenter=''{2}'',EWMStorageBin=''{3}'',Type=''1'')";return U.formatText(t,[h,G.getWarehouseNumber(),w,b]);},getHUInfo:function(h,t){var p=this.getHUPath(h,t);return _.getProperty(p);},getHUItemsPath:function(h,t){return this.getHUPath(h,t)+"/Items";},getPackagingMaterialPath:function(){var w=this.encodeSpecialCharacter(G.getPackStation());var t="/PackingStationSet(EWMWarehouse=''{0}'',EWMWorkCenter=''{1}'',EWMStorageBin='''')/PackMats";return U.formatText(t,[G.getWarehouseNumber(),w]);},getProductPath:function(s){var t="/ItemSet(guid''{0}'')";return U.formatText(t,s);},getShipHUMaterialId:function(h){var p=this.getHUPath(h,C.SHIP_TYPE_HU)+"/PackagingMaterial";return _.getProperty(p);},getPackageMaterial:function(){var m=M.getCurrentMaterial();return m.PackagingMaterial;},getExceptionPackParameters:function(p,q,e,u){return{"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","EWMStorageBin":"'"+G.getBin()+"'","SourceId":"'"+G.getSourceId()+"'","ShippingHUId":"'"+G.getCurrentShipHandlingUnit()+"'","SourceType":"'"+G.getSourceType()+"'","IsPackAll":false,"PackagingMaterial":"'"+this.getPackageMaterial()+"'","Quan":q+"M","Exccode":"'"+e+"'","SnList":"'"+p.SnList+"'","StockItemUUID":"guid'"+p.StockItemUUID+"'","AlternativeUnit":u?"'"+u+"'":"''","Huident":p.Huident===G.getBin()?"''":"'"+p.Huident+"'"};},getPackParameters:function(p,q,u){var P={"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","EWMStorageBin":"'"+G.getBin()+"'","SourceId":"'"+G.getSourceId()+"'","ShippingHUId":"'"+G.getCurrentShipHandlingUnit()+"'","SourceType":"'"+G.getSourceType()+"'","IsPackAll":false,"PackagingMaterial":"'"+this.getPackageMaterial()+"'","SnList":"'"+p.SnList+"'","OrdReduction":U.parseNumber(p.QtyReduced)!==0?true:false,"StockItemUUID":"guid'"+p.StockItemUUID+"'","AlternativeUnit":u?"'"+u+"'":"''","Huident":p.Huident===G.getBin()?"''":"'"+p.Huident+"'"};if(q){P.Quan=q+"M";}return P;},getPackAllParameters:function(p){return{"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","EWMStorageBin":"'"+G.getBin()+"'","SourceId":"'"+G.getSourceId()+"'","ShippingHUId":"'"+G.getCurrentShipHandlingUnit()+"'","SourceType":"'"+G.getSourceType()+"'","IsPackAll":true,"PackagingMaterial":"'"+this.getPackageMaterial()+"'","Huident":"''"};},getUnpackParameters:function(p,n){var P={"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","EWMStorageBin":"'"+G.getBin()+"'","SourceId":"'"+G.getSourceId()+"'","ShippingHUId":"'"+G.getCurrentShipHandlingUnit()+"'","SourceType":"'"+G.getSourceType()+"'","StockItemUUID":"guid'"+p.StockItemUUID+"'","IsUnPackAll":false,"PackagingMaterial":"'"+G.getSourceMaterialId()+"'"};if(n){P.Quan=U.parseNumber(p.AlterQuan)+"M";}return P;},getPrintParameters:function(){return{"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","EWMStorageBin":"'"+G.getBin()+"'","HUId":"'"+G.getCurrentShipHandlingUnit()+"'"};},getUnpackAllParameters:function(p){return{"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","EWMStorageBin":"'"+G.getBin()+"'","SourceId":"'"+G.getSourceId()+"'","ShippingHUId":"'"+G.getCurrentShipHandlingUnit()+"'","SourceType":"'"+G.getSourceType()+"'","IsUnPackAll":true,"Quan":"0M","PackagingMaterial":"'"+G.getSourceMaterialId()+"'"};},getCloseShipHandlingUnitParameters:function(){var p={"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","ShippingHUId":"'"+G.getCurrentShipHandlingUnit()+"'","EWMStorageBin":"'"+G.getBin()+"'"};return p;},getChangeMaterialParameters:function(h){var p={"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","EWMStorageBin":"'"+G.getBin()+"'","SourceId":"''","ShippingHUIdOld":"'"+G.getCurrentShipHandlingUnit()+"'","ShippingHUIdNew":"'"+h+"'","SourceType":"'"+G.getSourceType()+"'","SourcePackMat":"'"+G.getSourceMaterialId()+"'","ShippingHUPackMat":"'"+M.getSelectedMaterialId()+"'"};return p;},getVarifyProductEANParameters:function(v){var p={"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","EWMStorageBin":"'"+G.getBin()+"'","ProductName":"'"+v+"'"};return p;},getDeleteHUParameters:function(){var p={"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","EWMStorageBin":"'"+G.getBin()+"'","SourceId":"''","ShippingHUIdOld":"'"+G.getCurrentShipHandlingUnit()+"'","ShippingHUIdNew":"''","SourceType":"'"+G.getSourceType()+"'","SourcePackMat":"'"+G.getSourceMaterialId()+"'","ShippingHUPackMat":"'"+M.getSelectedMaterialId()+"'","DeleteShippingHUOnly":"true"};return p;},getValidateSnParamters:function(p,s){return{"EWMWarehouse":"'"+G.getWarehouseNumber()+"'","EWMWorkCenter":"'"+G.getPackStation()+"'","EWMStorageBin":"'"+G.getBin()+"'","SourceId":"'"+G.getSourceId()+"'","ShippingHUId":"'"+G.getCurrentShipHandlingUnit()+"'","SourceType":"'"+G.getSourceType()+"'","DocumentReltdStockDocUUID":"guid'"+p.DocumentReltdStockDocUUID+"'","DocumentReltdStockDocItemUUID":"guid'"+p.DocumentReltdStockDocItemUUID+"'","ProductName":"'"+p.ProductName+"'","EWMSerialNumber":"'"+s+"'","StockItemUUID":"guid'"+p.StockItemUUID+"'"};},getScaleWeightData:function(){return{"EWMWarehouse":G.getWarehouseNumber(),"EWMWorkCenter":G.getPackStation(),"EWMStorageBin":G.getBin(),"Huid":G.getCurrentShipHandlingUnit()};},encodeSpecialCharacter:function(i){if(!U.isEmpty(i)){return encodeURIComponent(i);}else{return i;}},isShipHUClosed:function(h){var c=false;var H;h=h?h:G.getCurrentShipHandlingUnit();if(!U.isEmpty(h)&&(H=this.getHUInfo(h,C.SHIP_TYPE_HU))){c=H.Closed;}return c;}};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global",
+	"scm/ewm/packoutbdlvs1/modelHelper/Material"
+], function (Util, Const, Global, Material) {
+	"use strict";
+	var _oModel;
+	return {
+		init: function (oDataModel) {
+			_oModel = oDataModel;
+			return this;
+		},
+		destroy: function () {
+			_oModel = null;
+		},
+		getDefaultBinPath: function (sBin) {
+			var sBinEncoded = this.encodeSpecialCharacter(sBin);
+			var sPackStation = this.encodeSpecialCharacter(Global.getPackStation());
+			var sTemplate = "/PackingStationSet(EWMWarehouse=''{0}'',EWMWorkCenter=''{1}'',EWMStorageBin=''{2}'')";
+			return Util.formatText(sTemplate, [Global.getWarehouseNumber(), sPackStation, sBinEncoded]);
+		},
+		getWorkCenterPath: function (sWorkCenter) {
+			var sWorkCenterEncoded = this.encodeSpecialCharacter(sWorkCenter);
+			var sTemplate = "/PackingStationSet(EWMWarehouse=''{0}'',EWMWorkCenter=''{1}'',EWMStorageBin='''')";
+			return Util.formatText(sTemplate, [Global.getWarehouseNumber(), sWorkCenterEncoded]);
+		},
+		getWarehousePath: function (sWarehosue) {
+			var sTemplate = "/EWMWarehouseVH_Set(EWMWarehouse=''{0}'',EWMWorkCenter='''',EWMStorageBin='''')";
+			return Util.formatText(sTemplate, [sWarehosue]);
+		},
+		getHUPath: function (sHUId, sHUType) {
+			if (!sHUId) {
+				sHUId = Global.getSourceId();
+			}
+			if (sHUType === undefined) {
+				sHUType = Global.getSourceType();
+			}
+			sHUId = this.encodeSpecialCharacter(sHUId);
+			var sBinEncoded = this.encodeSpecialCharacter(Global.getBin());
+			var sWorkCenterEncoded = this.encodeSpecialCharacter(Global.getPackStation());
+			var sTemplate = "/HUSet(HuId=''{0}'',EWMStorageBin=''{1}'',EWMWarehouse=''{2}'',EWMWorkCenter=''{3}'',Type=''{4}'')";
+			return Util.formatText(sTemplate, [sHUId, sBinEncoded, Global.getWarehouseNumber(), sWorkCenterEncoded, sHUType]);
+		},
+		getUpdateHUPath: function () {
+			var sHuId = this.encodeSpecialCharacter(Global.getCurrentShipHandlingUnit());
+			var sWorkCenter = this.encodeSpecialCharacter(Global.getPackStation());
+			var sBin = this.encodeSpecialCharacter(Global.getBin());
+			var sTemplate = "/HUSet(HuId=''{0}'',EWMWarehouse=''{1}'',EWMWorkCenter=''{2}'',EWMStorageBin=''{3}'',Type=''1'')";
+			return Util.formatText(sTemplate, [sHuId, Global.getWarehouseNumber(), sWorkCenter, sBin]);
+		},
+		getHUInfo: function (sHuId, sType) {
+			var sPath = this.getHUPath(sHuId, sType);
+			return _oModel.getProperty(sPath);
+		},
+		getHUItemsPath: function (sHuid, sType) {
+			return this.getHUPath(sHuid, sType) + "/Items";
+		},
+		getPackagingMaterialPath: function () {
+			var sWorkCenter = this.encodeSpecialCharacter(Global.getPackStation());
+			var sTemplate = "/PackingStationSet(EWMWarehouse=''{0}'',EWMWorkCenter=''{1}'',EWMStorageBin='''')/PackMats";
+			return Util.formatText(sTemplate, [Global.getWarehouseNumber(), sWorkCenter]);
+		},
+		getProductPath: function (sStockItemUUID) {
+			var sTemplate = "/ItemSet(guid''{0}'')";
+			return Util.formatText(sTemplate, sStockItemUUID);
+		},
+		getShipHUMaterialId: function (sHuid) {
+			var sPath = this.getHUPath(sHuid, Const.SHIP_TYPE_HU) + "/PackagingMaterial";
+			return _oModel.getProperty(sPath);
+		},
+		getPackageMaterial: function () {
+			var oMaterial = Material.getCurrentMaterial();
+			return oMaterial.PackagingMaterial;
+		},
+		getExceptionPackParameters: function (oProduct, iQty, sExccode, sUoM) {
+			return {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'",
+				"SourceId": "'" + Global.getSourceId() + "'",
+				"ShippingHUId": "'" + Global.getCurrentShipHandlingUnit() + "'",
+				"SourceType": "'" + Global.getSourceType() + "'",
+				"IsPackAll": false,
+				"PackagingMaterial": "'" + this.getPackageMaterial() + "'",
+				"Quan": iQty + "M",
+				"Exccode": "'" + sExccode + "'",
+				"SnList": "'" + oProduct.SnList + "'",
+				"StockItemUUID": "guid'" + oProduct.StockItemUUID + "'",
+				"AlternativeUnit": sUoM ? "'" + sUoM + "'" : "''",
+				"Huident": oProduct.Huident === Global.getBin() ? "''" : "'" + oProduct.Huident + "'"
+			};
+		},
+		getPackParameters: function (oProduct, fQuantity, sUoM) {
+			var oParamater = {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'",
+				"SourceId": "'" + Global.getSourceId() + "'",
+				"ShippingHUId": "'" + Global.getCurrentShipHandlingUnit() + "'",
+				"SourceType": "'" + Global.getSourceType() + "'",
+				"IsPackAll": false,
+				"PackagingMaterial": "'" + this.getPackageMaterial() + "'",
+				"SnList": "'" + oProduct.SnList + "'",
+				"OrdReduction": Util.parseNumber(oProduct.QtyReduced) !== 0 ? true : false,
+				"StockItemUUID": "guid'" + oProduct.StockItemUUID + "'",
+				"AlternativeUnit": sUoM ? "'" + sUoM + "'" : "''",
+				"Huident": oProduct.Huident === Global.getBin() ? "''" : "'" + oProduct.Huident + "'"
+			};
+			if (fQuantity) {
+				oParamater.Quan = fQuantity + "M";
+			}
+			return oParamater;
+		},
+
+		getPackAllParameters: function (aProducts) {
+			return {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'",
+				"SourceId": "'" + Global.getSourceId() + "'",
+				"ShippingHUId": "'" + Global.getCurrentShipHandlingUnit() + "'",
+				"SourceType": "'" + Global.getSourceType() + "'",
+				"IsPackAll": true,
+				"PackagingMaterial": "'" + this.getPackageMaterial() + "'",
+				"Huident": "''"
+			};
+		},
+
+		getUnpackParameters: function (oProduct, bNeedQuantity) {
+			var oParamater = {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'",
+				"SourceId": "'" + Global.getSourceId() + "'",
+				"ShippingHUId": "'" + Global.getCurrentShipHandlingUnit() + "'",
+				"SourceType": "'" + Global.getSourceType() + "'",
+				"StockItemUUID": "guid'" + oProduct.StockItemUUID + "'",
+				"IsUnPackAll": false,
+				"PackagingMaterial": "'" + Global.getSourceMaterialId() + "'"
+			};
+			if (bNeedQuantity) {
+				oParamater.Quan = Util.parseNumber(oProduct.AlterQuan) + "M";
+			}
+			return oParamater;
+		},
+		getPrintParameters: function () {
+			return {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'",
+				"HUId": "'" + Global.getCurrentShipHandlingUnit() + "'"
+			};
+		},
+
+		getUnpackAllParameters: function (aProducts) {
+			return {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'",
+				"SourceId": "'" + Global.getSourceId() + "'",
+				"ShippingHUId": "'" + Global.getCurrentShipHandlingUnit() + "'",
+				"SourceType": "'" + Global.getSourceType() + "'",
+				"IsUnPackAll": true,
+				"Quan": "0M",
+				"PackagingMaterial": "'" + Global.getSourceMaterialId() + "'"
+			};
+		},
+
+		getCloseShipHandlingUnitParameters: function () {
+			var oParameters = {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"ShippingHUId": "'" + Global.getCurrentShipHandlingUnit() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'"
+			};
+			return oParameters;
+		},
+
+		getChangeMaterialParameters: function (sHuId) {
+			var oParameters = {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'",
+				"SourceId": "''",
+				"ShippingHUIdOld": "'" + Global.getCurrentShipHandlingUnit() + "'",
+				"ShippingHUIdNew": "'" + sHuId + "'",
+				"SourceType": "'" + Global.getSourceType() + "'",
+				"SourcePackMat": "'" + Global.getSourceMaterialId() + "'",
+				"ShippingHUPackMat": "'" + Material.getSelectedMaterialId() + "'"
+			};
+			return oParameters;
+		},
+		getVarifyProductEANParameters: function (sValue) {
+			var oParameters = {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'",
+				"ProductName": "'" + sValue + "'"
+			};
+			return oParameters;
+		},
+		getDeleteHUParameters: function () {
+			var oParameters = {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'",
+				"SourceId": "''",
+				"ShippingHUIdOld": "'" + Global.getCurrentShipHandlingUnit() + "'",
+				"ShippingHUIdNew": "''",
+				"SourceType": "'" + Global.getSourceType() + "'",
+				"SourcePackMat": "'" + Global.getSourceMaterialId() + "'",
+				"ShippingHUPackMat": "'" + Material.getSelectedMaterialId() + "'",
+				"DeleteShippingHUOnly": "true"
+			};
+			return oParameters;
+		},
+		getValidateSnParamters: function (oProduct, sSn) {
+			return {
+				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
+				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
+				"EWMStorageBin": "'" + Global.getBin() + "'",
+				"SourceId": "'" + Global.getSourceId() + "'",
+				"ShippingHUId": "'" + Global.getCurrentShipHandlingUnit() + "'",
+				"SourceType": "'" + Global.getSourceType() + "'",
+				"DocumentReltdStockDocUUID": "guid'" + oProduct.DocumentReltdStockDocUUID + "'",
+				"DocumentReltdStockDocItemUUID": "guid'" + oProduct.DocumentReltdStockDocItemUUID + "'",
+				"ProductName": "'" + oProduct.ProductName + "'",
+				"EWMSerialNumber": "'" + sSn + "'",
+				"StockItemUUID": "guid'" + oProduct.StockItemUUID + "'"
+			};
+		},
+		getScaleWeightData: function () {
+			return {
+				"EWMWarehouse": Global.getWarehouseNumber(),
+				"EWMWorkCenter": Global.getPackStation(),
+				"EWMStorageBin": Global.getBin(),
+				"Huid": Global.getCurrentShipHandlingUnit()
+			};
+		},
+		encodeSpecialCharacter: function (sInput) {
+			if (!Util.isEmpty(sInput)) {
+				return encodeURIComponent(sInput);
+			} else {
+				return sInput;
+			}
+		},
+		isShipHUClosed: function (sHuId) {
+			var bClosed = false;
+			var mHU;
+			sHuId = sHuId ? sHuId : Global.getCurrentShipHandlingUnit();
+			if (!Util.isEmpty(sHuId) && (mHU = this.getHUInfo(sHuId, Const.SHIP_TYPE_HU))) {
+				bClosed = mHU.Closed;
+			}
+			return bClosed;
+		}
+	};
+});

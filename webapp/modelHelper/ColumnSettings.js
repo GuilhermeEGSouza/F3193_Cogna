@@ -1,4 +1,120 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/utils/Const"],function(U,C){"use strict";function a(m){this._oModel=m;}jQuery.extend(a.prototype,Error.prototype,{constructor:a,getModel:function(){return this._oModel;},setData:function(d){this._oModel.setData(d);return this;},setColumnSettings:function(c){this._oModel.setProperty("/columnSettings",c);return this;},getColumnSettings:function(){return this._oModel.getProperty("/columnSettings");},restore:function(d){var n=JSON.parse(JSON.stringify(d));for(var i=0;i<n.length;i++){n[i].visible=n[i].defaultVisible;n[i].index=n[i].defaultIndex;}this.setColumnSettings(n);},setEnableRestore:function(v){this._oModel.setProperty("/enableRestore",v);return this;},isColumnSettingAsDefault:function(){var t=this.getColumnSettings();var i=U.findIndex(t,function(c){if(c.visible!==c.defaultVisible){return true;}});return i!==-1?false:true;},updateRestore:function(){if(this.isColumnSettingAsDefault()){this.setEnableRestore(false);}else{this.setEnableRestore(true);}},setColumnTextByKey:function(k,t){var T=this.getColumnSettings();var n=JSON.parse(JSON.stringify(T));for(var i=0;i<n.length;i++){if(n[i].columnKey===k){n[i].text=t;}}this.setColumnSettings(n);},setMandatoryColumnVisible:function(){var t=this.getColumnSettings();for(var i=0;i<t.length;i++){if(t[i].mandatory){t[i].visible=true;t[i].index=t[i].defaultIndex;}}},addStatusColumnSetting:function(t){var c=this.getColumnSettings();var n=JSON.parse(JSON.stringify(c));var i=n.length;var b=false;if(n[i-1].columnKey!=="status"){var s={"columnKey":"status","text":t,"index":i,"visible":true,"defaultVisible":true,"defaultIndex":i,"mandatory":true};n.splice(i,0,s);b=true;}this.setColumnSettings(n);return b;},removeStatusColumnSetting:function(){var c=this.getColumnSettings();var n=JSON.parse(JSON.stringify(c));var b=false;if(n[n.length-1].columnKey==="status"){n.splice(n.length-1,1);b=true;}this.setColumnSettings(n);return b;},handleStatusColumnSetting:function(A,t){if(A){return this.addStatusColumnSetting(t);}else{return this.removeStatusColumnSetting();}}});return a;});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/utils/Const"
+], function (Util, Const) {
+
+	"use strict";
+
+	function ColumnSettings(oModel) {
+		this._oModel = oModel;
+	}
+
+	jQuery.extend(ColumnSettings.prototype, Error.prototype, {
+		constructor: ColumnSettings,
+		getModel: function () {
+			return this._oModel;
+		},
+		setData: function (aData) {
+			this._oModel.setData(aData);
+			return this;
+		},
+		setColumnSettings: function (aColumnSettings) {
+			this._oModel.setProperty("/columnSettings", aColumnSettings);
+			return this;
+		},
+		getColumnSettings: function () {
+			return this._oModel.getProperty("/columnSettings");
+		},
+		restore: function (oDefaultSetting) {
+			var aNewTableSettings = JSON.parse(JSON.stringify(oDefaultSetting));
+			for (var i = 0; i < aNewTableSettings.length; i++) {
+				aNewTableSettings[i].visible = aNewTableSettings[i].defaultVisible;
+				aNewTableSettings[i].index = aNewTableSettings[i].defaultIndex;
+			}
+			this.setColumnSettings(aNewTableSettings);
+		},
+		setEnableRestore: function (bValue) {
+			this._oModel.setProperty("/enableRestore", bValue);
+			return this;
+		},
+		isColumnSettingAsDefault: function () {
+			var aTableSettings = this.getColumnSettings();
+			var iIndex = Util.findIndex(aTableSettings, function (oColumnSetting) {
+				if (oColumnSetting.visible !== oColumnSetting.defaultVisible) {
+					return true;
+				}
+			});
+			return iIndex !== -1 ? false : true;
+		},
+		updateRestore: function () {
+			if (this.isColumnSettingAsDefault()) {
+				this.setEnableRestore(false);
+			} else {
+				this.setEnableRestore(true);
+			}
+		},
+		setColumnTextByKey: function (sKey, sText) {
+			var aTableSettings = this.getColumnSettings();
+			var aNewTableSettings = JSON.parse(JSON.stringify(aTableSettings));
+			for (var i = 0; i < aNewTableSettings.length; i++) {
+				if (aNewTableSettings[i].columnKey === sKey) {
+					aNewTableSettings[i].text = sText;
+				}
+			}
+			this.setColumnSettings(aNewTableSettings);
+		},
+		setMandatoryColumnVisible: function () {
+			var aTableSettings = this.getColumnSettings();
+			for (var i = 0; i < aTableSettings.length; i++) {
+				if (aTableSettings[i].mandatory) {
+					aTableSettings[i].visible = true;
+					aTableSettings[i].index = aTableSettings[i].defaultIndex;
+				}
+			}
+		},
+		addStatusColumnSetting: function (sText) {
+			var aColumnSettings = this.getColumnSettings();
+			var aNewColumnSettings = JSON.parse(JSON.stringify(aColumnSettings));
+			var iColumnNum = aNewColumnSettings.length;
+			var bChanged = false;
+			if (aNewColumnSettings[iColumnNum - 1].columnKey !== "status") {
+				var oStatusColumnSetting = {
+					"columnKey": "status",
+					"text": sText,
+					"index": iColumnNum,
+					"visible": true,
+					"defaultVisible": true,
+					"defaultIndex": iColumnNum,
+					"mandatory": true
+				};
+				aNewColumnSettings.splice(iColumnNum, 0, oStatusColumnSetting);
+				bChanged = true;
+			}
+			this.setColumnSettings(aNewColumnSettings);
+			return bChanged;
+		},
+		removeStatusColumnSetting: function () {
+			var aColumnSettings = this.getColumnSettings();
+			var aNewColumnSettings = JSON.parse(JSON.stringify(aColumnSettings));
+			var bChanged = false;
+			if (aNewColumnSettings[aNewColumnSettings.length - 1].columnKey === "status") {
+				aNewColumnSettings.splice(aNewColumnSettings.length - 1, 1);
+				bChanged = true;
+			}
+			this.setColumnSettings(aNewColumnSettings);
+			return bChanged;
+		},
+		handleStatusColumnSetting: function (bAsync, sText) {
+			if (bAsync) {
+				return this.addStatusColumnSetting(sText);
+			} else {
+				return this.removeStatusColumnSetting();
+			}
+		}
+	});
+
+	return ColumnSettings;
+});

@@ -1,4 +1,302 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/controller/BaseController","scm/ewm/packoutbdlvs1/modelHelper/Items","sap/ui/model/json/JSONModel","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/modelHelper/ItemWeight","scm/ewm/packoutbdlvs1/modelHelper/Material","scm/ewm/packoutbdlvs1/service/ODataService","scm/ewm/packoutbdlvs1/modelHelper/Message","scm/ewm/packoutbdlvs1/utils/Const","sap/m/MessageBox","scm/ewm/packoutbdlvs1/modelHelper/Global"],function(C,T,J,U,I,M,S,a,b,c,G){"use strict";return C.extend("scm.ewm.packoutbdlvs1.controller.WorkFlowController",{getWorkFlowFactory:function(){return this.oView.getParent().getParent().getParent().getController().oWorkFlowFactory;},oItemHelper:null,formatTableTitle:function(h,i){if(!h){return;}return this.getI18nText("itemsOfHandkingUnit",[h,i.length]);},onSerialNumberPopover:function(e){this.openSerialNumberPopover(e,b.ITEM_MODEL_NAME,this.oItemHelper);},setButtonToolTip:function(i){var B=this.byId(i);if(U.isEmpty(B)){return;}var t=B.getTooltip();if(U.isEmpty(t)){B.setTooltip(B.getText());}},updateItemWeightInNeed:function(s,d){var p=M.getCurrentMaterialId();var A=this.oItemHelper.getAllItems();var i=U.findIndex(A,function(o){if(!I.isSpecificItemWeightExisted(p,o.OriginId)){return true;}return false;});if(i!==-1){return this.updateItemWeight(s,d);}return U.getResolvePromise();},updateItemWeight:function(s,d){return new Promise(function(r,e){var p=M.getCurrentMaterialId();this.setBusy(true);S.getItemWeight(s,d).then(function(R){this.setBusy(false);I.addItemWeightForPackMat(p,R);r();}.bind(this)).catch(function(E){this.setBusy(false);this.playAudio(b.ERROR);a.addError(E);e();}.bind(this));}.bind(this));},handleSettingDialogButtonPressed:function(e){if(!this._oDialog){this._oDialog=sap.ui.xmlfragment(this.getTableSettingDialogName(),this);}this.getView().addDependent(this._oDialog);this.setDisplayMessageBoxForColumnSettingChange(true);this._oDialog.open();},onConfirmColumnSettingsChange:function(e){this.updatePersonalizationService();e.getSource().close();this.updateTableColumn();},onCancelColumnSettingsChange:function(e){this.rollBackColumnSettingsModel();e.getSource().close();},updatePersonalizationService:function(){var t=JSON.parse(JSON.stringify(this.oColumnSettingsHelper.getColumnSettings()));t.forEach(function(o){o.index=o.defaultIndex;});this.oColumnSettingsHelper.setColumnSettings(t);this.setContainerItemValue(this.getPersonlServiceContainerItemName(),t);},rollBackColumnSettingsModel:function(){this.getPersonalizationContainer().then(function(o){var t=o.getItemValue(this.getPersonlServiceContainerItemName());if(t){this.oColumnSettingsHelper.setColumnSettings(t);this.oColumnSettingsHelper.updateRestore();}}.bind(this));},setContainerItemValue:function(i,v){this.getPersonalizationContainer().then(function(o){o.setItemValue(i,v);o.save();}.bind(this));},initColumnSetting:function(p){this.getPersonalizationContainer().then(function(o){var s=this.getPersonlServiceContainerItemName();var t=o.getItemValue(s);if(U.isEmpty(t)||this.isDefaultColumnSettingChange(o)){var d=this.getDefaultColumnSetting();this.updateDefaultColumnSetting(d,o);this.initColumnSettingModel();this.initColumnSettingText();t=JSON.parse(JSON.stringify(this.oColumnSettingsHelper.getColumnSettings()));o.setItemValue(this.getPersonlServiceContainerItemName(),t);o.save();}else{var n=JSON.parse(JSON.stringify(t));this.oColumnSettingsHelper.setColumnSettings(n);this.initColumnSettingText();if(this.getViewName()===b.VIEW_SHIP){if(this.oColumnSettingsHelper.handleStatusColumnSetting(G.getAsyncMode(),this.getI18nText("status"))){this.updatePersonalizationService();}}}this.updateTableColumn();this.oColumnSettingsHelper.updateRestore();}.bind(this));},onRestoreColumnSettings:function(){var d=this.getDefaultColumnSetting();var D=this.initDefaultColumnSettingText(d);this.oColumnSettingsHelper.restore(D);this.oColumnSettingsHelper.handleStatusColumnSetting(G.getAsyncMode(),this.getI18nText("status"));},updateTableColumn:function(){var t=this.oColumnSettingsHelper.getColumnSettings();var o=this.byId(this.sTableId);var d=o.getColumns();t.forEach(function(e){for(var i=0;i<d.length;i++){if(d[i].getHeader().getText()===this.getI18nText(e.columnKey)){d[i].setVisible(e.visible);}}}.bind(this));},isColumnMandatory:function(s){var d=this.oColumnSettingsHelper.getColumnSettings();var i=d.findIndex(function(o){if(s===this.getI18nText(o.columnKey)&&o.mandatory){return true;}}.bind(this));return i!==-1?true:false;},setMandatoryColumnVisible:function(t){var i=t.getItems();i.forEach(function(o){if(this.isColumnMandatory(o.getCells()[0].getText())&&!o.getSelected()){o.setSelected(true);t.fireSelectionChange({listItem:o,listItems:[],selected:true});}}.bind(this));},getColumnSettingTable:function(p){var o=p.getAggregation("content")[0];return o;},isMandatoryColumnInvisible:function(t){var i=t.getItems();var d=i.findIndex(function(o){if(this.isColumnMandatory(o.getCells()[0].getText())&&!o.getSelected()){return true;}}.bind(this));return d!==-1;},setDisplayMessageBoxForColumnSettingChange:function(v){this._oDialog.removeAllCustomData();var o=new sap.ui.core.CustomData({key:v});this._oDialog.addCustomData(o);},onChangeColumnsItems:function(e){var p=e.getSource();var o=this.getColumnSettingTable(p);var d=this._oDialog.getCustomData()[0].getKey();if(this.isMandatoryColumnInvisible(o)){if(d==="true"){this._oDialog.setBusy(true);var m=this.getI18nText("deselectMandatoryField");var f=!!this.getView().$().closest(".sapUiSizeCompact").length;this.playAudio(b.ERROR);c.error(m,{styleClass:f?"sapUiSizeCompact":"",actions:[sap.m.MessageBox.Action.OK],onClose:function(){this._oDialog.setBusy(false);this.setMandatoryColumnVisible(o);this.oColumnSettingsHelper.setMandatoryColumnVisible();this.oColumnSettingsHelper.updateRestore();this.setDisplayMessageBoxForColumnSettingChange(true);}.bind(this)});this.setDisplayMessageBoxForColumnSettingChange(false);}else{this.setMandatoryColumnVisible(o);this.oColumnSettingsHelper.setMandatoryColumnVisible();}}this.oColumnSettingsHelper.updateRestore();},initColumnSettingText:function(){var d=this.oColumnSettingsHelper.getColumnSettings();d.forEach(function(o){var k=o.columnKey;var t=this.getI18nText(k);this.oColumnSettingsHelper.setColumnTextByKey(k,t);}.bind(this));},isDefaultColumnSettingChange:function(o){var d=this.getDefaultColumnSettingInService(o);var D=this.getDefaultColumnSetting();if(JSON.stringify(d)===JSON.stringify(D)){return false;}return true;},getDefaultColumnSettingInService:function(o){var v=this.getDefaultColumnSettingNameInService();var t=o.getItemValue(v);return t;},updateDefaultColumnSetting:function(t,o){var n=JSON.parse(JSON.stringify(t));var v=this.getDefaultColumnSettingNameInService();o.setItemValue(v,n);o.setItemValue(this.getPersonlServiceContainerItemName(),"");},initDefaultColumnSettingText:function(d){var t=d.columnSettings;t.forEach(function(o){var k=o.columnKey;var s=this.getI18nText(k);o.text=s;}.bind(this));return t;},getItemProperties:function(){var m=this.getModel().getServiceMetadata();if(U.isEmpty(m)){return[];}var e=m.dataServices.schema[0].entityType;var E=U.find(e,function(t){if(t.name==="Item"){return true;}return false;});if(U.isEmpty(E)){return[];}else{return E.property;}}});});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/controller/BaseController",
+	"scm/ewm/packoutbdlvs1/modelHelper/Items",
+	"sap/ui/model/json/JSONModel",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight",
+	"scm/ewm/packoutbdlvs1/modelHelper/Material",
+	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"scm/ewm/packoutbdlvs1/modelHelper/Message",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"sap/m/MessageBox",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global"
+], function (Controller, TableItemsHelper, JSONModel, Util, ItemWeight, MaterialHelper, Service, Message, Const, MessageBox, Global) {
+	"use strict";
+	return Controller.extend("scm.ewm.packoutbdlvs1.controller.WorkFlowController", {
+		getWorkFlowFactory: function () {
+			return this.oView.getParent().getParent().getParent().getController().oWorkFlowFactory;
+		},
+		oItemHelper: null,
+		formatTableTitle: function (sHU, aItems) {
+			if (!sHU) {
+				return;
+			}
+
+			return this.getI18nText("itemsOfHandkingUnit", [sHU, aItems.length]);
+		},
+		onSerialNumberPopover: function (oEvent) {
+			this.openSerialNumberPopover(oEvent, Const.ITEM_MODEL_NAME, this.oItemHelper);
+		},
+		setButtonToolTip: function (sId) {
+			var oButton = this.byId(sId);
+			if (Util.isEmpty(oButton)) {
+				return;
+			}
+			var sTooltip = oButton.getTooltip();
+			if (Util.isEmpty(sTooltip)) {
+				oButton.setTooltip(oButton.getText());
+			}
+		},
+		updateItemWeightInNeed: function (sSourceId, sSourceType) {
+			var sPackMat = MaterialHelper.getCurrentMaterialId();
+			var aAllItems = this.oItemHelper.getAllItems();
+			var iIdx = Util.findIndex(aAllItems, function (oItem) {
+				if (!ItemWeight.isSpecificItemWeightExisted(sPackMat, oItem.OriginId)) {
+					//find a item in source/ship hu which does not exist in the ItemWeight
+					return true;
+				}
+				return false;
+			});
+			if (iIdx !== -1) {
+				return this.updateItemWeight(sSourceId, sSourceType);
+			}
+			return Util.getResolvePromise();
+		},
+		updateItemWeight: function (sSourceId, sSourceType) {
+			return new Promise(function (resolve, reject) {
+				var sPackMat = MaterialHelper.getCurrentMaterialId();
+				this.setBusy(true);
+				Service.getItemWeight(sSourceId, sSourceType)
+					.then(function (oResult) {
+						this.setBusy(false);
+						ItemWeight.addItemWeightForPackMat(sPackMat, oResult);
+						resolve();
+					}.bind(this))
+					.catch(function (oError) {
+						this.setBusy(false);
+						this.playAudio(Const.ERROR);
+						Message.addError(oError);
+						reject();
+					}.bind(this));
+
+			}.bind(this));
+		},
+		handleSettingDialogButtonPressed: function (oEvent) {
+			if (!this._oDialog) {
+				this._oDialog = sap.ui.xmlfragment(this.getTableSettingDialogName(), this);
+			}
+			this.getView().addDependent(this._oDialog);
+			this.setDisplayMessageBoxForColumnSettingChange(true);
+			this._oDialog.open();
+		},
+		onConfirmColumnSettingsChange: function (oEvent) {
+			this.updatePersonalizationService();
+			oEvent.getSource().close();
+			this.updateTableColumn();
+		},
+
+		onCancelColumnSettingsChange: function (oEvent) {
+			this.rollBackColumnSettingsModel();
+			oEvent.getSource().close();
+		},
+		updatePersonalizationService: function () {
+			var oTableSettings = JSON.parse(JSON.stringify(this.oColumnSettingsHelper.getColumnSettings()));
+
+			oTableSettings.forEach(function (oTableSetting) {
+				oTableSetting.index = oTableSetting.defaultIndex;
+			});
+
+			this.oColumnSettingsHelper.setColumnSettings(oTableSettings);
+			this.setContainerItemValue(this.getPersonlServiceContainerItemName(), oTableSettings);
+		},
+
+		rollBackColumnSettingsModel: function () {
+			this.getPersonalizationContainer()
+				.then(function (oContainer) {
+					var oTableSettings = oContainer.getItemValue(this.getPersonlServiceContainerItemName());
+					if (oTableSettings) {
+						this.oColumnSettingsHelper.setColumnSettings(oTableSettings);
+						this.oColumnSettingsHelper.updateRestore();
+					}
+				}.bind(this));
+		},
+
+		setContainerItemValue: function (sItemName, oValue) {
+			this.getPersonalizationContainer().then(function (oContainer) {
+				oContainer.setItemValue(sItemName, oValue);
+				oContainer.save();
+			}.bind(this));
+		},
+
+		initColumnSetting: function (sPersonalServiceName) {
+			this.getPersonalizationContainer()
+				.then(function (oContainer) {
+
+					var sSettingName = this.getPersonlServiceContainerItemName();
+					var oTableSettings = oContainer.getItemValue(sSettingName);
+					if (Util.isEmpty(oTableSettings) || this.isDefaultColumnSettingChange(oContainer)) {
+						var oDefaultSetting = this.getDefaultColumnSetting();
+						this.updateDefaultColumnSetting(oDefaultSetting, oContainer);
+
+						this.initColumnSettingModel();
+						this.initColumnSettingText();
+
+						oTableSettings = JSON.parse(JSON.stringify(this.oColumnSettingsHelper.getColumnSettings()));
+						oContainer.setItemValue(this.getPersonlServiceContainerItemName(), oTableSettings);
+
+						oContainer.save();
+					} else {
+						var oNewTableSettings = JSON.parse(JSON.stringify(oTableSettings));
+						this.oColumnSettingsHelper.setColumnSettings(oNewTableSettings);
+						this.initColumnSettingText();
+						if (this.getViewName() === Const.VIEW_SHIP) {
+							if (this.oColumnSettingsHelper.handleStatusColumnSetting(Global.getAsyncMode(), this.getI18nText("status"))) {
+								this.updatePersonalizationService();
+							}
+						}
+					}
+					this.updateTableColumn();
+					this.oColumnSettingsHelper.updateRestore();
+				}.bind(this));
+		},
+		onRestoreColumnSettings: function () {
+			var oDefaultSetting = this.getDefaultColumnSetting();
+			var aDefaultSetting = this.initDefaultColumnSettingText(oDefaultSetting);
+			this.oColumnSettingsHelper.restore(aDefaultSetting);
+			this.oColumnSettingsHelper.handleStatusColumnSetting(Global.getAsyncMode(), this.getI18nText("status"));
+		},
+		updateTableColumn: function () {
+			var aTableSettings = this.oColumnSettingsHelper.getColumnSettings();
+			var oTable = this.byId(this.sTableId);
+			var aColumns = oTable.getColumns();
+			aTableSettings.forEach(function (oColumnSetting) {
+				for (var i = 0; i < aColumns.length; i++) {
+					if (aColumns[i].getHeader().getText() === this.getI18nText(oColumnSetting.columnKey)) {
+						aColumns[i].setVisible(oColumnSetting.visible);
+					}
+				}
+			}.bind(this));
+		},
+		isColumnMandatory: function (sColumnTitle) {
+			var aColumnSettings = this.oColumnSettingsHelper.getColumnSettings();
+			var iIndex = aColumnSettings.findIndex(function (oColumnSetting) {
+				if (sColumnTitle === this.getI18nText(oColumnSetting.columnKey) && oColumnSetting.mandatory) {
+					return true;
+				}
+			}.bind(this));
+			return iIndex !== -1 ? true : false;
+		},
+		setMandatoryColumnVisible: function (oTable) {
+			var aItems = oTable.getItems();
+			aItems.forEach(function (oItem) {
+				if (this.isColumnMandatory(oItem.getCells()[0].getText()) && !oItem.getSelected()) {
+					oItem.setSelected(true);
+					oTable.fireSelectionChange({
+						listItem: oItem,
+						listItems: [],
+						selected: true
+					});
+				}
+			}.bind(this));
+		},
+
+		getColumnSettingTable: function (oPanel) {
+			var oContainer = oPanel.getAggregation("content")[0];
+			return oContainer;
+		},
+		isMandatoryColumnInvisible: function (oTable) {
+			var aItems = oTable.getItems();
+			var iIndex = aItems.findIndex(function (oItem) {
+				if (this.isColumnMandatory(oItem.getCells()[0].getText()) && !oItem.getSelected()) {
+					return true;
+				}
+			}.bind(this));
+			return iIndex !== -1;
+		},
+		setDisplayMessageBoxForColumnSettingChange: function (bValue) {
+			this._oDialog.removeAllCustomData();
+			var oCustomData = new sap.ui.core.CustomData({
+				key: bValue
+			});
+			this._oDialog.addCustomData(oCustomData);
+		},
+		onChangeColumnsItems: function (oEvent) {
+			var oPanel = oEvent.getSource();
+			var oColTable = this.getColumnSettingTable(oPanel);
+			var bDisplayMessageBoxForColumnSettingChange = this._oDialog.getCustomData()[0].getKey();
+			if (this.isMandatoryColumnInvisible(oColTable)) {
+				if (bDisplayMessageBoxForColumnSettingChange === "true") {
+					this._oDialog.setBusy(true);
+					var sMessage = this.getI18nText("deselectMandatoryField");
+					var bCompact = !!this.getView().$().closest(".sapUiSizeCompact").length;
+					this.playAudio(Const.ERROR);
+					MessageBox.error(
+						sMessage, {
+							styleClass: bCompact ? "sapUiSizeCompact" : "",
+							actions: [sap.m.MessageBox.Action.OK],
+							onClose: function () {
+								this._oDialog.setBusy(false);
+								this.setMandatoryColumnVisible(oColTable);
+								this.oColumnSettingsHelper.setMandatoryColumnVisible();
+								this.oColumnSettingsHelper.updateRestore();
+								this.setDisplayMessageBoxForColumnSettingChange(true);
+							}.bind(this)
+						}
+					);
+					this.setDisplayMessageBoxForColumnSettingChange(false);
+				} else {
+					this.setMandatoryColumnVisible(oColTable);
+					this.oColumnSettingsHelper.setMandatoryColumnVisible();
+				}
+			}
+			this.oColumnSettingsHelper.updateRestore();
+		},
+		initColumnSettingText: function () {
+			var aColumnSettings = this.oColumnSettingsHelper.getColumnSettings();
+			aColumnSettings.forEach(function (oColumnSetting) {
+				var sKey = oColumnSetting.columnKey;
+				var sText = this.getI18nText(sKey);
+				this.oColumnSettingsHelper.setColumnTextByKey(sKey, sText);
+			}.bind(this));
+		},
+		isDefaultColumnSettingChange: function (oContainer) {
+			var oDefaultSettingInService = this.getDefaultColumnSettingInService(oContainer);
+			var oDefaultSetting = this.getDefaultColumnSetting();
+			if (JSON.stringify(oDefaultSettingInService) === JSON.stringify(oDefaultSetting)) {
+				return false;
+			}
+			return true;
+		},
+		getDefaultColumnSettingInService: function (oContainer) {
+			var sValueName = this.getDefaultColumnSettingNameInService();
+			var oTableSetting = oContainer.getItemValue(sValueName);
+			return oTableSetting;
+		},
+		updateDefaultColumnSetting: function (oTableSettings, oContainer) {
+			var oNewTableSettings = JSON.parse(JSON.stringify(oTableSettings));
+			var sValueName = this.getDefaultColumnSettingNameInService();
+			oContainer.setItemValue(sValueName, oNewTableSettings);
+			oContainer.setItemValue(this.getPersonlServiceContainerItemName(), "");
+		},
+		initDefaultColumnSettingText: function (oDefaultSetting) {
+			var aTableSettings = oDefaultSetting.columnSettings;
+			aTableSettings.forEach(function (oColumnSetting) {
+				var sKey = oColumnSetting.columnKey;
+				var sText = this.getI18nText(sKey);
+				oColumnSetting.text = sText;
+			}.bind(this));
+			return aTableSettings;
+		},
+		getItemProperties: function () {
+			var oMetaData = this.getModel().getServiceMetadata();
+			if (Util.isEmpty(oMetaData)) {
+				return [];
+			}
+			var aEntityType = oMetaData.dataServices.schema[0].entityType;
+			var oEntityType = Util.find(aEntityType, function (oType) {
+				if (oType.name === "Item") {
+					return true;
+				}
+				return false;
+			});
+			if (Util.isEmpty(oEntityType)) {
+				return [];
+			} else {
+				return oEntityType.property;
+			}
+		}
+	});
+});

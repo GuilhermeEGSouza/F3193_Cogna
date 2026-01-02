@@ -1,4 +1,118 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/workflows/WorkFlow","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/service/ODataService","scm/ewm/packoutbdlvs1/modelHelper/Global","scm/ewm/packoutbdlvs1/modelHelper/OData","scm/ewm/packoutbdlvs1/utils/Const","scm/ewm/packoutbdlvs1/modelHelper/Cache"],function(W,U,S,G,O,C,a){"use strict";return function(s,o){var w=new W().then(function(i,m){m.sHuId=i;this.updateInputWithDefault(C.ID.SHIP_INPUT,"");},o).then(function(r,m){if(!G.getIsPickHUInSourceSide()&&G.getSourceId()===m.sHuId){return this.getHandlingUnitDisplayWhenScanOnOtherSide();}},o,"if the user scans the ship hu, determine how to display it").then(function(r,m){if(!G.getIsPickHUInSourceSide()&&G.getSourceId()===m.sHuId){var c={"bClearSource":true,"bClearShip":false,"bRemoveExceptionButtons":false};this.getWorkFlowFactory().getClearWorkFlow().run(c);}},s,"clear source if needed").then(function(p,m){return S.getHUSet(m.sHuId,C.SHIP_TYPE_HU);},o).then(function(p,m){m.NetWeight=p.NetWeight;m.WeightUoM=p.WeightUoM;if(p.IsPickHu){return U.getRejectPromise(C.ERRORS.SCAN_SOURCEHU_IN_SHIP_INPUT);}else{return S.getHUItems(m.sHuId,C.SHIP_TYPE_HU,true);}},o).then(function(p,m){this.setBusy(false);this.oItemHelper.setItems(p);this.createNewTab(m.sHuId,C.TAB.ADVANCED);this.updateShippingHUMaterial(m.sHuId);this.updateInputWithDefault(C.ID.SHIP_INPUT,"");G.addShipHandlingUnit(m.sHuId);this.setCurrentShipHandlingUnit(m.sHuId);var c="";if(p.length!==0){c=p[0].EWMConsolidationGroup;}a.updateShipHUConsGroup(m.sHuId,c);this.updateShipItemStatus();this.handleButtonsEnableAfterSwitch();},o).then(function(p,m){this.updateNetWeightRelated(m.NetWeight,m.WeightUoM);},o,"update weight chart, color and text").then(function(p,m){return this.updateItemWeightInNeed(m.sHuId,C.SHIP_TYPE_HU);},o,"check if there exists ship item which is not in ItemWeight").then(function(p,P){this.updateSourceItemStatus();if(U.isEmpty(G.getSourceId())){this.focus(C.ID.SOURCE_INPUT);}else{this.focus(C.ID.PRODUCT_INPUT);}},s).then(function(p,P){P.sODO="";P.sPackInstr="";if(this.oItemHelper.getHighLightedItemIndex()===0){P.sODO=this.oItemHelper.getItemDocNoByIndex(0);P.sPackInstr=this.oItemHelper.getItemPackInstrByIndex(0);}},s).then(function(p,P){this.updatePackingInstr(P.sODO,P.sPackInstr);},o,"update packing info").then(function(p,P){this.updateCacheIsEmptyHU();},o,"update cache");w.errors().subscribe(C.ERRORS.SCAN_SOURCEHU_IN_SHIP_INPUT,function(e){e=this.getTextAccordingToMode("scanSourceInHUInput","scanSourceInShippingInput");this.updateInputWithError(C.ID.SHIP_INPUT,e);this.focus(C.ID.SHIP_INPUT);},o).subscribe(C.ERRORS.HU_NOT_IN_WORK_CENTER,function(e){this.updateInputWithError(C.ID.SHIP_INPUT,e);this.focus(C.ID.SHIP_INPUT);},o).subscribe(C.ERRORS.SHIP_HU_NOT_IN_WORK_CENTER,function(e){this.updateInputWithError(C.ID.SHIP_INPUT,e);this.focus(C.ID.SHIP_INPUT);},o).default(function(e){this.updateInputWithError(C.ID.SHIP_INPUT,e);},o).always(function(e){this.setBusy(false);this.playAudio(C.ERROR);},o);return w;};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/workflows/WorkFlow",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global",
+	"scm/ewm/packoutbdlvs1/modelHelper/OData",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"scm/ewm/packoutbdlvs1/modelHelper/Cache"
+], function (WorkFlow, Util, Service, Global, ODataHelper, Const, Cache) {
+	"use strict";
+	return function (oSourceController, oShipController) {
+		var oWorkFlow = new WorkFlow()
+			.then(function (sInput, mSession) {
+				mSession.sHuId = sInput;
+				this.updateInputWithDefault(Const.ID.SHIP_INPUT, "");
+			}, oShipController)
+			.then(function (mResponse, mSession) {
+				if (!Global.getIsPickHUInSourceSide() && Global.getSourceId() === mSession.sHuId) {
+					return this.getHandlingUnitDisplayWhenScanOnOtherSide();
+				}
+			}, oShipController, "if the user scans the ship hu, determine how to display it")
+			.then(function (mResponse, mSession) {
+				if (!Global.getIsPickHUInSourceSide() && Global.getSourceId() === mSession.sHuId) {
+					var oClearInfo = {
+						"bClearSource": true,
+						"bClearShip": false,
+						"bRemoveExceptionButtons": false
+					};
+					this.getWorkFlowFactory().getClearWorkFlow().run(oClearInfo);
+				}
+			}, oSourceController, "clear source if needed")
+			.then(function (preResult, mSession) {
+					return Service.getHUSet(mSession.sHuId, Const.SHIP_TYPE_HU);
+				},
+				oShipController)
+			.then(function (preResult, mSession) {
+				mSession.NetWeight = preResult.NetWeight;
+				mSession.WeightUoM = preResult.WeightUoM;
+				if (preResult.IsPickHu) {
+					return Util.getRejectPromise(Const.ERRORS.SCAN_SOURCEHU_IN_SHIP_INPUT);
+				} else {
+					return Service.getHUItems(mSession.sHuId, Const.SHIP_TYPE_HU, true);
+				}
+			}, oShipController)
+			.then(function (preResult, mSession) {
+				this.setBusy(false);
+				this.oItemHelper.setItems(preResult);
+				this.createNewTab(mSession.sHuId, Const.TAB.ADVANCED);
+				this.updateShippingHUMaterial(mSession.sHuId);
+				this.updateInputWithDefault(Const.ID.SHIP_INPUT, "");
+				Global.addShipHandlingUnit(mSession.sHuId);
+				this.setCurrentShipHandlingUnit(mSession.sHuId);
+				var sConsGroup = "";
+				if (preResult.length !== 0) {
+					sConsGroup = preResult[0].EWMConsolidationGroup;
+				}
+				Cache.updateShipHUConsGroup(mSession.sHuId, sConsGroup);
+				this.updateShipItemStatus();
+				this.handleButtonsEnableAfterSwitch();
+			}, oShipController)
+			.then(function (preResult, mSession) {
+				this.updateNetWeightRelated(mSession.NetWeight, mSession.WeightUoM);
+			}, oShipController, "update weight chart, color and text")
+			.then(function (preResult, mSession) {
+				return this.updateItemWeightInNeed(mSession.sHuId, Const.SHIP_TYPE_HU);
+			}, oShipController, "check if there exists ship item which is not in ItemWeight")
+			.then(function (preResult, oParam) {
+				this.updateSourceItemStatus();
+				if (Util.isEmpty(Global.getSourceId())) {
+					this.focus(Const.ID.SOURCE_INPUT);
+				} else {
+					this.focus(Const.ID.PRODUCT_INPUT);
+				}
+			}, oSourceController)
+			.then(function (preResult, oParam) {
+				oParam.sODO = "";
+				oParam.sPackInstr = "";
+				if (this.oItemHelper.getHighLightedItemIndex() === 0) {
+					oParam.sODO = this.oItemHelper.getItemDocNoByIndex(0);
+					oParam.sPackInstr = this.oItemHelper.getItemPackInstrByIndex(0);
+				}
+			}, oSourceController)
+			.then(function (preResult, oParam) {
+				this.updatePackingInstr(oParam.sODO, oParam.sPackInstr);
+			}, oShipController, "update packing info")
+			.then(function (preResult, oParam) {
+				this.updateCacheIsEmptyHU();
+			}, oShipController, "update cache");
+
+		oWorkFlow
+			.errors()
+			.subscribe(Const.ERRORS.SCAN_SOURCEHU_IN_SHIP_INPUT, function (sError) {
+				sError = this.getTextAccordingToMode("scanSourceInHUInput", "scanSourceInShippingInput");
+				this.updateInputWithError(Const.ID.SHIP_INPUT, sError);
+				this.focus(Const.ID.SHIP_INPUT);
+			}, oShipController)
+			.subscribe(Const.ERRORS.HU_NOT_IN_WORK_CENTER, function (sError) {
+				this.updateInputWithError(Const.ID.SHIP_INPUT, sError);
+				this.focus(Const.ID.SHIP_INPUT);
+			}, oShipController)
+			.subscribe(Const.ERRORS.SHIP_HU_NOT_IN_WORK_CENTER, function (sError) {
+				this.updateInputWithError(Const.ID.SHIP_INPUT, sError);
+				this.focus(Const.ID.SHIP_INPUT);
+			}, oShipController)
+			.default(function (sError) {
+				this.updateInputWithError(Const.ID.SHIP_INPUT, sError);
+			}, oShipController)
+			.always(function (oError) {
+				this.setBusy(false);
+				this.playAudio(Const.ERROR);
+			}, oShipController);
+		return oWorkFlow;
+
+	};
+});

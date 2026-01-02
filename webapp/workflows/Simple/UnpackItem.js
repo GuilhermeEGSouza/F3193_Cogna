@@ -1,4 +1,131 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/workflows/WorkFlow","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/utils/CustomError","scm/ewm/packoutbdlvs1/service/ODataService","scm/ewm/packoutbdlvs1/utils/Const","scm/ewm/packoutbdlvs1/modelHelper/Message","scm/ewm/packoutbdlvs1/modelHelper/Cache","scm/ewm/packoutbdlvs1/modelHelper/Global"],function(W,U,C,S,a,M,b,G){"use strict";return function(s,o){var w=new W().then(function(u,m){this.setBusy(true);m.oProduct=u.oProduct;m.oUnpackProduct=JSON.parse(JSON.stringify(u.oProduct));m.iQuantity=u.iQuantity;m.iIndex=u.iIndex;var A=m.oUnpackProduct.OperationDeltaQuan-m.oUnpackProduct.PackedQuan-u.iQuantity;if(A>=0){m.applyQty=0;}else{m.applyQty=Math.abs(A);}},o,"caculate the count need send to backend").then(function(p,m){if(m.applyQty>0){m.oUnpackProduct.AlterQuan=m.applyQty.toString();var n=false;if(m.oUnpackProduct.AlterQuan<m.oUnpackProduct.PackedQuan){n=true;}return S.unpack(m.oUnpackProduct,n);}},o).then(function(p,m){if(!U.isEmpty(p)){m.sNewStockItemUUID=p.StockItemUUID;}}).then(function(p,m){this.oItemHelper.setItemPackedQuanByIndex(m.iIndex,(m.oProduct.PackedQuan-m.applyQty));this.oItemHelper.setItemDeltaByIndex(m.iIndex,U.parseNumber(m.oProduct.AlterQuan),"");},o,"update the quantity of the item").then(function(p,m){if(U.parseNumber(m.oProduct.AlterQuan)===0){this.oItemHelper.setItemPreviousAlterQuanByIndex(m.iIndex,"0");this.oItemHelper.deleteItem(m.oProduct);if(!this.oItemHelper.isEmpty()){this.oItemHelper.setItemHighlightByIndex(0);}else{b.updateShipHUConsGroup(G.getCurrentShipHandlingUnit(),"");}}else{this.oItemHelper.setItemsStatusToNone();this.oItemHelper.setItemHighlightByIndex(m.iIndex);this.oItemHelper.setItemPreviousAlterQuanByIndex(m.iIndex,m.oProduct.AlterQuan);}},o).then(function(p,m){m.oUnpackProduct.AlterQuan=m.iQuantity.toString();m.oUnpackProduct.PreviousAlterQuan="0";if(U.isEmpty(m.sNewStockItemUUID)){m.oUnpackProduct.StockItemUUID=m.oUnpackProduct.OriginId;}else{m.oUnpackProduct.OriginId=m.sNewStockItemUUID;m.oUnpackProduct.StockItemUUID=m.sNewStockItemUUID;}this.oItemHelper.addItem(m.oUnpackProduct);this.oItemHelper.setItemPackedQuanByIndex(0,(m.oProduct.PackedQuan-m.applyQty));this.oItemHelper.setItemDeltaByIndex(0,0,"");G.setProductId(m.oUnpackProduct.ProductName);this.oItemHelper.sortItemsByKey(m.oUnpackProduct.StockItemUUID,m.oUnpackProduct.Huident);},s).then(function(p,m){this.oItemHelper.setItemsStatusByConsGrp();this.oItemHelper.setItemHighlightByIndex(0);},s).then(function(p,m){this.bindProductInfo();this.updateInputWithDefault(a.ID.PRODUCT_INPUT,"");this.focus(a.ID.PRODUCT_INPUT);this.setBusy(false);this.handlePackAllEnable();},s).then(function(p,P){P.sODO=this.oItemHelper.getItemDocNoByIndex(0);P.sPackInstr=this.oItemHelper.getItemPackInstrByIndex(0);},s).then(function(p,P){this.updatePackingInstr(P.sODO,P.sPackInstr);},o,"update packing info").then(function(p,m){this.clearGrossWeight();this.delayCalledAdjustContainerHeight();},o);w.errors().default(function(e,p,m,c){if(c){this.showErrorMessagePopup(e);}},s).always(function(e,p,m){m.oProduct.AlterQuan=m.oProduct.PreviousAlterQuan;m.oProduct.OperationDeltaQuan=m.oProduct.PreviousAlterQuan;this.playAudio(a.ERROR);this.setBusy(false);},o);return w;};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/workflows/WorkFlow",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/utils/CustomError",
+	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"scm/ewm/packoutbdlvs1/modelHelper/Message",
+	"scm/ewm/packoutbdlvs1/modelHelper/Cache",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global"
+], function (WorkFlow, Util, CustomError, Service, Const, Message, Cache, Global) {
+	"use strict";
+	return function (oSourceController, oShipController) {
+		var oWorkFlow = new WorkFlow()
+			.then(function (oUnpackInfo, mSession) {
+				this.setBusy(true);
+				//todo:: refine data structure
+				mSession.oProduct = oUnpackInfo.oProduct;
+				mSession.oUnpackProduct = JSON.parse(JSON.stringify(oUnpackInfo.oProduct));
+				mSession.iQuantity = oUnpackInfo.iQuantity;
+				mSession.iIndex = oUnpackInfo.iIndex;
+
+				//the quantity need send to backend
+				var iApplyQty = mSession.oUnpackProduct.OperationDeltaQuan - mSession.oUnpackProduct.PackedQuan - oUnpackInfo.iQuantity;
+				if (iApplyQty >= 0) { //do not send request
+					mSession.applyQty = 0;
+				} else {
+					mSession.applyQty = Math.abs(iApplyQty);
+				}
+			}, oShipController, "caculate the count need send to backend")
+			.then(function (preResult, mSession) {
+				if (mSession.applyQty > 0) {
+					mSession.oUnpackProduct.AlterQuan = mSession.applyQty.toString();
+					var bNeedQuantity = false;
+					if (mSession.oUnpackProduct.AlterQuan < mSession.oUnpackProduct.PackedQuan) {
+						bNeedQuantity = true;
+					}
+					return Service
+						.unpack(mSession.oUnpackProduct, bNeedQuantity);
+				}
+			}, oShipController)
+			.then(function (preResult, mSession) {
+				if (!Util.isEmpty(preResult)) {
+					mSession.sNewStockItemUUID = preResult.StockItemUUID;
+				}
+			})
+			.then(function (preResult, mSession) {
+				//todo:: rename PackedQuan => iPackedQuan
+				// Set PackedQuan to actually packed quantity
+				this.oItemHelper.setItemPackedQuanByIndex(mSession.iIndex, (mSession.oProduct.PackedQuan - mSession.applyQty));
+				// Set OperationDeltaQuan to currently item alter quantity
+				this.oItemHelper.setItemDeltaByIndex(mSession.iIndex, Util.parseNumber(mSession.oProduct.AlterQuan), "");
+			}, oShipController, "update the quantity of the item")
+			.then(function (preResult, mSession) {
+				if (Util.parseNumber(mSession.oProduct.AlterQuan) === 0) {
+					this.oItemHelper.setItemPreviousAlterQuanByIndex(mSession.iIndex, "0");
+					this.oItemHelper.deleteItem(mSession.oProduct);
+					if (!this.oItemHelper.isEmpty()) {
+						this.oItemHelper.setItemHighlightByIndex(0);
+					} else {
+						Cache.updateShipHUConsGroup(Global.getCurrentShipHandlingUnit(), "");
+					}
+				} else {
+					this.oItemHelper.setItemsStatusToNone();
+					this.oItemHelper.setItemHighlightByIndex(mSession.iIndex);
+					this.oItemHelper.setItemPreviousAlterQuanByIndex(mSession.iIndex, mSession.oProduct.AlterQuan);
+				}
+			}, oShipController)
+			.then(function (preResult, mSession) {
+				//add item to the left table
+				mSession.oUnpackProduct.AlterQuan = mSession.iQuantity.toString();
+				// Initial PreviousAlterQuan for item in source
+				mSession.oUnpackProduct.PreviousAlterQuan = "0";
+				if (Util.isEmpty(mSession.sNewStockItemUUID)) {
+					mSession.oUnpackProduct.StockItemUUID = mSession.oUnpackProduct.OriginId;
+				} else {
+					mSession.oUnpackProduct.OriginId = mSession.sNewStockItemUUID;
+					mSession.oUnpackProduct.StockItemUUID = mSession.sNewStockItemUUID;
+				}
+				this.oItemHelper.addItem(mSession.oUnpackProduct);
+				// Initial PackedQuan for item in source, when user apply pack, need to judge send service or not
+				this.oItemHelper.setItemPackedQuanByIndex(0, (mSession.oProduct.PackedQuan - mSession.applyQty));
+				// Initial PackedQuan for item in source, when user apply pack, need to judge send service or not
+				this.oItemHelper.setItemDeltaByIndex(0, 0, "");
+
+				Global.setProductId(mSession.oUnpackProduct.ProductName);
+				this.oItemHelper.sortItemsByKey(mSession.oUnpackProduct.StockItemUUID, mSession.oUnpackProduct.Huident);
+			}, oSourceController)
+			.then(function (preResult, mSession) {
+				this.oItemHelper.setItemsStatusByConsGrp();
+				this.oItemHelper.setItemHighlightByIndex(0);
+			}, oSourceController)
+			.then(function (preResult, mSession) {
+				//update product info
+				this.bindProductInfo();
+				this.updateInputWithDefault(Const.ID.PRODUCT_INPUT, "");
+				this.focus(Const.ID.PRODUCT_INPUT);
+				this.setBusy(false);
+				this.handlePackAllEnable();
+			}, oSourceController)
+			.then(function (preResult, oParam) {
+				oParam.sODO = this.oItemHelper.getItemDocNoByIndex(0);
+				oParam.sPackInstr = this.oItemHelper.getItemPackInstrByIndex(0);
+			}, oSourceController)
+			.then(function (preResult, oParam) {
+				this.updatePackingInstr(oParam.sODO, oParam.sPackInstr);
+			}, oShipController, "update packing info")
+			.then(function (preResult, mSession) {
+				this.clearGrossWeight();
+				this.delayCalledAdjustContainerHeight();
+			}, oShipController);
+
+		oWorkFlow
+			.errors()
+			.default(function (sError, vPara, mSession, bCustomError) {
+				if (bCustomError) {
+					this.showErrorMessagePopup(sError);
+				}
+			}, oSourceController)
+			.always(function (sError, vParam, mSession) {
+				mSession.oProduct.AlterQuan = mSession.oProduct.PreviousAlterQuan;
+				mSession.oProduct.OperationDeltaQuan = mSession.oProduct.PreviousAlterQuan;
+				this.playAudio(Const.ERROR);
+				this.setBusy(false);
+			}, oShipController);
+		return oWorkFlow;
+
+	};
+});

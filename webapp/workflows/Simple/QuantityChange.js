@@ -1,4 +1,91 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/workflows/WorkFlow","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/service/ODataService","scm/ewm/packoutbdlvs1/utils/CustomError","scm/ewm/packoutbdlvs1/utils/Const","scm/ewm/packoutbdlvs1/modelHelper/Message","scm/ewm/packoutbdlvs1/modelHelper/Global"],function(W,U,S,C,a,M,G){"use strict";return function(s,o,f){var w=new W().then(function(O,m){m.oProduct=JSON.parse(JSON.stringify(O.oProduct));m.iApplyQuantity=O.iQuantity;if(m.iApplyQuantity>0){m.pack=true;}else if(m.iApplyQuantity<=0){m.pack=false;}m.mSource=O.mSource;},o).then(function(p,m){if(m.pack){return;}var i=this.oItemHelper.getItemIndexByKey(m.oProduct.StockItemUUID,m.oProduct.Huident);var u={oProduct:m.oProduct,iQuantity:Math.abs(m.iApplyQuantity),iIndex:i};return f.getUnpackWorkFlow().run(u);},o).then(function(p,m){if(!m.pack){return;}var i=this.oItemHelper.getItemIndexByKey(m.oProduct.StockItemUUID,m.oProduct.Huident);if(i===-1){throw new C(a.ERRORS.NO_ENOUGH_QUANTITY_APPLIED,m);}m.oApplyProduct=this.oItemHelper.getItemByIndex(i);if(m.iApplyQuantity>U.parseNumber(m.oApplyProduct.AlterQuan)){throw new C(a.ERRORS.NO_ENOUGH_QUANTITY_APPLIED,m);}var P={oProduct:m.oApplyProduct,sQuantity:m.iApplyQuantity.toString(),iIndex:i,bAdd:false};return f.getPackItemWorkFlow().run(P);},s).then(function(p,P){P.sODO="";P.sPackInstr="";if(this.oItemHelper.getHighLightedItemIndex()===0){P.sODO=this.oItemHelper.getItemDocNoByIndex(0);P.sPackInstr=this.oItemHelper.getItemPackInstrByIndex(0);}},s).then(function(p,P){this.updatePackingInstr(P.sODO,P.sPackInstr);},o,"update packing info").then(function(p,m){this.clearGrossWeight();this.updateInputWithDefault(m.mSource);},o);w.errors().subscribe(a.ERRORS.NO_ENOUGH_QUANTITY_APPLIED,function(m){var e=this.getI18nText("noEnoughQuantityPack",m.oProduct.DefaultAltQuan);this.updateInputWithError(m.mSource,e);},o).always(function(e,p,m){this.playAudio(a.ERROR);},o);return w;};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/workflows/WorkFlow",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"scm/ewm/packoutbdlvs1/utils/CustomError",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"scm/ewm/packoutbdlvs1/modelHelper/Message",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global"
+], function (WorkFlow, Util, Service, CustomError, Const, Message, Global) {
+	"use strict";
+	return function (oSourceController, oShipController, oFactory) {
+		var oWorkFlow = new WorkFlow()
+			.then(function (oObjectInfo, mSession) {
+				mSession.oProduct = JSON.parse(JSON.stringify(oObjectInfo.oProduct));
+				mSession.iApplyQuantity = oObjectInfo.iQuantity;
+				if (mSession.iApplyQuantity > 0) {
+					mSession.pack = true;
+				} else if (mSession.iApplyQuantity <= 0) {
+					mSession.pack = false;
+				}
+				mSession.mSource = oObjectInfo.mSource;
+
+			}, oShipController)
+			.then(function (preRequest, mSession) {
+				if (mSession.pack) {
+					return;
+				}
+				var iIndex = this.oItemHelper.getItemIndexByKey(mSession.oProduct.StockItemUUID, mSession.oProduct.Huident);
+				var oUnpackInfo = {
+					oProduct: mSession.oProduct,
+					iQuantity: Math.abs(mSession.iApplyQuantity),
+					iIndex: iIndex
+				};
+
+				return oFactory.getUnpackWorkFlow().run(oUnpackInfo);
+			}, oShipController)
+			.then(function (preRequest, mSession) {
+				if (!mSession.pack) {
+					return;
+				}
+				var iIndex = this.oItemHelper.getItemIndexByKey(mSession.oProduct.StockItemUUID, mSession.oProduct.Huident);
+
+				if (iIndex === -1) {
+					throw new CustomError(Const.ERRORS.NO_ENOUGH_QUANTITY_APPLIED, mSession);
+				}
+				mSession.oApplyProduct = this.oItemHelper.getItemByIndex(iIndex);
+				if (mSession.iApplyQuantity > Util.parseNumber(mSession.oApplyProduct.AlterQuan)) {
+					throw new CustomError(Const.ERRORS.NO_ENOUGH_QUANTITY_APPLIED, mSession);
+				}
+				var oPackInfo = {
+					oProduct: mSession.oApplyProduct,
+					sQuantity: mSession.iApplyQuantity.toString(),
+					iIndex: iIndex,
+					bAdd: false
+				};
+
+				return oFactory.getPackItemWorkFlow().run(oPackInfo);
+
+			}, oSourceController)
+			.then(function (preResult, oParam) {
+				oParam.sODO = "";
+				oParam.sPackInstr = "";
+				if (this.oItemHelper.getHighLightedItemIndex() === 0) {
+					oParam.sODO = this.oItemHelper.getItemDocNoByIndex(0);
+					oParam.sPackInstr = this.oItemHelper.getItemPackInstrByIndex(0);
+				}
+			}, oSourceController)
+			.then(function (preResult, oParam) {
+				this.updatePackingInstr(oParam.sODO, oParam.sPackInstr);
+			}, oShipController, "update packing info")
+			.then(function (preRequest, mSession) {
+				this.clearGrossWeight();
+				this.updateInputWithDefault(mSession.mSource);
+			}, oShipController);
+
+		oWorkFlow
+			.errors()
+			.subscribe(Const.ERRORS.NO_ENOUGH_QUANTITY_APPLIED, function (mSession) {
+				var sError = this.getI18nText("noEnoughQuantityPack", mSession.oProduct.DefaultAltQuan);
+				this.updateInputWithError(mSession.mSource, sError);
+			}, oShipController)
+			.always(function (sError, vParam, mSession) {
+				this.playAudio(Const.ERROR);
+			}, oShipController);
+		return oWorkFlow;
+
+	};
+});

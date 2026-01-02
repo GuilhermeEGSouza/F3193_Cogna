@@ -1,4 +1,243 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/model/Global","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/utils/Const"],function(M,U,C){"use strict";return{getExceptionList:function(){return M.getProperty("/exceptionList");},setExceptionList:function(e){M.setProperty("/exceptionList",e);return this;},getSourceId:function(){return M.getProperty("/sourceId");},setSourceId:function(s){M.setProperty("/sourceId",s);return this;},getSourceType:function(){return M.getProperty("/sourceType");},setSourceType:function(s){M.setProperty("/sourceType",s);return this;},isSourceTypeODO:function(){var s=this.getSourceType();return s===C.SOURCE_TYPE_ODO;},setWarehouseNumber:function(w){M.setProperty("/warehouseNumber",w);return this;},setDefaultWarehouseNumber:function(w){M.setProperty("/defaultWarehouseNumber",w);return this;},getDefaultWarehouseNumber:function(){return M.getProperty("/defaultWarehouseNumber");},setPackStation:function(w){M.setProperty("/workstation",w);return this;},getWarehouseNumber:function(){return M.getProperty("/warehouseNumber");},getPackStation:function(){return M.getProperty("/workstation");},setScaleEnabled:function(e){M.setProperty("/scaleEnabled",e);},getScaleEnabled:function(e){return M.getProperty("/scaleEnabled");},setCurrentShipHandlingUnit:function(h){M.setProperty("/currentShipHandlingUnit",h);return this;},getCurrentShipHandlingUnit:function(){return M.getProperty("/currentShipHandlingUnit");},setCurrentShipHandlingUnitClosed:function(c){M.setProperty("/currentShipHandlingUnitClosed",c);return this;},getCurrentShipHandlingUnitClosed:function(){return M.getProperty("/currentShipHandlingUnitClosed");},getShipHandlingUnits:function(){return M.getProperty("/shipHandlingUnits");},setShipHandlingUnits:function(h){M.setProperty("/shipHandlingUnits",h);return this;},removeAllShipHandlingUnits:function(){M.setProperty("/shipHandlingUnits",[]);return this;},removeShipHandlingUnit:function(h){var H=M.getProperty("/shipHandlingUnits");var i=H.indexOf(h);if(i!==-1){H.splice(i,1);}M.setProperty("/shipHandlingUnits",H);return this;},addShipHandlingUnit:function(h){var H=M.getProperty("/shipHandlingUnits");H.unshift(h);M.setProperty("/shipHandlingUnits",H);return this;},changeShipHandlingUnit:function(o,n){var h=M.getProperty("/shipHandlingUnits");var i=h.indexOf(o);if(i!==-1){h[i]=n;}M.setProperty("/shipHandlingUnits",h);return this;},setExceptionEnable:function(e){M.setProperty("/exceptionEnable",e);},getExceptionEnable:function(){return M.getProperty("/exceptionEnable");},setPackAllEnable:function(e){M.setProperty("/packAllEnable",e);},getPackAllEnable:function(){return M.getProperty("/packAllEnable");},setSourceMaterialId:function(m){M.setProperty("/sourceMaterialId",m);},getSourceMaterialId:function(){return M.getProperty("/sourceMaterialId");},isShipHandlingUnitExist:function(h){var H=M.getProperty("/shipHandlingUnits");var r=U.find(H,function(s){if(s===h){return true;}return false;});if(r){return true;}return false;},isShipHandlingUintActived:function(h){var c=this.getCurrentShipHandlingUnit();return c===h;},hasOpenShipHandlingUnit:function(){var s=this.getShipHandlingUnits();return s.length===0?false:true;},setBusy:function(b){M.setProperty("/busy",!!b);},setCloseShipHUEnable:function(e){M.setProperty("/closeShipHUEnable",e);},getCloseShipHUEnable:function(){return M.getProperty("/closeShipHUEnable");},isOnCloud:function(){return M.getProperty("/isOnCloud");},setIsOnCloud:function(o){M.setProperty("/isOnCloud",o);return this;},setBin:function(b){M.setProperty("/bin",b);return this;},getBin:function(){return M.getProperty("/bin");},setUnpackEnable:function(v){M.setProperty("/unpackEnable",v);return this;},getProductId:function(){return M.getProperty("/productId");},setProductId:function(v){M.setProperty("/productId",v);return this;},setAsyncMode:function(a){M.setProperty("/asyncMode",a);return this;},getAsyncMode:function(){return M.getProperty("/asyncMode");},getPendingTaskNumber:function(){return M.getProperty("/pendingTaskNumber");},increasePendingTaskNumber:function(){var n=M.getProperty("/pendingTaskNumber")+1;M.setProperty("/pendingTaskNumber",n);return n;},decreasePendingTaskNumber:function(){var n=M.getProperty("/pendingTaskNumber")-1;M.setProperty("/pendingTaskNumber",n>0?n:0);return n;},resetPendingTaskNumber:function(){M.setProperty("/pendingTaskNumber",0);},isPackFromBin:function(){return this.getBin()===this.getSourceId();},setIsPickHUInSourceSide:function(v){M.setProperty("/isPickHUInSourceSide",v);},getIsPickHUInSourceSide:function(){return M.getProperty("/isPickHUInSourceSide");},getCheckConsolidationGroup:function(){return M.getProperty("/checkConsolidationGroup");},setCheckConsolidationGroup:function(v){M.setProperty("/checkConsolidationGroup",v);},setSelectedProductInSource:function(p){M.setProperty("/selectedProductInSource",p);},getSelectedProductInSource:function(){return M.getProperty("/selectedProductInSource");},setSelectedProductInShip:function(p){M.setProperty("/selectedProductInShip",p);},getSelectedProductInShip:function(){return M.getProperty("/selectedProductInShip");}};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/model/Global",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/utils/Const"
+], function (Model, Util, Const) {
+	"use strict";
+	return {
+		getExceptionList: function () {
+			return Model.getProperty("/exceptionList");
+		},
+		setExceptionList: function (aExceptionList) {
+			Model.setProperty("/exceptionList", aExceptionList);
+			return this;
+		},
+		getSourceId: function () {
+			return Model.getProperty("/sourceId");
+		},
+		setSourceId: function (sourceId) {
+			Model.setProperty("/sourceId", sourceId);
+			return this;
+		},
+
+		getSourceType: function () {
+			return Model.getProperty("/sourceType");
+		},
+		setSourceType: function (sourceType) {
+			Model.setProperty("/sourceType", sourceType);
+			return this;
+		},
+		isSourceTypeODO: function () {
+			var sSourceType = this.getSourceType();
+			return sSourceType === Const.SOURCE_TYPE_ODO;
+		},
+		setWarehouseNumber: function (warehouseNumber) {
+			Model.setProperty("/warehouseNumber", warehouseNumber);
+			return this;
+		},
+		setDefaultWarehouseNumber: function (warehouseNumber) {
+			Model.setProperty("/defaultWarehouseNumber", warehouseNumber);
+			return this;
+		},
+		getDefaultWarehouseNumber: function () {
+			return Model.getProperty("/defaultWarehouseNumber");
+		},
+		
+		setPackStation: function (workstation) {
+			Model.setProperty("/workstation", workstation);
+			return this;
+		},
+		getWarehouseNumber: function () {
+			return Model.getProperty("/warehouseNumber");
+		},
+		getPackStation: function () {
+			return Model.getProperty("/workstation");
+		},
+		setScaleEnabled: function (bEnable) {
+			Model.setProperty("/scaleEnabled", bEnable);
+		},
+		getScaleEnabled: function (bEnable) {
+			return Model.getProperty("/scaleEnabled");
+		},
+		setCurrentShipHandlingUnit: function (handlingUnitId) {
+			Model.setProperty("/currentShipHandlingUnit", handlingUnitId);
+			return this;
+		},
+		getCurrentShipHandlingUnit: function () {
+			return Model.getProperty("/currentShipHandlingUnit");
+		},
+		setCurrentShipHandlingUnitClosed: function (bClosed) {
+			Model.setProperty("/currentShipHandlingUnitClosed", bClosed);
+			return this;
+		},
+		getCurrentShipHandlingUnitClosed: function () {
+			return Model.getProperty("/currentShipHandlingUnitClosed");
+		},
+		getShipHandlingUnits: function () {
+			return Model.getProperty("/shipHandlingUnits");
+		},
+		setShipHandlingUnits: function (aHus) {
+			Model.setProperty("/shipHandlingUnits", aHus);
+			return this;
+		},               
+		removeAllShipHandlingUnits: function () {
+			Model.setProperty("/shipHandlingUnits", []);
+			return this;
+		},
+		removeShipHandlingUnit: function (handlingUnitId) {
+			var aHandlingUnit = Model.getProperty("/shipHandlingUnits");
+			var iIndex = aHandlingUnit.indexOf(handlingUnitId);
+
+			if (iIndex !== -1) {
+				aHandlingUnit.splice(iIndex, 1);
+			}
+			Model.setProperty("/shipHandlingUnits", aHandlingUnit);
+			return this;
+		},
+		addShipHandlingUnit: function (handlingUnitId) {
+			var aHandlingUnit = Model.getProperty("/shipHandlingUnits");
+			aHandlingUnit.unshift(handlingUnitId);
+			Model.setProperty("/shipHandlingUnits", aHandlingUnit);
+			return this;
+		},
+		changeShipHandlingUnit: function (sOldId, sNewId) {
+			var aHandlingUnit = Model.getProperty("/shipHandlingUnits");
+			var iIndex = aHandlingUnit.indexOf(sOldId);
+
+			if (iIndex !== -1) {
+				aHandlingUnit[iIndex] = sNewId;
+			}
+			Model.setProperty("/shipHandlingUnits", aHandlingUnit);
+			return this;
+		},
+		setExceptionEnable: function (bExceptionEnable) {
+			Model.setProperty("/exceptionEnable", bExceptionEnable);
+		},
+		getExceptionEnable: function () {
+			return Model.getProperty("/exceptionEnable");
+		},
+
+		setPackAllEnable: function (bEnable) {
+			Model.setProperty("/packAllEnable", bEnable);
+		},
+		getPackAllEnable: function () {
+			return Model.getProperty("/packAllEnable");
+		},
+		setSourceMaterialId: function (sMaterialId) {
+			Model.setProperty("/sourceMaterialId", sMaterialId);
+		},
+		getSourceMaterialId: function () {
+			return Model.getProperty("/sourceMaterialId");
+		},
+		isShipHandlingUnitExist: function (sHandlingUnitId) {
+			var aHandlingUnit = Model.getProperty("/shipHandlingUnits");
+			var oResult = Util.find(aHandlingUnit, function (sHandlingUnit) {
+				if (sHandlingUnit === sHandlingUnitId) {
+					return true;
+				}
+				return false;
+			});
+			if (oResult) {
+				return true;
+			}
+			return false;
+		},
+		isShipHandlingUintActived: function (sHandlingUnitId) {
+			var sCurrentShipHUId = this.getCurrentShipHandlingUnit();
+			return sCurrentShipHUId === sHandlingUnitId;
+		},
+		hasOpenShipHandlingUnit: function () {
+			var aShipHUs = this.getShipHandlingUnits();
+			return aShipHUs.length === 0 ? false : true;
+		},
+		setBusy: function (bBusy) {
+			Model.setProperty("/busy", !!bBusy);
+		},
+		setCloseShipHUEnable: function (bEnable) {
+			Model.setProperty("/closeShipHUEnable", bEnable);
+		},
+		getCloseShipHUEnable: function () {
+			return Model.getProperty("/closeShipHUEnable");
+		},
+		isOnCloud: function () {
+			return Model.getProperty("/isOnCloud");
+		},
+		setIsOnCloud: function (bOnCloud) {
+			Model.setProperty("/isOnCloud", bOnCloud);
+			return this;
+		},
+		setBin: function (sBin) {
+			Model.setProperty("/bin", sBin);
+			return this;
+		},
+		getBin: function () {
+			return Model.getProperty("/bin");
+		},
+		setUnpackEnable: function (bValue) {
+			Model.setProperty("/unpackEnable", bValue);
+			return this;
+		},
+		getProductId: function () {
+			return Model.getProperty("/productId");
+		},
+		setProductId: function (bValue) {
+			Model.setProperty("/productId", bValue);
+			return this;
+		},
+		setAsyncMode: function (bAsync) {
+			Model.setProperty("/asyncMode", bAsync);
+			return this;
+		},
+		getAsyncMode: function () {
+			return Model.getProperty("/asyncMode");
+		},
+		getPendingTaskNumber: function () {
+			return Model.getProperty("/pendingTaskNumber");
+		},
+		increasePendingTaskNumber: function () {
+			var iNumber = Model.getProperty("/pendingTaskNumber") + 1;
+			Model.setProperty("/pendingTaskNumber", iNumber);
+			return iNumber;
+		},
+		decreasePendingTaskNumber: function () {
+			var iNumber = Model.getProperty("/pendingTaskNumber") - 1;
+			Model.setProperty("/pendingTaskNumber", iNumber > 0 ? iNumber : 0);
+			return iNumber;
+		},
+		resetPendingTaskNumber: function () {
+			Model.setProperty("/pendingTaskNumber", 0);
+		},
+		isPackFromBin: function () {
+			return this.getBin() === this.getSourceId();
+		},
+		//set if a source handling unit/bin or ship handling unit is displaying in the source side
+		setIsPickHUInSourceSide: function (bValue) {
+			Model.setProperty("/isPickHUInSourceSide", bValue);
+		},
+		//get if a source handling unit/bin or ship handling unit is displaying in the source side
+		getIsPickHUInSourceSide: function () {
+			return Model.getProperty("/isPickHUInSourceSide");
+		},
+		getCheckConsolidationGroup: function () {
+			return Model.getProperty("/checkConsolidationGroup");
+		},
+		setCheckConsolidationGroup: function (bValue) {
+			Model.setProperty("/checkConsolidationGroup", bValue);
+		},
+		setSelectedProductInSource: function(mProduct) {
+			Model.setProperty("/selectedProductInSource", mProduct);
+		},
+		getSelectedProductInSource: function() {
+			return Model.getProperty("/selectedProductInSource");
+		},
+		setSelectedProductInShip: function(mProduct) {
+			Model.setProperty("/selectedProductInShip", mProduct);
+		},
+		getSelectedProductInShip: function() {
+			return Model.getProperty("/selectedProductInShip");
+		}
+	};
+});

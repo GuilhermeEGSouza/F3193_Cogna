@@ -1,4 +1,60 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/workflows/WorkFlow","scm/ewm/packoutbdlvs1/service/ODataService","scm/ewm/packoutbdlvs1/modelHelper/Global","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/utils/Const","scm/ewm/packoutbdlvs1/modelHelper/Message"],function(W,S,G,U,C,M){"use strict";return function(s,o){var w=new W().then(function(p,m){return S.getOpenShippingHU();},o).then(function(p,m){this.setBusy(false);m.aShipHUs=p;if(p.length>1){var a=this.getI18nText("moreThanOneShipHUMsg");this.showErrorMessageBox(a);throw new Error();}else{G.addShipHandlingUnit(p[0].HuId);this.restoreShipHUTabs(p);return p;}},o).then(function(p,m){p.forEach(function(a){this.clearActualWeight(a.HuId);}.bind(this));},o).then(function(p,m){this.oItemHelper.setItems(m.aShipHUs[m.aShipHUs.length-1].Items.results);},o);w.errors().subscribe(C.ERRORS.CREATE_HU_DUPLICATE,function(e){M.addError(e);}).subscribe(C.ERRORS.SHIP_HU_CREATED_INTERNALLY,function(e){M.addError(e);}).subscribe(C.ERRORS.INTERVAL_HU_ID_NOT_DEFINED,function(){var e=this.getI18nText("createShipHUContactAdmin");this.showErrorMessageBox(e);},o).always(function(){G.setBusy(false);this.playAudio(C.ERROR);});return w;};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/workflows/WorkFlow",
+	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"scm/ewm/packoutbdlvs1/modelHelper/Message"
+], function(WorkFlow, Service, Global, Util, Const, Message) {
+	"use strict";
+	return function(oSourceController, oShipController) {
+		var oWorkFlow = new WorkFlow()
+			.then(function(preResult, mSession) {
+				return Service.getOpenShippingHU();
+			}, oShipController)
+			.then(function(preResult, mSession) {
+				this.setBusy(false);
+				mSession.aShipHUs = preResult;
+				if (preResult.length > 1) {
+					var sMessage = this.getI18nText("moreThanOneShipHUMsg");
+					this.showErrorMessageBox(sMessage);
+					throw new Error();
+				} else {
+					//todo 0 open ship hu shouldn't execute the work flow 
+					Global.addShipHandlingUnit(preResult[0].HuId);
+					this.restoreShipHUTabs(preResult);
+					return preResult;
+				}
+			}, oShipController)
+			.then(function(preResult, mSession) {
+				preResult.forEach(function(oShipHU) {
+					this.clearActualWeight(oShipHU.HuId);
+				}.bind(this));
+			}, oShipController)
+			.then(function(preResult, mSession) {
+				this.oItemHelper.setItems(mSession.aShipHUs[mSession.aShipHUs.length - 1].Items.results);
+			}, oShipController);
+
+		oWorkFlow
+			.errors()
+			.subscribe(Const.ERRORS.CREATE_HU_DUPLICATE, function(sError) {
+				Message.addError(sError);
+			})
+			.subscribe(Const.ERRORS.SHIP_HU_CREATED_INTERNALLY, function(sError) {
+				Message.addError(sError);
+			})
+			.subscribe(Const.ERRORS.INTERVAL_HU_ID_NOT_DEFINED, function() {
+				var sError = this.getI18nText("createShipHUContactAdmin");
+				this.showErrorMessageBox(sError);
+			}, oShipController)
+			.always(function() {
+				Global.setBusy(false);
+				this.playAudio(Const.ERROR);
+			});
+		return oWorkFlow;
+
+	};
+});

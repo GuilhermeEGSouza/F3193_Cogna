@@ -1,4 +1,1493 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/controller/WorkFlowController","scm/ewm/packoutbdlvs1/utils/CustomError","scm/ewm/packoutbdlvs1/utils/Const","scm/ewm/packoutbdlvs1/modelHelper/Global","scm/ewm/packoutbdlvs1/modelHelper/Cache","scm/ewm/packoutbdlvs1/utils/Util","sap/tl/ewm/lib/reuses1/controllers/Base.controller","scm/ewm/packoutbdlvs1/modelHelper/OData","scm/ewm/packoutbdlvs1/modelHelper/Items","sap/ui/model/json/JSONModel","scm/ewm/packoutbdlvs1/modelHelper/SerialNumber","sap/m/ListMode","scm/ewm/packoutbdlvs1/service/ODataService","sap/ui/core/ValueState","scm/ewm/packoutbdlvs1/modelHelper/PackingMode","sap/m/MessageBox","scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting","scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings","scm/ewm/packoutbdlvs1/model/PackingMode","scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting","scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting"],function(C,a,b,G,c,U,d,O,T,J,S,L,e,V,P,M,A,f,g,B,I){"use strict";var s="serialNumberDialog";var h="id-input-serialNumber";var j="stockLevelSnDialog";var k="stockLevel-sn-input";var l="batchDialog";var m="batch-input";var p="partial-pack-input";var n="difference-quantity-input";var o="damage-quantity-input";var q="id-input-serialNumber-difference-pack";var r="id-input-serialNumber-partial-pack";var t="id-input-serialNumber-damage-pack";var u="reductionDialog";return C.extend("scm.ewm.packoutbdlvs1.controller.Left",{oItemHelper:new T(new J([])),oColumnSettingsHelper:new f(new J([])),bLoaded:false,addElement:function(){var v=this.byId("product-info");var E;var F;var w=this.getView();var x=this.getItemProperties();var y,z,D;for(var i=0;i<x.length;i++){sap.ui.getCore().byId();E=new sap.ui.layout.form.FormElement(w.createId("element"+i),{"visible":false});y=U.find(x[i].extensions,function(H){if(H.name==="label"){return true;}return false;});z=U.isEmpty(y)?x[i].name:y.value;E.setLabel(z);D="{itemModel>"+x[i].name+"}";F=new sap.m.Text(w.createId("field"+i),{"text":D});E.addField(F);v.addFormElement(E);}this.bLoaded=true;},onAfterRendering:function(){if(!this.bLoaded){this.addElement();}},initModel:function(){this.setModel(this.oItemHelper.getModel(),b.ITEM_MODEL_NAME);this.oProductForm=this.byId("product-info");this.oODOForm=this.byId("deliver-info");this.oProductHandlingInstr=this.byId("ProductHandlingInstr");this.oProductImage=this.byId("prod-image");this.sTableId="SourceProductTable";this.setModel(this.oColumnSettingsHelper.getModel(),b.COLUM_SETTING_MODEL_NAME);this.setModel(g,"packMode");},init:function(){this.setButtonToolTip("open-partial-pack-button");this.setButtonToolTip("pack-all-button");this.setButtonToolTip("pack-button");this.getRouter().attachRouteMatched(this.onRouteMatched,this);if(G.isOnCloud()){this.oProductImage.setVisible(false);}},attachHeightListener:function(){var R=window.ResizeObserver;var i=this.byId("pod---source--form")||this.byId("pod---simplesource--form")||this.byId("pod---internalsource--form--product");var v=document.getElementById(i.getId());var w=this.byId("product-info");var x=document.getElementById(w.getId());var y=v.clientHeight;var z=new R(function(E){if(y!=v.clientHeight){this.publish("adjustHeight",b.EVENT_BUS.EVENTS.SUCCESS);}}.bind(this));var D={attributes:true};z.observe(v,D);},removeDuplicatedId:function(){var i=this.getOwnerComponent().getId();var v=[b.ID.MAIN_SOURCE_VIEW,b.ID.MAIN_SHIP_VIEW,b.ID.INTERNAL_SOURCE_VIEW,b.ID.INTERNAL_SHIP_VIEW];var w=["pod---snuii--hbox","pod---snuii--snlabel"];var E;v.forEach(function(x){w.forEach(function(y){E=sap.ui.getCore().byId(i+x+y);if(E){E.destroy();}});});},getPersonlServiceContainerItemName:function(){if(P.isAdvancedMode()){return"advancedSourceTableSettings";}else if(P.isBasicMode()){return"basicSourceTableSettings";}else{return"internalSourceTableSettings";}},getDefaultColumnSettingNameInService:function(){if(P.isAdvancedMode()){return"advancedSourceDefaultSettings";}else if(P.isBasicMode()){return"basicSourceDefaultSettings";}else{return"internalSourceDefaultSettings";}},getDefaultColumnSetting:function(){if(P.isAdvancedMode()){return JSON.parse(JSON.stringify(this._mAdvancedSourceTableDefaultSettings));}else if(P.isBasicMode()){return JSON.parse(JSON.stringify(this._mBasicSourceDefaultDefaultSettings));}else{return JSON.parse(JSON.stringify(this._mInternalSourceTableDefaultSettings));}},getViewName:function(){return b.VIEW_SOURCE;},getTableSettingDialogName:function(){return"scm.ewm.packoutbdlvs1.view.SourceTableSettingDialog";},initSubscription:function(){this.subscribe(b.EVENT_BUS.CHANNELS.USER_SETTING,b.EVENT_BUS.EVENTS.SUCCESS,function(){this.focus(b.ID.SOURCE_INPUT);}.bind(this));this.subscribe(b.EVENT_BUS.CHANNELS.EXCEPTION_LIST,b.EVENT_BUS.EVENTS.SUCCESS,function(i,E,R){this.initExceptionButtons(R);}.bind(this));this.subscribe(b.EVENT_BUS.CHANNELS.EXCEPTION_ENABLE,b.EVENT_BUS.EVENTS.SUCCESS,function(i,E){this.handleExceptionEnable();}.bind(this));this.subscribe(b.EVENT_BUS.CHANNELS.PACKALL_ENABLE,b.EVENT_BUS.EVENTS.SUCCESS,function(i,E){this.handlePackAllEnable();}.bind(this));this.subscribe(b.EVENT_BUS.CHANNELS.ROUTE_MATCHED,b.EVENT_BUS.EVENTS.SUCCESS,function(i,E){this.getWorkFlowFactory().getClearWorkFlow().run();}.bind(this));},onSourceInputChange:function(E){var i=U.trim(E.getParameter("newValue")).toUpperCase();this.getWorkFlowFactory().getSourceChangeWorkFlow().run({sReferenceNumber:i});},onPack:function(E){var i=this.oItemHelper.getItemByIndex(0);var v={oProduct:i,sQuantity:i.AlterQuan,iIndex:0,bAdd:true};this.getWorkFlowFactory().getPackItemWorkFlow().run(v);},onPackAll:function(){this.setBusy(true);var i=this.oItemHelper.getModel().getData();this.getWorkFlowFactory().getPackAllWorkFlow().run(i);},onProductChange:function(E){var i=U.trim(E.getParameter("newValue")).toUpperCase();var v=d.prototype.getAccessCodeList.call(this);var w=U.find(v,function(x){if(i===x.ExternalAccessCode){return true;}return false;});if(w){this.actionWithAccessCode(w);}else{this.getWorkFlowFactory().getProductChangeWorkFlow().run(i);}},isAccessCodeRelatedToSourceHU:function(i){switch(i){case b.ACCESS_CODE.PACK_ITEM:case b.ACCESS_CODE.PACK_ALL:return true;default:return false;}},isAccessCodeAllowedWhenPendingExist:function(i){switch(i){case b.ACCESS_CODE.PACK_ITEM:case b.ACCESS_CODE.CLOSE_HU:return true;default:return false;}},actionWithAccessCode:function(i){var E="";var v=i.InternalAccessCode;if(G.getPendingTaskNumber()>0&&!this.isAccessCodeAllowedWhenPendingExist(v)){this.updateInputWithError(b.ID.PRODUCT_INPUT,this.getI18nText("cannotPerformAccessCode"));this.focus(b.ID.PRODUCT_INPUT);return;}if(this.isAccessCodeRelatedToSourceHU(v)){if(U.isEmpty(G.getSourceId())){E="ACCESS_CODE_NO_SOURCE_SPECIFIED";}else if(this.oItemHelper.isEmpty()){E="ACCESS_CODE_SOURCE_EMPTY";}}switch(v){case b.ACCESS_CODE.PACK_ITEM:if(this.oItemHelper.isFirstItemHighlighted()){var w=this.oItemHelper.getItemByIndex(0);var x={oProduct:w,sQuantity:w.AlterQuan,iIndex:0,bAdd:true};this.getWorkFlowFactory().getPackItemWorkFlow().run(x);}else{E=E||"ACCESS_CODE_NOT_PRODUCT_SELECTED";}break;case b.ACCESS_CODE.PACK_ALL:if(G.getPackAllEnable()){this.onPackAll();}else{E=E||"ACCESS_CODE_PACK_ALL_DISABLE";}break;case b.ACCESS_CODE.CLOSE_HU:if(G.getCloseShipHUEnable()){this.updateInputWithDefault(b.ID.PRODUCT_INPUT,"");this.getWorkFlowFactory().getShipHUCloseWorkFlow().run();}else{E="ACCESS_CODE_CLOSE_HU_DISABLE";}break;case b.ACCESS_CODE.CREATE_HU:if(P.getSelectedMode()===b.ADVANCED_MODE||P.getSelectedMode()===b.INTERNAL_MODE){var y={};y.bOpen=true;this.getWorkFlowFactory().getShipHUCreationWorkFlow().run(y);}else{E=E||"ACCESS_CODE_CREATE_HU_DISABLE";}break;default:E="ACCESS_CODE_INVALID";}if(E){E="accessCodeNotApplicable";var z;if(U.isEmpty(i.Description)){z="";}else{z="("+i.Description+")";}var D=this.getI18nText(E,[i.ExternalAccessCode,z]);this.updateInputWithError(b.ID.PRODUCT_INPUT,D);this.playAudio(b.ERROR);this.focus(b.ID.PRODUCT_INPUT);}else{this.updateInputWithDefault(b.ID.PRODUCT_INPUT,"");}},verifyProductEAN:function(i){return new Promise(function(v,w){var x;if(U.isString(i)){x=i;e.verifyProduct(x).then(function(R){v(R.ProductName);}).catch(function(){w(x);});}else{v(i.ProductName);}}.bind(this));},getItemIndexByProductOrEAN:function(i,v){return new Promise(function(w,x){this.updateInputWithDefault(b.ID.PRODUCT_INPUT,"");var y;this.verifyProductEAN(i).then(function(z){v.sProduct=z;if(U.isString(i)){y=this.oItemHelper.getItemIndexByProduct(v.sProduct);}else{y=this.oItemHelper.getItemIndexByKey(i.StockItemUUID,i.Huident);}if(y!==-1){v.iItemIndex=y;if(G.getPendingTaskNumber()>0){var D=this.oItemHelper.getItemConsGroupByIndex(y);var E=c.getShipHUConsGroup(G.getCurrentShipHandlingUnit());if(E!==D&&G.getCheckConsolidationGroup()){throw new a(b.ERRORS.PRODUCT_WITH_DIFF_CONS_GROUP);}}v.oProduct=this.oItemHelper.getItemByIndex(v.iItemIndex);w();}else{x(b.ERRORS.PRODUCT_NOT_IN_SOURCE);}}.bind(this)).catch(function(z){v.sProduct=z;x(b.ERRORS.PRODUCT_NOT_IN_SOURCE);}.bind(this));}.bind(this));},prepareDataForProductChangeWorkFlow:function(i){i.sProduct=this.oItemHelper.getItemProductByIndex(i.iItemIndex);var v=G.getCurrentShipHandlingUnit();i.sShipConsGroup=c.getShipHUConsGroup(v);G.setProductId(i.sProduct);},getItemIndexByProductAndActiveConsGroup:function(i){if(!U.isEmpty(i.sShipConsGroup)){var v=this.oItemHelper.getItemIndexByProductAndActiveConsGroup(i.oProduct,i.sShipConsGroup);if(v!==-1){i.iItemIndex=v;}}},updateUIElementsAfterProductChange:function(){this.bindProductInfo();this.updateInputWithDefault(b.ID.PRODUCT_INPUT,"");this.focus(b.ID.PRODUCT_INPUT);this.handleHighLightFirstItem();},handleHighLightFirstItem:function(){var i=G.getCurrentShipHandlingUnit();if(!U.isEmpty(i)){var v=this.oItemHelper.getFirstItemConsGroup();var w=c.getShipHUConsGroup(i);this.oItemHelper.setItemsStatusByConsGrp();if(w===v||w===""){this.oItemHelper.setItemHighlightByIndex(0);}}else{this.oItemHelper.setItemsStatusByConsGrp();}},bindProductInfo:function(){var i=this.oItemHelper.getItemStockIdByIndex(0);var v=O.getProductPath(i);this.oProductForm.bindElement(v);this.oProductHandlingInstr.bindElement(v);this.bindAddictionalProductInfo();},bindAddictionalProductInfo:function(){var E=this.oProductForm.getFormElements();E.forEach(function(i){if(U.containString(i.getId(),"-element")){i.bindElement(b.ITEM_MODEL_NAME+">/0");i.getFields()[0].setVisible(true);}});if(!U.isEmpty(this.oODOForm)){E=this.oODOForm.getFormElements();E.forEach(function(i){if(U.containString(i.getId(),"-element")){i.bindElement(b.ITEM_MODEL_NAME+">/0");i.getFields()[0].setVisible(true);}});}},unbindAddictionalProductInfo:function(){var E=this.oProductForm.getFormElements();E.forEach(function(i){if(U.containString(i.getId(),"-element")){i.unbindElement();i.getFields()[0].setVisible(false);}});if(!U.isEmpty(this.oODOForm)){E=this.oODOForm.getFormElements();E.forEach(function(i){if(U.containString(i.getId(),"-element")){i.unbindElement();i.getFields()[0].setVisible(false);}});}},bindImage:function(){var i=this.oItemHelper.getItemStockIdByIndex(0);var v=O.getProductPath(i);this.oProductImage.bindElement(v);},unbindImage:function(){this.oProductImage.unbindElement();},unbindProductInfo:function(){this.oProductForm.unbindElement();this.oProductHandlingInstr.unbindElement();this.unbindAddictionalProductInfo();},prepareParemeterForCreation:function(i,v){v.sMaterialId=i.sMaterialId;v.oComponent=i.oDialog;v.sHuId=i.sHuId;v.sourceItems=this.oItemHelper.getItemsNum();v.isSingleConsGroupNoReduction=this.oItemHelper.isSingleConsolidationGroup()&&!this.oItemHelper.isOrderReductionExist();v.isSNEnable=this.oItemHelper.isSerialNumberEnable();if(this.oItemHelper.isEmpty()){v.sDocId="";}else{v.sDocId=this.oItemHelper.getItemDocIdByIndex(0);}},handleFocusAndHighlightForCreation:function(){if(U.isEmpty(G.getSourceId())){this.focus(b.ID.SOURCE_INPUT);}else{this.focus(b.ID.PRODUCT_INPUT);var i=G.getProductId();if(!U.isEmpty(i)){this.oItemHelper.setItemHighlightByIndex(0);}}},handlePackAllEnable:function(){var E=false;if(G.getPendingTaskNumber()===0&&this.oItemHelper.isSingleConsolidationGroup()&&!this.oItemHelper.isOrderReductionExist()&&!O.isShipHUClosed()&&!this.oItemHelper.isSerialNumberEnable()){E=this.canFirstSourceItemPackToCurrentShipHU();}G.setPackAllEnable(E);},onBeforeOpenPartialDialog:function(E){this.initUoMItems("partial-uom-select");this.updateInputWithDefault(p,"");},onBeforeOpenDifferenceDialog:function(E){this.initUoMItems("difference-uom-select");this.updateInputWithDefault(n,"");},onBeforeOpenDamageDialog:function(E){this.initUoMItems("damage-uom-select");this.updateInputWithDefault(o,"");},onAfterOpenPartialDialog:function(){this.focus(p);},onAfterOpenDifferenceDialog:function(){this.focus(n);},onAfterOpenDamageDialog:function(){this.focus(o);},initUoMItems:function(i){var v=this.getUoMSelection();var w=this.byId(i);w.removeAllItems();v.forEach(function(x){w.addItem(x);});w.setSelectedItem(v[0]);},getUoMSelection:function(){var i=this.oItemHelper.getItemAlternativeUoMByIndex(0);var v=this.oItemHelper.getItemBaseUoMByIndex(0);var w=[];w.push(new sap.ui.core.Item({key:b.UOM_TYPE.ALTER,text:i}));if(i!==v){w.push(new sap.ui.core.Item({key:b.UOM_TYPE.BASE,text:v}));}return w;},openPartialPack:function(){var v=this.getView();var D;if(this.oItemHelper.isSerialNumberEnableItem()){D=v.byId("serialNumberPartialPackDialog");if(!D){D=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.SerialNumberPartialPackDialog",this);v.addDependent(D);}this.updateInputWithDefault(r,"");S.clearSerialNumbersList();}else{D=v.byId("partialDialog");if(!D){D=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.PartialPackDialog",this);v.addDependent(D);}}this.openDialog(D).catch(function(E){});},onPartialPackQuantityChange:function(E){var i=U.trim(E.getParameter("newValue"));if(!U.isEmpty(i)){var Q=U.parseNumber(i);var v=U.formatNumber(Q);var w=U.parseNumber(this.oItemHelper.getItemQuantityByIndex(0));if(U.isEmpty(v)||Q>=w||Q<=0){this.updateInputWithError(p);this.playAudio(b.ERROR);}else{this.updateInputWithDefault(p,v);}}},onExceptionQuantitySubmit:function(E){var i=U.trim(E.getParameter("value"));var v=E.getSource();if(!U.isEmpty(i)){var Q=U.parseNumber(i);this.checkQuantityOverflow(Q,v);}},fireInputChange:function(i,v){i.fireChange({newValue:v});},getNewItemWithPartialQuantity:function(i,R){var N=JSON.parse(JSON.stringify(i));if(N.StockItemUUID!==R.StockItemUUID){N.OriginId=N.StockItemUUID;N.StockItemUUID=R.StockItemUUID;}N.AlterQuan=U.formatNumber(parseFloat(R.DesAlterQuan),3);N.AlternativeUnit=R.DesAlterUoM;N.Quan=U.formatNumber(parseFloat(R.DesQuan),3);N.NetWeight=U.formatNumber(parseFloat(R.DesWeight),3,3);N.WeightUoM=R.DesUnitGw;N.Volume=U.formatNumber(parseFloat(R.DesVolume),3,3);N.VolumeUoM=R.DesUnitGv;return N;},getProductQuantityByUoM:function(i){var v;if(i===b.UOM_TYPE.ALTER){v=U.parseNumber(this.oItemHelper.getItemQuantityByIndex(0));}else{v=U.parseNumber(this.oItemHelper.getItemBaseQtyByIndex(0));}return v;},onPartialPack:function(E){S.clearSerialNumbersList();var i=this.byId("partial-uom-select");var v=i.getSelectedKey();var w=i.getSelectedItem().getText();var Q=false;var x={};var y=this.getProductQuantityByUoM(v);var z=this.byId(p);var D=U.trim(z.getValue());if(!U.isEmpty(D)){var F=U.parseNumber(D);var H=U.formatNumber(F);if(U.isEmpty(H)||F>=y||F<=0){Q=true;}else{if(this.checkQuantityOverflow(F,z)){return;}else{this.updateInputWithDefault(p,H);}}}else{Q=true;}if(Q){this.handleEmptyQuantityInput(p,"inputQuantityNotice");return;}var K=E.getSource().getParent();K.setBusy(true);var N=this.oItemHelper.getItemByIndex(0);x.oProduct=N;x.iQuantity=F;x.oDialog=K;x.sUoM=w;x.sUoMType=v;this.getWorkFlowFactory().getPartialPackWorkFlow().run(x);},removeExceptionButtons:function(){var v=this.byId("sourcehu-buttons-toolbar");var w=v.getContent().length;for(var i=w-1;i>0;i--){var x=v.getContent()[i];var y=x.getCustomData();if(y.length!==0){v.removeContent(x);}}},initExceptionButtons:function(E){var i={};var v;var w=this.byId("sourcehu-buttons-toolbar");var x=function(y){var z=y.getSource();var D=z.getText();var F=y.getSource().getCustomData()[0].getValue();var H=y.getSource().getCustomData()[0].getKey();if(F===b.EXCCODE.DIFF){this.openDifference(H,D).catch(function(K){});}else if(F===b.EXCCODE.EXPA){this.openDamage(H,D).catch(function(K){});}}.bind(this);E.forEach(function(y){i=new sap.m.Button({text:y.Descr,enabled:"{path:'global>/exceptionEnable'}",press:x,width:"18%"});i.setTooltip(y.Descr);v=new sap.ui.core.CustomData({key:y.Exccode,value:y.InternalProcessCode});i.addCustomData(v);if(!P.isInternalMode()||y.InternalProcessCode!==b.EXCCODE.EXPA){w.insertContent(i,1);}});},openDamage:function(E,i){var v=this.getView();var D;D=v.byId("damageDialog");if(!D){D=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.DamageDialog",this);v.addDependent(D);}D.setTitle(i);D.removeAllCustomData();var w=new sap.ui.core.CustomData({key:E});D.addCustomData(w);return this.openDialog(D);},openDamageDialogWithSerialNumber:function(E,i){var v=this.getView();var D;D=v.byId("serialNumberDamageDialog");if(!D){D=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.SerialNumberDamageDialog",this);v.addDependent(D);}this.updateInputWithDefault(t,"");S.clearSerialNumbersList();D.setTitle(i);D.removeAllCustomData();var w=new sap.ui.core.CustomData({key:E});D.addCustomData(w);return this.openDialog(D);},openDifference:function(E,i){var v=this.getView();var D;if(this.oItemHelper.isSerialNumberEnableItem()){D=v.byId("serialNumberDifferenceDialog");if(!D){D=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.SerialNumberDifferenceDialog",this);v.addDependent(D);}this.updateInputWithDefault(q,"");S.clearSerialNumbersList();}else{D=v.byId("differenceDialog");if(!D){D=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.DifferenceDialog",this);v.addDependent(D);}}D.setTitle(i);D.removeAllCustomData();var w=new sap.ui.core.CustomData({key:E});D.addCustomData(w);return this.openDialog(D);},onDifferenceQuantityChange:function(E){var i=U.trim(E.getParameter("newValue"));if(!U.isEmpty(i)){var Q=U.parseNumber(i);var v=U.formatNumber(Q);var w=U.parseNumber(this.oItemHelper.getItemQuantityByIndex(0));if(U.isEmpty(v)||Q>=w||Q<0){this.updateInputWithError(n);this.playAudio(b.ERROR);}else{this.updateInputWithDefault(n,v);}}},onDifference:function(E){var i=this.byId("difference-uom-select");var v=i.getSelectedKey();var w=i.getSelectedItem().getText();var x=this.getProductQuantityByUoM(v);var Q=false;var y=this.byId(n);var z=U.trim(y.getValue());if(!U.isEmpty(z)){var D=U.parseNumber(z);var F=U.formatNumber(D);if(U.isEmpty(F)||D>=x||D<0){Q=true;}else{if(this.checkQuantityOverflow(D,y)){return;}else{this.updateInputWithDefault(n,F);}}}else{Q=true;}if(Q){this.handleEmptyQuantityInput(n,"inputQuantityNotice");return;}var H=E.getSource().getParent();var K=H.getCustomData()[0].getKey();var N=this.oItemHelper.getItemByIndex(0);H.setBusy(true);this.getWorkFlowFactory().getDiffPackWorkFlow().run([N,D,K,H,w,v]);},onDamage:function(E){var i=this.byId("damage-uom-select");var v=i.getSelectedKey();var w=i.getSelectedItem().getText();var Q=false;var x=this.getProductQuantityByUoM(v);var y=this.byId(o);var z=U.trim(y.getValue());if(!U.isEmpty(z)){var D=U.parseNumber(z);var F=U.formatNumber(D);if(U.isEmpty(F)||D>x||D<=0){Q=true;}else{if(this.checkQuantityOverflow(D,y)){return;}else{this.updateInputWithDefault(o,F);}}}else{Q=true;}if(Q){this.handleEmptyQuantityInput(o,"inputQuantityNotice");return;}var H=E.getSource().getParent();var K=H.getCustomData()[0].getKey();var N=H.getTitle();var R=this.oItemHelper.getItemByIndex(0);D=U.parseNumber(R.AlterQuan)-D;if(this.oItemHelper.isSerialNumberEnableItem()&&D!==0){H.close();this.openDamageDialogWithSerialNumber(K,N);}else{H.setBusy(true);this.getWorkFlowFactory().getDiffPackWorkFlow().run([R,D,K,H,w,v]);}},onSerialNumberExceptionChange:function(E,i){var v=U.trim(E.getParameter("newValue"));if(U.isEmpty(v)){return;}if(v.length>30){this.handleEntryLengthExceed(i);return;}if(S.getSerialNumberCount()===this.oItemHelper.getItemBaseQtyByIndex(0)-1){var w=this.getI18nText("overPackErrorMsg",this.oItemHelper.getItemBaseQtyByIndex(0));this.updateInputWithError(i,w);this.playAudio(b.ERROR);this.focus(i);return;}v=v.toUpperCase();this.verifySerialNumber(v,i);},verifySerialNumber:function(i,v){var w=this.getSerialNumberVerifyPromise(i);w.then(function(x){S.addSerialNumber(i);this.updateInputWithDefault(v,"");this.focus(v);}.bind(this)).catch(function(E){this.updateInputWithError(v,E.getDescription());this.playAudio(b.ERROR);this.focus(v);}.bind(this));},onSerialNumberDifferenceChange:function(E){this.onSerialNumberExceptionChange(E,q);},onSerialNumberPartialPackChange:function(E){this.onSerialNumberExceptionChange(E,r);},onSerialNumberDamageChange:function(E){this.onSerialNumberExceptionChange(E,t);},onSerialNumberDifferencePack:function(E){var D=E.getSource().getParent();var i=D.getCustomData()[0].getKey();var v=JSON.parse(JSON.stringify(this.oItemHelper.getItemByIndex(0)));D.setBusy(true);var Q=S.getSerialNumberCount()/this.oItemHelper.getAlternativeUOMRatio(v);Q=U.parseNumber(U.formatNumber(Q,3));this.getWorkFlowFactory().getDiffPackWorkFlow().run([v,Q,i,D]);},onSerialNumberDamagePack:function(E){var D=E.getSource().getParent();var i=D.getCustomData()[0].getKey();var v=JSON.parse(JSON.stringify(this.oItemHelper.getItemByIndex(0)));D.setBusy(true);var Q=S.getSerialNumberCount()/this.oItemHelper.getAlternativeUOMRatio(v);Q=U.parseNumber(U.formatNumber(Q,3));this.getWorkFlowFactory().getDiffPackWorkFlow().run([v,Q,i,D]);},onSerialNumberPartialPack:function(E){var D=E.getSource().getParent();var Q=S.getSerialNumberCount();var i={};if(Q===0){this.handleEmptyQuantityInput(r,"noSNForPartialPackErr");return;}D.setBusy(true);var v=JSON.parse(JSON.stringify(this.oItemHelper.getItemByIndex(0)));i.oProduct=v;var w=Q/this.oItemHelper.getAlternativeUOMRatio(v);i.iQuantity=U.parseNumber(U.formatNumber(w,3));i.oDialog=D;this.getWorkFlowFactory().getPartialPackWorkFlow().run(i);},clearSourceBeforeLeave:function(){this.updateInputWithDefault(b.ID.SOURCE_INPUT,"");this.updateInputWithDefault(b.ID.PRODUCT_INPUT,"");G.setSourceId("");G.setProductId("");this.oItemHelper.setItems([]);},unbindODOInfo:function(){this.oODOForm.unbindElement();},disableButtons:function(){G.setPackAllEnable(false);G.setExceptionEnable(false);},bindODOInfo:function(){this.oODOForm.bindElement(b.ITEM_MODEL_NAME+">/0");},setHandlingInstrElementVisible:function(v){var F=this.oODOForm.getFormElements()[2];F.setVisible(v);},getSerialNumberDialog:function(){var v=this.getView();var D=v.byId(s);if(!D){D=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.SerialNumberDialog",this);v.addDependent(D);}this.updateInputWithDefault(h,"");S.clearSerialNumbersList();return D;},getStockLevelSnDialog:function(i){var v=this.getView();var D=v.byId(j);if(!D){D=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.StockLevelSnDialog",this);v.addDependent(D);}D.removeAllCustomData();var w=new sap.ui.core.CustomData({key:i});D.addCustomData(w);var x=v.byId("stockLevel-sn-dialog-text");this.setDialogText(x,"stockLevelSerialNumberNotification");this.updateInputWithDefault(k,"");return D;},onStockLevelSNChange:function(E){var D=E.getSource().getParent().getParent();var i=D.getCustomData()[0].getKey();var v=U.trim(E.getParameter("value")).toUpperCase();if(!U.isEmpty(v)){var w=this.oItemHelper.getItemIndexBySerialNumber(i,v);if(w!==-1){this.closeDialog(D,w,false);return;}}var x=this.getI18nText("incorrectStockLevelSn");this.updateInputWithError(k,x);this.playAudio(b.ERROR);this.focus(k);},onCancelStockLevelSNialog:function(E){this.updateInputWithDefault(k,"");this.closeDialog(E.getSource().getParent(),b.ERRORS.INTERRUPT_WITH_NO_ACTION,true);},getSerialNumberVerifyPromise:function(i){var v;var E;var w;if(U.isEmpty(i)){E=this.getI18nText("emptySN");w=new a("",E);v=U.getRejectPromise(w);}else if(this.isAllSerialNumberFinished()){E=this.getI18nText("serialNumberExceed");w=new a("",E);v=U.getRejectPromise(w);}else if(S.hasSerialNumber(i)){E=this.getI18nText("duplicateSNMsg",i);w=new a("",E);v=U.getRejectPromise(w);}else{if(this.oItemHelper.isStockLevelSerialNumber()){if(this.oItemHelper.hasSerialNumber(i)){v=U.getResolvePromise(i);}else{E=this.getI18nText("incorrectSerialNumber",i);w=new a("",E);v=U.getRejectPromise(w);}}else{v=e.verifySerialNumber(this.oItemHelper.getItemByIndex(0),i);}}return v;},onBatchNumberChange:function(E){var D=E.getSource().getParent().getParent();var i=D.getCustomData()[0].getKey();var v=U.trim(E.getParameter("value")).toUpperCase();var w=false;if(!U.isEmpty(v)){var x=this.oItemHelper.getItemIndexByProductAndBatch(i,v);if(x!==-1){this.updateInputWithDefault(m,"");this.closeDialog(D,v,false);}else{w=true;}}else{w=true;}if(w){var y=this.getI18nText("batchIncorrect");this.updateInputWithError(m,y);this.playAudio(b.ERROR);this.focus(m);}},getBatchNumberDialog:function(i){var v=this.getView();var D=v.byId(l);if(!D){D=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.BatchNumberDialog",this);v.addDependent(D);}D.removeAllCustomData();var w=new sap.ui.core.CustomData({key:i});D.addCustomData(w);var x=v.byId("batch-dialog-text");this.setDialogText(x,"batchNumberNotification",[i]);return D;},setDialogText:function(i,v,w){var x=this.getI18nText(v,w);i.setText(x);},onCancelBatchDialog:function(E){this.updateInputWithDefault(m,"");this.closeDialog(E.getSource().getParent(),b.ERRORS.INTERRUPT_WITH_NO_ACTION,true);},onSerialNumberCancel:function(E){this.closeDialog(E.getSource().getParent(),b.ERRORS.INTERRUPT_WITH_NO_ACTION,true);this.oItemHelper.setItemQtyReducedInitialized();this.oItemHelper.setItemReductCancelByIndex(0);this.setBusy(false);},handleEmptyQuantityInput:function(i,v){var E=this.getI18nText(v);this.updateInputWithError(i,E);this.playAudio(b.ERROR);this.focus(i);},handleExceptionEnable:function(){if(U.isEmpty(G.getSourceId())||this.oItemHelper.isEmpty()||U.isEmpty(G.getProductId())){G.setExceptionEnable(false);return;}var i=G.getCurrentShipHandlingUnit();if(G.getPendingTaskNumber()===0&&!U.isEmpty(i)&&!O.isShipHUClosed(i)){if(G.getCheckConsolidationGroup()){var v=this.oItemHelper.getFirstItemConsGroup();var w=c.getShipHUConsGroup(i);if(w===v||w===""){G.setExceptionEnable(true);}else{G.setExceptionEnable(false);}}else{G.setExceptionEnable(true);}}else{G.setExceptionEnable(false);}},getChangePackQuantityDialog:function(i){var v=this.getView();var D=v.byId(u);var w;if(!D){D=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.ChangePackingQuantityDialog",this);v.addDependent(D);}D.removeAllCustomData();if(this.oItemHelper.getItemReductionQtyByIndex(0)==="0"){w=this.getI18nText("orderCancelNotification");}else{w=this.getI18nText("changePackingQuantityNotification",[this.oItemHelper.getItemQuantityByIndex(0),this.oItemHelper.getItemReductionQtyByIndex(0)]);}var x=v.byId("reduction-dialog-text");x.setText(w);this.playAudio(b.WARNING);return D;},onProcessOrderReduction:function(E){this.closeDialog(E.getSource().getParent());var i=this.oItemHelper.getItemByIndex(0);var v={oProduct:i};this.getWorkFlowFactory().getPackItemWorkFlow().run(v);},onNotProcessOrderReduction:function(E){this.closeDialog(E.getSource().getParent());this.oItemHelper.setItemQtyReducedInitialized();},onDamageQuantityChange:function(E){var i=U.trim(E.getParameter("newValue"));var v=false;if(!U.isEmpty(i)){var Q=U.parseNumber(i);var w=U.formatNumber(Q);var x=U.parseNumber(this.oItemHelper.getItemQuantityByIndex(0));if(U.isEmpty(w)||Q>x||Q<=0){v=true;}else{this.updateInputWithDefault(o,w);}}else{v=true;}if(v){var y=this.getI18nText("inputQuantityNotice");this.updateInputWithError(o,y);this.playAudio(b.ERROR);}},onAfterCloseDialog:function(E){var i=E.getSource().getContent()[0].getContent()[2].getContent()[0].setValue("");this.updateInputWithDefault(i,"");this.focus(b.ID.PRODUCT_INPUT);},onSerialNumberPopover:function(E){this.openSerialNumberPopover(E,b.ITEM_MODEL_NAME,this.oItemHelper);},onSwitchToPackWithoutSN:function(E){if(S.getSerialNumberCount()>0){var i=this.getI18nText("snMaintained");this.updateInputWithError(r,i);this.focus(r);this.playAudio(b.ERROR);}else{this.updateInputWithDefault(r,"");var D=E.getSource().getParent();this.closeDialog(D);var v=this.getView();var N=v.byId("partialDialog");if(!N){N=sap.ui.xmlfragment(v.getId(),"scm.ewm.packoutbdlvs1.view.PartialPackDialog",this);v.addDependent(N);}this.openDialog(N).catch(function(i){});}},onSerialNumberPack:function(E){var D=E.getSource().getParent();var i=this.byId(h).getValue();if(!U.isEmpty(i)){this.verifySerialNumberInput(i,D).then(function(){this.handleSerialNumberPack();}.bind(this));}else{if(this.isAllSerialNumberFinished()){this.closeDialog(D);}else{this.handleSerialNumberPack();}}},onPackWithoutSerialNumber:function(E){var D=E.getSource().getParent();var i=this.byId(h).getValue();var v=this.getI18nText("snMaintained");if(!U.isEmpty(i)){this.verifySerialNumberInput(i,D,true).then(function(R){this.updateInputWithError(h,v);this.focus(h);this.playAudio(b.ERROR);this.byId(h).setShowValueStateMessage(true);}.bind(this));}else if(S.getSerialNumberCount()!==0){this.updateInputWithError(h,v);this.focus(h);this.playAudio(b.ERROR);}else{this.closeDialog(D);}},handleSerialNumberPack:function(){if(!this.isAllSerialNumberFinished()){var E=U.parseNumber(this.oItemHelper.getItemBaseQtyByIndex(0));var i=this.getI18nText("provideAllSNs",E);this.updateInputWithError(h,i);this.playAudio(b.ERROR);this.focus(h);}},onDeleteSerialNumber:function(E){var i=E.getParameter("listItem");var v=i.getTitle();S.removeSerialNumber(v);this.updateInputWithDefault(h,"");this.focus(h);},onSerialNumChange:function(E){var i=U.trim(E.getParameter("value"));var D=E.getSource().getParent().getParent();this.verifySerialNumberInput(i,D);},verifySerialNumberInput:function(i,D,v){i=i.toUpperCase();if(i.length>30){this.handleEntryLengthExceed(h);return;}return new Promise(function(w,x){D.setBusy(true);var y;y=this.getSerialNumberVerifyPromise(i);y.then(function(z){D.setBusy(false);S.addSerialNumber(i);this.updateInputWithDefault(h,"");this.focus(h);if(this.isAllSerialNumberFinished()&&!v){this.closeDialog(D);}w();}.bind(this)).catch(function(E){D.setBusy(false);this.updateInputWithError(h,E.getDescription());this.playAudio(b.ERROR);this.focus(h);}.bind(this));}.bind(this));},handleEntryLengthExceed:function(i){var E=this.getI18nText("serialNumberMaximunCharacters");this.updateInputWithError(i,E);this.playAudio(b.ERROR);this.focus(i);},isAllSerialNumberFinished:function(){var i=S.getSerialNumberCount();var E=U.parseNumber(this.oItemHelper.getItemBaseQtyByIndex(0));if(i===E){return true;}return false;},formatPackBtn:function(v){if(v===sap.ui.core.MessageType.Success){return true;}return false;},formatSerialNumberPackMsg:function(i,v){return this.getTextAccordingToMode("serialNumberPackText","serialNumberPackNotification",[i],v);},formatExceptionMsg:function(i,v){return this.getTextAccordingToMode("internalExceptionDialogText","exceptionDialogText",[i],v);},formatSerialNumQtyDisplay:function(i,Q){if(Q===undefined){return"";}return S.getSerialNumberCount()+"/"+Q;},formatSNListMode:function(i){if(i!==undefined&&this.oItemHelper.isStockLevelSerialNumber()){return L.None;}else{return L.Delete;}},isSelectedItemAndCurrentShipHUInSameConsGroup:function(i){var v=false;if(!U.isEmpty(G.getProductId())){var w=c.getShipHUConsGroup(G.getCurrentShipHandlingUnit());if(U.isEmpty(w)||i===w){v=true;}}return v;},updateSourceItemStatus:function(){if(U.isEmpty(G.getProductId())){this.oItemHelper.setItemsStatusByConsGrp();return;}if(this.canFirstSourceItemPackToCurrentShipHU()){this.oItemHelper.setItemHighlightByIndex(0);}else{this.oItemHelper.setItemsStatusByConsGrp();}return;},formatSourceHUEnabled:function(i){if(i>0){return false;}return true;},onSourceItemPressed:function(E){var i=E.getSource().getBindingContext("itemModel");var v=i.getObject();this.getWorkFlowFactory().getProductChangeWorkFlow().run(v);},formatHandlingInstruction:function(H,i){if(U.isEmpty(i)){return"";}return H;},showToLeaveMessagePopup:function(i){var v=!!this.getView().$().closest(".sapUiSizeCompact").length;M.error(i,{styleClass:v?"sapUiSizeCompact":"",actions:[sap.m.MessageBox.Action.OK],onClose:function(){this.setBusy(true);this.getWorkFlowFactory().getLeaveWorkFlow().run();}.bind(this)});},formatBaseUoMVisible:function(i){if(!U.isEmpty(i)&&i.AlternativeUnit===i.BaseUnit){return false;}return true;},initColumnSettingModel:function(){this.oColumnSettingsHelper.setData(this.getDefaultColumnSetting());},canFirstSourceItemPackToCurrentShipHU:function(){var v=false;var i=G.getCurrentShipHandlingUnit();var w=G.getCurrentShipHandlingUnitClosed();if(U.isEmpty(i)||w){return false;}if(G.getCheckConsolidationGroup()){var x=this.oItemHelper.getFirstItemConsGroup();var y=c.getShipHUConsGroup(i);if(U.isEmpty(y)){if(!U.isEmpty(x)&&c.getIsEmptyHU(i)){v=true;}else if(U.isEmpty(x)){v=true;}}else if(y===x){v=true;}}else{v=true;}return v;},initDefaultColumnSetting:function(){this._mAdvancedSourceTableDefaultSettings=JSON.parse(JSON.stringify(A.getData()));this._mBasicSourceDefaultDefaultSettings=JSON.parse(JSON.stringify(B.getData()));this._mInternalSourceTableDefaultSettings=JSON.parse(JSON.stringify(I.getData()));},formatProductText:function(i,v){if(!U.isEmpty(i)){return v+" ("+i+")";}else{return"";}},formatPackWithoutSNVisible:function(i){if(i!==undefined&&i.SerialNumberRequiredLevel===b.SN_DOC_LEVEL_PROFILE_A&&i.EWMDeliveryDocumentCategory===b.DOCUMENT_CAT_OUTBOUND){return true;}else{return false;}}});});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/controller/WorkFlowController",
+	"scm/ewm/packoutbdlvs1/utils/CustomError",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global",
+	"scm/ewm/packoutbdlvs1/modelHelper/Cache",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"sap/tl/ewm/lib/reuses1/controllers/Base.controller",
+	"scm/ewm/packoutbdlvs1/modelHelper/OData",
+	"scm/ewm/packoutbdlvs1/modelHelper/Items",
+	"sap/ui/model/json/JSONModel",
+	"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber",
+	"sap/m/ListMode",
+	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"sap/ui/core/ValueState",
+	"scm/ewm/packoutbdlvs1/modelHelper/PackingMode",
+	"sap/m/MessageBox",
+	"scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting",
+	"scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings",
+	"scm/ewm/packoutbdlvs1/model/PackingMode",
+	"scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting",
+	"scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting"
+], function (Controller, CustomError, Const, Global, Cache, Util, CommonBase, ODataHelper, TableItemsHelper, JSONModel, SerialNumber,
+	ListMode, Service, ValueState, PackingModeHelper, MessageBox, AdvancedSourceTableSetting, ColumnSettingsHelper, PackingModeModel,
+	BasicSourceTableSetting, InternalSourceTableSetting) {
+	"use strict";
+	var serialNumberDialogId = "serialNumberDialog";
+	var serialNumberInputId = "id-input-serialNumber";
+	var stockLevleSnDialogId = "stockLevelSnDialog";
+	var stockLevelSnInputId = "stockLevel-sn-input";
+	var batchDialogId = "batchDialog";
+	var batchId = "batch-input";
+	var partialId = "partial-pack-input";
+	var differenceId = "difference-quantity-input";
+	var damageId = "damage-quantity-input";
+	var serialNumberDifferenceInputId = "id-input-serialNumber-difference-pack";
+	var serialNumberPartialPackInputId = "id-input-serialNumber-partial-pack";
+	var serialNumberDamageInputId = "id-input-serialNumber-damage-pack";
+	var reductionDialogId = "reductionDialog";
+	return Controller.extend("scm.ewm.packoutbdlvs1.controller.Left", {
+		oItemHelper: new TableItemsHelper(new JSONModel([])),
+		oColumnSettingsHelper: new ColumnSettingsHelper(new JSONModel([])),
+		bLoaded: false,
+		addElement: function () {
+			var oContainer = this.byId("product-info");
+			var oElement;
+			var oField;
+			var oView = this.getView();
+			var aProperties = this.getItemProperties();
+			var oLabel, sLabel, sValue;
+			for (var i = 0; i < aProperties.length; i++) {
+				sap.ui.getCore().byId();
+				oElement = new sap.ui.layout.form.FormElement(oView.createId("element" + i), {
+					"visible": false
+				});
+				oLabel = Util.find(aProperties[i].extensions, function (oProperty) {
+					if (oProperty.name === "label") {
+						return true;
+					}
+					return false;
+				});
+				sLabel = Util.isEmpty(oLabel) ? aProperties[i].name : oLabel.value;
+				oElement.setLabel(sLabel);
+				sValue = "{itemModel>" + aProperties[i].name + "}";
+				oField = new sap.m.Text(oView.createId("field" + i), {
+					"text": sValue
+				});
+				oElement.addField(oField);
+				oContainer.addFormElement(oElement);
+			}
+			this.bLoaded = true;
+		},
+		onAfterRendering: function () {
+			if (!this.bLoaded) {
+				this.addElement();
+			}
+			// setTimeout(function () {
+			// 	this.attachHeightListener();
+			// }.bind(this), 0);
+		},
+
+		initModel: function () {
+			this.setModel(this.oItemHelper.getModel(), Const.ITEM_MODEL_NAME);
+			this.oProductForm = this.byId("product-info");
+			this.oODOForm = this.byId("deliver-info");
+			this.oProductHandlingInstr = this.byId("ProductHandlingInstr");
+			this.oProductImage = this.byId("prod-image");
+			this.sTableId = "SourceProductTable";
+			this.setModel(this.oColumnSettingsHelper.getModel(), Const.COLUM_SETTING_MODEL_NAME);
+			this.setModel(PackingModeModel, "packMode");
+		},
+		init: function () {
+			this.setButtonToolTip("open-partial-pack-button");
+			this.setButtonToolTip("pack-all-button");
+			this.setButtonToolTip("pack-button");
+			this.getRouter().attachRouteMatched(this.onRouteMatched, this);
+			if (Global.isOnCloud()) {
+				this.oProductImage.setVisible(false);
+			}
+		},
+		attachHeightListener: function () {
+			// var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+			var ResizeObserver = window.ResizeObserver;
+			var oLeftGrid = this.byId("pod---source--form") || this.byId("pod---simplesource--form") || this.byId(
+				"pod---internalsource--form--product");
+			var target = document.getElementById(oLeftGrid.getId());
+
+			var oContainer = this.byId("product-info");
+			var container = document.getElementById(oContainer.getId());
+
+			var initHeight = target.clientHeight;
+			var observer = new ResizeObserver(function (mutations) {
+				if (initHeight != target.clientHeight) {
+					this.publish("adjustHeight", Const.EVENT_BUS.EVENTS.SUCCESS);
+				}
+			}.bind(this));
+			var config = {
+				attributes: true
+			};
+			observer.observe(target, config);
+		},
+		removeDuplicatedId: function () {
+			var sComponentId = this.getOwnerComponent().getId();
+			var aViewIds = [Const.ID.MAIN_SOURCE_VIEW, Const.ID.MAIN_SHIP_VIEW, Const.ID.INTERNAL_SOURCE_VIEW,
+				Const.ID.INTERNAL_SHIP_VIEW
+			];
+			var aIds = ["pod---snuii--hbox", "pod---snuii--snlabel"];
+			var oElement;
+			aViewIds.forEach(function (sViewId) {
+				aIds.forEach(function (sId) {
+					oElement = sap.ui.getCore().byId(sComponentId + sViewId + sId);
+					if (oElement) {
+						oElement.destroy();
+					}
+				});
+			});
+		},
+		getPersonlServiceContainerItemName: function () {
+			if (PackingModeHelper.isAdvancedMode()) {
+				return "advancedSourceTableSettings";
+			} else if (PackingModeHelper.isBasicMode()) {
+				return "basicSourceTableSettings";
+			} else {
+				return "internalSourceTableSettings";
+			}
+		},
+		getDefaultColumnSettingNameInService: function () {
+			if (PackingModeHelper.isAdvancedMode()) {
+				return "advancedSourceDefaultSettings";
+			} else if (PackingModeHelper.isBasicMode()) {
+				return "basicSourceDefaultSettings";
+			} else {
+				return "internalSourceDefaultSettings";
+			}
+		},
+		getDefaultColumnSetting: function () {
+			if (PackingModeHelper.isAdvancedMode()) {
+				return JSON.parse(JSON.stringify(this._mAdvancedSourceTableDefaultSettings));
+			} else if (PackingModeHelper.isBasicMode()) {
+				return JSON.parse(JSON.stringify(this._mBasicSourceDefaultDefaultSettings));
+			} else {
+				return JSON.parse(JSON.stringify(this._mInternalSourceTableDefaultSettings));
+			}
+		},
+		getViewName: function () {
+			return Const.VIEW_SOURCE;
+		},
+		getTableSettingDialogName: function () {
+			return "scm.ewm.packoutbdlvs1.view.SourceTableSettingDialog";
+		},
+		initSubscription: function () {
+			this.subscribe(Const.EVENT_BUS.CHANNELS.USER_SETTING, Const.EVENT_BUS.EVENTS.SUCCESS, function () {
+				this.focus(Const.ID.SOURCE_INPUT);
+			}.bind(this));
+			this.subscribe(Const.EVENT_BUS.CHANNELS.EXCEPTION_LIST, Const.EVENT_BUS.EVENTS.SUCCESS, function (sChannel, sEvent, oResult) {
+				this.initExceptionButtons(oResult);
+			}.bind(this));
+			this.subscribe(Const.EVENT_BUS.CHANNELS.EXCEPTION_ENABLE, Const.EVENT_BUS.EVENTS.SUCCESS, function (sChannel, sEvent) {
+				this.handleExceptionEnable();
+			}.bind(this));
+			this.subscribe(Const.EVENT_BUS.CHANNELS.PACKALL_ENABLE, Const.EVENT_BUS.EVENTS.SUCCESS, function (sChannel, sEvent) {
+				this.handlePackAllEnable();
+			}.bind(this));
+			this.subscribe(Const.EVENT_BUS.CHANNELS.ROUTE_MATCHED, Const.EVENT_BUS.EVENTS.SUCCESS, function (sChannel, sEvent) {
+				this.getWorkFlowFactory().getClearWorkFlow().run();
+			}.bind(this));
+		},
+		onSourceInputChange: function (oEvent) {
+			var sInput = Util.trim(oEvent.getParameter("newValue")).toUpperCase();
+			this.getWorkFlowFactory().getSourceChangeWorkFlow().run({
+				sReferenceNumber: sInput
+			});
+		},
+		onPack: function (oEvent) {
+			var oProduct = this.oItemHelper.getItemByIndex(0);
+			var oPackInfo = {
+				oProduct: oProduct,
+				sQuantity: oProduct.AlterQuan,
+				iIndex: 0,
+				bAdd: true
+			};
+			this.getWorkFlowFactory().getPackItemWorkFlow().run(oPackInfo);
+		},
+		onPackAll: function () {
+			this.setBusy(true);
+			var aProducts = this.oItemHelper.getModel().getData();
+			this.getWorkFlowFactory().getPackAllWorkFlow().run(aProducts);
+		},
+		onProductChange: function (oEvent) {
+			var newValue = Util.trim(oEvent.getParameter("newValue")).toUpperCase();
+			var aAccessCodeList = CommonBase.prototype.getAccessCodeList.call(this);
+			var oAccessCode = Util.find(aAccessCodeList, function (accessCode) {
+				if (newValue === accessCode.ExternalAccessCode) {
+					return true;
+				}
+				return false;
+			});
+			if (oAccessCode) {
+				this.actionWithAccessCode(oAccessCode);
+			} else {
+				this.getWorkFlowFactory().getProductChangeWorkFlow().run(newValue);
+			}
+		},
+
+		isAccessCodeRelatedToSourceHU: function (sAccessCode) {
+			switch (sAccessCode) {
+			case Const.ACCESS_CODE.PACK_ITEM:
+			case Const.ACCESS_CODE.PACK_ALL:
+				return true;
+			default:
+				return false;
+			}
+		},
+		isAccessCodeAllowedWhenPendingExist: function (sAccessCode) {
+			switch (sAccessCode) {
+			case Const.ACCESS_CODE.PACK_ITEM:
+			case Const.ACCESS_CODE.CLOSE_HU:
+				return true;
+			default:
+				return false;
+			}
+		},
+
+		actionWithAccessCode: function (oAccessCode) {
+			var sErrorCode = "";
+			var sAccessCode = oAccessCode.InternalAccessCode;
+			if (Global.getPendingTaskNumber() > 0 && !this.isAccessCodeAllowedWhenPendingExist(sAccessCode)) {
+				//todo refine error message
+				this.updateInputWithError(Const.ID.PRODUCT_INPUT, this.getI18nText("cannotPerformAccessCode"));
+				this.focus(Const.ID.PRODUCT_INPUT);
+				return;
+			}
+
+			if (this.isAccessCodeRelatedToSourceHU(sAccessCode)) {
+				if (Util.isEmpty(Global.getSourceId())) {
+					sErrorCode = "ACCESS_CODE_NO_SOURCE_SPECIFIED";
+				} else if (this.oItemHelper.isEmpty()) {
+					sErrorCode = "ACCESS_CODE_SOURCE_EMPTY";
+				}
+			}
+			switch (sAccessCode) {
+			case Const.ACCESS_CODE.PACK_ITEM:
+				if (this.oItemHelper.isFirstItemHighlighted()) {
+					var oProduct = this.oItemHelper.getItemByIndex(0);
+					var oPackInfo = {
+						oProduct: oProduct,
+						sQuantity: oProduct.AlterQuan,
+						iIndex: 0,
+						bAdd: true
+					};
+					this.getWorkFlowFactory().getPackItemWorkFlow().run(oPackInfo);
+				} else {
+					sErrorCode = sErrorCode || "ACCESS_CODE_NOT_PRODUCT_SELECTED";
+				}
+				break;
+			case Const.ACCESS_CODE.PACK_ALL:
+				if (Global.getPackAllEnable()) {
+					this.onPackAll();
+				} else {
+					sErrorCode = sErrorCode || "ACCESS_CODE_PACK_ALL_DISABLE";
+				}
+				break;
+			case Const.ACCESS_CODE.CLOSE_HU:
+				if (Global.getCloseShipHUEnable()) {
+					this.updateInputWithDefault(Const.ID.PRODUCT_INPUT, "");
+					this.getWorkFlowFactory().getShipHUCloseWorkFlow().run();
+				} else {
+					sErrorCode = "ACCESS_CODE_CLOSE_HU_DISABLE";
+				}
+				break;
+			case Const.ACCESS_CODE.CREATE_HU:
+				if (PackingModeHelper.getSelectedMode() === Const.ADVANCED_MODE || PackingModeHelper.getSelectedMode() === Const.INTERNAL_MODE) {
+					var oCreateInfo = {};
+					oCreateInfo.bOpen = true;
+					this.getWorkFlowFactory().getShipHUCreationWorkFlow().run(oCreateInfo);
+				} else {
+					sErrorCode = sErrorCode || "ACCESS_CODE_CREATE_HU_DISABLE";
+				}
+
+				break;
+			default:
+				sErrorCode = "ACCESS_CODE_INVALID";
+			}
+			if (sErrorCode) {
+				//as discussed with po, map to a single error code
+				sErrorCode = "accessCodeNotApplicable";
+				var sAccessCodeDescription;
+				if (Util.isEmpty(oAccessCode.Description)) {
+					sAccessCodeDescription = "";
+				} else {
+					sAccessCodeDescription = "(" + oAccessCode.Description + ")";
+				}
+				var sError = this.getI18nText(sErrorCode, [oAccessCode.ExternalAccessCode, sAccessCodeDescription]);
+				this.updateInputWithError(Const.ID.PRODUCT_INPUT, sError);
+				this.playAudio(Const.ERROR);
+				this.focus(Const.ID.PRODUCT_INPUT);
+			} else {
+				this.updateInputWithDefault(Const.ID.PRODUCT_INPUT, "");
+			}
+		},
+
+		verifyProductEAN: function (mProduct) {
+			return new Promise(function (resolve, reject) {
+				var sProduct;
+				if (Util.isString(mProduct)) {
+					sProduct = mProduct;
+					Service.verifyProduct(sProduct)
+						.then(function (oResult) {
+							resolve(oResult.ProductName);
+						})
+						.catch(function () {
+							reject(sProduct);
+						});
+				} else {
+					resolve(mProduct.ProductName);
+				}
+			}.bind(this));
+		},
+
+		getItemIndexByProductOrEAN: function (mProduct, mSession) {
+			return new Promise(function (resolve, reject) {
+				//validate product
+				this.updateInputWithDefault(Const.ID.PRODUCT_INPUT, "");
+				var iIndex;
+				this.verifyProductEAN(mProduct)
+					.then(function (sProduct) {
+						mSession.sProduct = sProduct;
+						if (Util.isString(mProduct)) {
+							iIndex = this.oItemHelper.getItemIndexByProduct(mSession.sProduct);
+						} else {
+							iIndex = this.oItemHelper.getItemIndexByKey(mProduct.StockItemUUID, mProduct.Huident);
+						}
+						if (iIndex !== -1) {
+							//get to-hightlight item index in most simple senario
+							mSession.iItemIndex = iIndex;
+							if (Global.getPendingTaskNumber() > 0) {
+								var sProductConsGroup = this.oItemHelper.getItemConsGroupByIndex(iIndex);
+								var sCurrentShippingHUConsGroup = Cache.getShipHUConsGroup(Global.getCurrentShipHandlingUnit());
+								if (sCurrentShippingHUConsGroup !== sProductConsGroup && Global.getCheckConsolidationGroup()) {
+									throw new CustomError(Const.ERRORS.PRODUCT_WITH_DIFF_CONS_GROUP);
+								}
+							}
+							mSession.oProduct = this.oItemHelper.getItemByIndex(mSession.iItemIndex);
+							resolve();
+						} else {
+							reject(Const.ERRORS.PRODUCT_NOT_IN_SOURCE);
+						}
+					}.bind(this))
+					.catch(function (sValue) {
+						mSession.sProduct = sValue;
+						reject(Const.ERRORS.PRODUCT_NOT_IN_SOURCE);
+					}.bind(this));
+			}.bind(this));
+		},
+
+		prepareDataForProductChangeWorkFlow: function (mSession) {
+			//if sProduct is EAN before, then it is set to Product now.  
+			mSession.sProduct = this.oItemHelper.getItemProductByIndex(mSession.iItemIndex);
+			var sShippingHU = Global.getCurrentShipHandlingUnit();
+			mSession.sShipConsGroup = Cache.getShipHUConsGroup(sShippingHU);
+			Global.setProductId(mSession.sProduct);
+		},
+		getItemIndexByProductAndActiveConsGroup: function (mSession) {
+			if (!Util.isEmpty(mSession.sShipConsGroup)) {
+				var iItemIndex = this.oItemHelper.getItemIndexByProductAndActiveConsGroup(mSession.oProduct, mSession.sShipConsGroup);
+				if (iItemIndex !== -1) {
+					mSession.iItemIndex = iItemIndex;
+				}
+			}
+		},
+		updateUIElementsAfterProductChange: function () {
+			this.bindProductInfo();
+			this.updateInputWithDefault(Const.ID.PRODUCT_INPUT, "");
+			this.focus(Const.ID.PRODUCT_INPUT);
+			this.handleHighLightFirstItem();
+		},
+		handleHighLightFirstItem: function () {
+			var sCurrentShipHU = Global.getCurrentShipHandlingUnit();
+			if (!Util.isEmpty(sCurrentShipHU)) {
+				var sSourceHUODO = this.oItemHelper.getFirstItemConsGroup();
+				var sCurrentShipHUODO = Cache.getShipHUConsGroup(sCurrentShipHU);
+				this.oItemHelper.setItemsStatusByConsGrp();
+				if (sCurrentShipHUODO === sSourceHUODO || sCurrentShipHUODO === "") {
+					this.oItemHelper.setItemHighlightByIndex(0);
+				}
+			} else {
+				this.oItemHelper.setItemsStatusByConsGrp();
+			}
+		},
+		bindProductInfo: function () {
+			var sStockItemUUID = this.oItemHelper.getItemStockIdByIndex(0);
+			var sPath = ODataHelper.getProductPath(sStockItemUUID);
+			this.oProductForm.bindElement(sPath);
+			this.oProductHandlingInstr.bindElement(sPath);
+			this.bindAddictionalProductInfo();
+		},
+		bindAddictionalProductInfo: function () {
+			var aElements = this.oProductForm.getFormElements();
+			aElements.forEach(function (oElement) {
+				if (Util.containString(oElement.getId(), "-element")) {
+					oElement.bindElement(Const.ITEM_MODEL_NAME + ">/0");
+					oElement.getFields()[0].setVisible(true);
+				}
+			});
+			if (!Util.isEmpty(this.oODOForm)) {
+				aElements = this.oODOForm.getFormElements();
+				aElements.forEach(function (oElement) {
+					if (Util.containString(oElement.getId(), "-element")) {
+						oElement.bindElement(Const.ITEM_MODEL_NAME + ">/0");
+						oElement.getFields()[0].setVisible(true);
+					}
+				});
+			}
+		},
+		unbindAddictionalProductInfo: function () {
+			var aElements = this.oProductForm.getFormElements();
+			aElements.forEach(function (oElement) {
+				if (Util.containString(oElement.getId(), "-element")) {
+					oElement.unbindElement();
+					oElement.getFields()[0].setVisible(false);
+				}
+			});
+			if (!Util.isEmpty(this.oODOForm)) {
+				aElements = this.oODOForm.getFormElements();
+				aElements.forEach(function (oElement) {
+					if (Util.containString(oElement.getId(), "-element")) {
+						oElement.unbindElement();
+						oElement.getFields()[0].setVisible(false);
+					}
+				});
+			}
+		},
+		bindImage: function () {
+			var sStockItemUUID = this.oItemHelper.getItemStockIdByIndex(0);
+			var sPath = ODataHelper.getProductPath(sStockItemUUID);
+			this.oProductImage.bindElement(sPath);
+		},
+		unbindImage: function () {
+			this.oProductImage.unbindElement();
+		},
+		unbindProductInfo: function () {
+			this.oProductForm.unbindElement();
+			this.oProductHandlingInstr.unbindElement();
+			this.unbindAddictionalProductInfo();
+		},
+		/********   Begin  Create shipping hu work flow   ********/
+		prepareParemeterForCreation: function (oCreateInfo, mSession) {
+			mSession.sMaterialId = oCreateInfo.sMaterialId;
+			mSession.oComponent = oCreateInfo.oDialog;
+			mSession.sHuId = oCreateInfo.sHuId;
+			mSession.sourceItems = this.oItemHelper.getItemsNum();
+			mSession.isSingleConsGroupNoReduction = this.oItemHelper.isSingleConsolidationGroup() && !this.oItemHelper.isOrderReductionExist();
+			mSession.isSNEnable = this.oItemHelper.isSerialNumberEnable();
+			if (this.oItemHelper.isEmpty()) {
+				mSession.sDocId = "";
+			} else {
+				mSession.sDocId = this.oItemHelper.getItemDocIdByIndex(0);
+			}
+		},
+		handleFocusAndHighlightForCreation: function () {
+			if (Util.isEmpty(Global.getSourceId())) {
+				this.focus(Const.ID.SOURCE_INPUT);
+			} else {
+				this.focus(Const.ID.PRODUCT_INPUT);
+				var sProductId = Global.getProductId();
+				if (!Util.isEmpty(sProductId)) {
+					this.oItemHelper.setItemHighlightByIndex(0);
+				}
+			}
+		},
+		/********   End Create shipping hu work flow   ********/
+		handlePackAllEnable: function () {
+			var bEnable = false;
+			if (Global.getPendingTaskNumber() === 0 && this.oItemHelper.isSingleConsolidationGroup() && !this.oItemHelper.isOrderReductionExist() &&
+				!ODataHelper.isShipHUClosed() && !this.oItemHelper.isSerialNumberEnable()) {
+				bEnable = this.canFirstSourceItemPackToCurrentShipHU();
+			}
+			Global.setPackAllEnable(bEnable);
+		},
+		onBeforeOpenPartialDialog: function (oEvent) {
+			this.initUoMItems("partial-uom-select");
+			this.updateInputWithDefault(partialId, "");
+		},
+		onBeforeOpenDifferenceDialog: function (oEvent) {
+			this.initUoMItems("difference-uom-select");
+			this.updateInputWithDefault(differenceId, "");
+		},
+		onBeforeOpenDamageDialog: function (oEvent) {
+			this.initUoMItems("damage-uom-select");
+			this.updateInputWithDefault(damageId, "");
+		},
+		onAfterOpenPartialDialog: function () {
+			this.focus(partialId);
+		},
+		onAfterOpenDifferenceDialog: function () {
+			this.focus(differenceId);
+		},
+		onAfterOpenDamageDialog: function () {
+			this.focus(damageId);
+		},
+		initUoMItems: function (sSelectId) {
+			var aSelectionItem = this.getUoMSelection();
+			var oSelect = this.byId(sSelectId);
+			oSelect.removeAllItems();
+			aSelectionItem.forEach(function (oItem) {
+				oSelect.addItem(oItem);
+			});
+			oSelect.setSelectedItem(aSelectionItem[0]);
+		},
+		getUoMSelection: function () {
+			var sAlternativeUoM = this.oItemHelper.getItemAlternativeUoMByIndex(0);
+			var sBaseUoM = this.oItemHelper.getItemBaseUoMByIndex(0);
+			var aSelectionItem = [];
+			aSelectionItem.push(new sap.ui.core.Item({
+				key: Const.UOM_TYPE.ALTER,
+				text: sAlternativeUoM
+			}));
+			if (sAlternativeUoM !== sBaseUoM) {
+				aSelectionItem.push(new sap.ui.core.Item({
+					key: Const.UOM_TYPE.BASE,
+					text: sBaseUoM
+				}));
+			}
+			return aSelectionItem;
+		},
+
+		openPartialPack: function () {
+			var oView = this.getView();
+			var oDialog;
+			if (this.oItemHelper.isSerialNumberEnableItem()) {
+				oDialog = oView.byId("serialNumberPartialPackDialog");
+				if (!oDialog) {
+					oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.SerialNumberPartialPackDialog", this);
+					oView.addDependent(oDialog);
+				}
+				this.updateInputWithDefault(serialNumberPartialPackInputId, "");
+				SerialNumber.clearSerialNumbersList();
+			} else {
+				oDialog = oView.byId("partialDialog");
+				if (!oDialog) {
+					oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.PartialPackDialog", this);
+					oView.addDependent(oDialog);
+				}
+			}
+			this.openDialog(oDialog).catch(function (sError) {});
+		},
+		onPartialPackQuantityChange: function (oEvent) {
+			var sInput = Util.trim(oEvent.getParameter("newValue"));
+			if (!Util.isEmpty(sInput)) {
+				var iQuantity = Util.parseNumber(sInput);
+				var sQuantity = Util.formatNumber(iQuantity);
+				var iProductQuantity = Util.parseNumber(this.oItemHelper.getItemQuantityByIndex(0));
+				if (Util.isEmpty(sQuantity) || iQuantity >= iProductQuantity || iQuantity <= 0) {
+					this.updateInputWithError(partialId);
+					this.playAudio(Const.ERROR);
+				} else {
+					this.updateInputWithDefault(partialId, sQuantity);
+				}
+			}
+		},
+
+		onExceptionQuantitySubmit: function (oEvent) {
+			var sInput = Util.trim(oEvent.getParameter("value"));
+			var oInput = oEvent.getSource();
+			if (!Util.isEmpty(sInput)) {
+				var iQuantity = Util.parseNumber(sInput);
+				this.checkQuantityOverflow(iQuantity, oInput);
+			}
+		},
+
+		fireInputChange: function (oInput, vInputValue) {
+			oInput.fireChange({
+				newValue: vInputValue
+			});
+		},
+
+		getNewItemWithPartialQuantity: function (oProduct, oResult) {
+			var oNewProduct = JSON.parse(JSON.stringify(oProduct));
+			if (oNewProduct.StockItemUUID !== oResult.StockItemUUID) {
+				oNewProduct.OriginId = oNewProduct.StockItemUUID;
+				oNewProduct.StockItemUUID = oResult.StockItemUUID;
+			}
+			oNewProduct.AlterQuan = Util.formatNumber(parseFloat(oResult.DesAlterQuan), 3);
+			oNewProduct.AlternativeUnit = oResult.DesAlterUoM;
+			oNewProduct.Quan = Util.formatNumber(parseFloat(oResult.DesQuan), 3);
+			oNewProduct.NetWeight = Util.formatNumber(parseFloat(oResult.DesWeight), 3, 3);
+			oNewProduct.WeightUoM = oResult.DesUnitGw;
+			oNewProduct.Volume = Util.formatNumber(parseFloat(oResult.DesVolume), 3, 3);
+			oNewProduct.VolumeUoM = oResult.DesUnitGv;
+			return oNewProduct;
+		},
+
+		getProductQuantityByUoM: function (sUoMType) {
+			var fProductQuantity;
+			if (sUoMType === Const.UOM_TYPE.ALTER) {
+				fProductQuantity = Util.parseNumber(this.oItemHelper.getItemQuantityByIndex(0));
+			} else {
+				fProductQuantity = Util.parseNumber(this.oItemHelper.getItemBaseQtyByIndex(0));
+			}
+			return fProductQuantity;
+		},
+
+		onPartialPack: function (oEvent) {
+			//if user switch from SN partial dialog to partial dialog, change event may add value to SN list
+			SerialNumber.clearSerialNumbersList();
+
+			var oSelect = this.byId("partial-uom-select");
+			var sUoMType = oSelect.getSelectedKey();
+			var sUoM = oSelect.getSelectedItem().getText();
+
+			var bQuantityError = false;
+			var oPackInfo = {};
+			var fProductQuantity = this.getProductQuantityByUoM(sUoMType);
+			var oInput = this.byId(partialId);
+			var sInput = Util.trim(oInput.getValue());
+			if (!Util.isEmpty(sInput)) {
+				var fQuantity = Util.parseNumber(sInput);
+				var sQuantity = Util.formatNumber(fQuantity);
+				if (Util.isEmpty(sQuantity) || fQuantity >= fProductQuantity || fQuantity <= 0) {
+					bQuantityError = true;
+				} else {
+					if (this.checkQuantityOverflow(fQuantity, oInput)) {
+						return;
+					} else {
+						this.updateInputWithDefault(partialId, sQuantity);
+					}
+				}
+			} else {
+				bQuantityError = true;
+			}
+			if (bQuantityError) {
+				this.handleEmptyQuantityInput(partialId, "inputQuantityNotice");
+				return;
+			}
+
+			var oDialog = oEvent.getSource().getParent();
+			oDialog.setBusy(true);
+			var oProduct = this.oItemHelper.getItemByIndex(0);
+			oPackInfo.oProduct = oProduct;
+			oPackInfo.iQuantity = fQuantity;
+			oPackInfo.oDialog = oDialog;
+			oPackInfo.sUoM = sUoM;
+			oPackInfo.sUoMType = sUoMType;
+			this.getWorkFlowFactory().getPartialPackWorkFlow().run(oPackInfo);
+		},
+
+		removeExceptionButtons: function () {
+			var oToolbar = this.byId("sourcehu-buttons-toolbar");
+			var iButtonCount = oToolbar.getContent().length;
+			for (var i = iButtonCount - 1; i > 0; i--) {
+				var oButton = oToolbar.getContent()[i];
+				var oCustomData = oButton.getCustomData();
+				if (oCustomData.length !== 0) {
+					oToolbar.removeContent(oButton);
+				}
+			}
+		},
+		initExceptionButtons: function (aExceptions) {
+			var oButton = {};
+			var oExccode;
+			var oToolbar = this.byId("sourcehu-buttons-toolbar");
+			var onPressException = function (oEvent) {
+				var oSource = oEvent.getSource();
+				var sText = oSource.getText();
+				var sInternalcode = oEvent.getSource().getCustomData()[0].getValue();
+				var sExccode = oEvent.getSource().getCustomData()[0].getKey();
+				if (sInternalcode === Const.EXCCODE.DIFF) {
+					this.openDifference(sExccode, sText).catch(function (sError) {});
+				} else if (sInternalcode === Const.EXCCODE.EXPA) {
+					this.openDamage(sExccode, sText).catch(function (sError) {});
+				}
+			}.bind(this);
+			aExceptions.forEach(function (oException) {
+				oButton = new sap.m.Button({
+					text: oException.Descr,
+					enabled: "{path:'global>/exceptionEnable'}",
+					press: onPressException,
+					width: "18%"
+				});
+				oButton.setTooltip(oException.Descr);
+				oExccode = new sap.ui.core.CustomData({
+					key: oException.Exccode,
+					value: oException.InternalProcessCode
+
+				});
+				oButton.addCustomData(oExccode);
+				if (!PackingModeHelper.isInternalMode() || oException.InternalProcessCode !== Const.EXCCODE.EXPA) {
+					oToolbar.insertContent(oButton, 1);
+				}
+			});
+		},
+
+		openDamage: function (sExccode, sText) {
+			var oView = this.getView();
+			var oDialog;
+
+			oDialog = oView.byId("damageDialog");
+			if (!oDialog) {
+				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.DamageDialog", this);
+				oView.addDependent(oDialog);
+			}
+			oDialog.setTitle(sText);
+			oDialog.removeAllCustomData();
+			var oExccode = new sap.ui.core.CustomData({
+				key: sExccode
+			});
+			oDialog.addCustomData(oExccode);
+
+			return this.openDialog(oDialog);
+		},
+		openDamageDialogWithSerialNumber: function (sExccode, sText) {
+			var oView = this.getView();
+			var oDialog;
+
+			oDialog = oView.byId("serialNumberDamageDialog");
+			if (!oDialog) {
+				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.SerialNumberDamageDialog", this);
+				oView.addDependent(oDialog);
+			}
+			this.updateInputWithDefault(serialNumberDamageInputId, "");
+			SerialNumber.clearSerialNumbersList();
+
+			oDialog.setTitle(sText);
+			oDialog.removeAllCustomData();
+			var oExccode = new sap.ui.core.CustomData({
+				key: sExccode
+			});
+			oDialog.addCustomData(oExccode);
+			return this.openDialog(oDialog);
+		},
+
+		openDifference: function (sExccode, sText) {
+			var oView = this.getView();
+			var oDialog;
+			if (this.oItemHelper.isSerialNumberEnableItem()) {
+				oDialog = oView.byId("serialNumberDifferenceDialog");
+				if (!oDialog) {
+					oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.SerialNumberDifferenceDialog", this);
+					oView.addDependent(oDialog);
+				}
+				this.updateInputWithDefault(serialNumberDifferenceInputId, "");
+				SerialNumber.clearSerialNumbersList();
+			} else {
+				oDialog = oView.byId("differenceDialog");
+				if (!oDialog) {
+					oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.DifferenceDialog", this);
+					oView.addDependent(oDialog);
+				}
+			}
+			oDialog.setTitle(sText);
+			oDialog.removeAllCustomData();
+			var oExccode = new sap.ui.core.CustomData({
+				key: sExccode
+			});
+			oDialog.addCustomData(oExccode);
+
+			return this.openDialog(oDialog);
+		},
+
+		onDifferenceQuantityChange: function (oEvent) {
+			var sInput = Util.trim(oEvent.getParameter("newValue"));
+			if (!Util.isEmpty(sInput)) {
+				var iQuantity = Util.parseNumber(sInput);
+				var sQuantity = Util.formatNumber(iQuantity);
+				var iProductQuantity = Util.parseNumber(this.oItemHelper.getItemQuantityByIndex(0));
+				if (Util.isEmpty(sQuantity) || iQuantity >= iProductQuantity || iQuantity < 0) {
+					this.updateInputWithError(differenceId);
+					this.playAudio(Const.ERROR);
+				} else {
+					this.updateInputWithDefault(differenceId, sQuantity);
+				}
+			}
+		},
+
+		onDifference: function (oEvent) {
+			var oSelect = this.byId("difference-uom-select");
+			var sUoMType = oSelect.getSelectedKey();
+			var sUoM = oSelect.getSelectedItem().getText();
+			var fProductQuantity = this.getProductQuantityByUoM(sUoMType);
+			var bQuantityError = false;
+			var oInput = this.byId(differenceId);
+			var sInput = Util.trim(oInput.getValue());
+			if (!Util.isEmpty(sInput)) {
+				var fQuantity = Util.parseNumber(sInput);
+				var sQuantity = Util.formatNumber(fQuantity);
+				if (Util.isEmpty(sQuantity) || fQuantity >= fProductQuantity || fQuantity < 0) {
+					bQuantityError = true;
+				} else {
+					if (this.checkQuantityOverflow(fQuantity, oInput)) {
+						return;
+					} else {
+						this.updateInputWithDefault(differenceId, sQuantity);
+					}
+				}
+			} else {
+				bQuantityError = true;
+			}
+			if (bQuantityError) {
+				this.handleEmptyQuantityInput(differenceId, "inputQuantityNotice");
+				return;
+			}
+
+			var oDialog = oEvent.getSource().getParent();
+			var sExccode = oDialog.getCustomData()[0].getKey();
+			var oProduct = this.oItemHelper.getItemByIndex(0);
+			oDialog.setBusy(true);
+			this.getWorkFlowFactory().getDiffPackWorkFlow().run([oProduct, fQuantity, sExccode, oDialog, sUoM, sUoMType]);
+		},
+
+		onDamage: function (oEvent) {
+			var oSelect = this.byId("damage-uom-select");
+			var sUoMType = oSelect.getSelectedKey();
+			var sUoM = oSelect.getSelectedItem().getText();
+			var bQuantityError = false;
+			var fProductQuantity = this.getProductQuantityByUoM(sUoMType);
+			var oInput = this.byId(damageId);
+			var sInput = Util.trim(oInput.getValue());
+			if (!Util.isEmpty(sInput)) {
+				var fQuantity = Util.parseNumber(sInput);
+				var sQuantity = Util.formatNumber(fQuantity);
+				if (Util.isEmpty(sQuantity) || fQuantity > fProductQuantity || fQuantity <= 0) {
+					bQuantityError = true;
+				} else {
+					if (this.checkQuantityOverflow(fQuantity, oInput)) {
+						return;
+					} else {
+						this.updateInputWithDefault(damageId, sQuantity);
+					}
+				}
+			} else {
+				bQuantityError = true;
+			}
+			if (bQuantityError) {
+				this.handleEmptyQuantityInput(damageId, "inputQuantityNotice");
+				return;
+			}
+
+			var oDialog = oEvent.getSource().getParent();
+			var sExccode = oDialog.getCustomData()[0].getKey();
+			var sText = oDialog.getTitle();
+			var oProduct = this.oItemHelper.getItemByIndex(0);
+			fQuantity = Util.parseNumber(oProduct.AlterQuan) - fQuantity;
+			if (this.oItemHelper.isSerialNumberEnableItem() && fQuantity !== 0) {
+				oDialog.close();
+				this.openDamageDialogWithSerialNumber(sExccode, sText);
+			} else {
+				oDialog.setBusy(true);
+				this.getWorkFlowFactory().getDiffPackWorkFlow().run([oProduct, fQuantity, sExccode, oDialog, sUoM, sUoMType]);
+			}
+		},
+
+		onSerialNumberExceptionChange: function (oEvent, sInputId) {
+			var sInput = Util.trim(oEvent.getParameter("newValue"));
+			if (Util.isEmpty(sInput)) {
+				return;
+			}
+			if (sInput.length > 30) {
+				this.handleEntryLengthExceed(sInputId);
+				return;
+			}
+
+			if (SerialNumber.getSerialNumberCount() === this.oItemHelper.getItemBaseQtyByIndex(0) - 1) {
+				var sErrorMsg = this.getI18nText("overPackErrorMsg", this.oItemHelper.getItemBaseQtyByIndex(0));
+				this.updateInputWithError(sInputId, sErrorMsg);
+				this.playAudio(Const.ERROR);
+				this.focus(sInputId);
+				return;
+			}
+			sInput = sInput.toUpperCase();
+			this.verifySerialNumber(sInput, sInputId);
+		},
+
+		verifySerialNumber: function (sSerialNumber, sInputId) {
+			var oVerifyPromise = this.getSerialNumberVerifyPromise(sSerialNumber);
+			oVerifyPromise
+				.then(function (oSuccess) {
+					SerialNumber.addSerialNumber(sSerialNumber);
+					this.updateInputWithDefault(sInputId, "");
+					this.focus(sInputId);
+				}.bind(this))
+				.catch(function (oError) {
+					this.updateInputWithError(sInputId, oError.getDescription());
+					this.playAudio(Const.ERROR);
+					this.focus(sInputId);
+				}.bind(this));
+		},
+
+		onSerialNumberDifferenceChange: function (oEvent) {
+			this.onSerialNumberExceptionChange(oEvent, serialNumberDifferenceInputId);
+		},
+
+		onSerialNumberPartialPackChange: function (oEvent) {
+			this.onSerialNumberExceptionChange(oEvent, serialNumberPartialPackInputId);
+		},
+		onSerialNumberDamageChange: function (oEvent) {
+			this.onSerialNumberExceptionChange(oEvent, serialNumberDamageInputId);
+		},
+
+		onSerialNumberDifferencePack: function (oEvent) {
+			var oDialog = oEvent.getSource().getParent();
+			var sExccode = oDialog.getCustomData()[0].getKey();
+			var oProduct = JSON.parse(JSON.stringify(this.oItemHelper.getItemByIndex(0)));
+			oDialog.setBusy(true);
+			var fQuantity = SerialNumber.getSerialNumberCount() / this.oItemHelper.getAlternativeUOMRatio(oProduct);
+			fQuantity = Util.parseNumber(Util.formatNumber(fQuantity, 3));
+			this.getWorkFlowFactory().getDiffPackWorkFlow().run([oProduct, fQuantity, sExccode, oDialog]);
+		},
+
+		onSerialNumberDamagePack: function (oEvent) {
+			var oDialog = oEvent.getSource().getParent();
+			var sExccode = oDialog.getCustomData()[0].getKey();
+			var oProduct = JSON.parse(JSON.stringify(this.oItemHelper.getItemByIndex(0)));
+			oDialog.setBusy(true);
+			var fQuantity = SerialNumber.getSerialNumberCount() / this.oItemHelper.getAlternativeUOMRatio(oProduct);
+			fQuantity = Util.parseNumber(Util.formatNumber(fQuantity, 3));
+			this.getWorkFlowFactory().getDiffPackWorkFlow().run([oProduct, fQuantity, sExccode, oDialog]);
+		},
+
+		onSerialNumberPartialPack: function (oEvent) {
+			var oDialog = oEvent.getSource().getParent();
+			var iQuantity = SerialNumber.getSerialNumberCount();
+			var oPackInfo = {};
+			if (iQuantity === 0) {
+				this.handleEmptyQuantityInput(serialNumberPartialPackInputId, "noSNForPartialPackErr");
+				return;
+			}
+			oDialog.setBusy(true);
+			var oProduct = JSON.parse(JSON.stringify(this.oItemHelper.getItemByIndex(0)));
+			oPackInfo.oProduct = oProduct;
+			var fPackQty = iQuantity / this.oItemHelper.getAlternativeUOMRatio(oProduct);
+			oPackInfo.iQuantity = Util.parseNumber(Util.formatNumber(fPackQty, 3));
+			oPackInfo.oDialog = oDialog;
+			this.getWorkFlowFactory().getPartialPackWorkFlow().run(oPackInfo);
+		},
+
+		clearSourceBeforeLeave: function () {
+			this.updateInputWithDefault(Const.ID.SOURCE_INPUT, "");
+			this.updateInputWithDefault(Const.ID.PRODUCT_INPUT, "");
+			Global.setSourceId("");
+			Global.setProductId("");
+			this.oItemHelper.setItems([]);
+		},
+
+		unbindODOInfo: function () {
+			this.oODOForm.unbindElement();
+		},
+		disableButtons: function () {
+			Global.setPackAllEnable(false);
+			Global.setExceptionEnable(false);
+		},
+		bindODOInfo: function () {
+			this.oODOForm.bindElement(Const.ITEM_MODEL_NAME + ">/0");
+			//var sHandlingInstr = this.oItemHelper.getItemHandlingInstrByIndex(0);  
+			//this.setHandlingInstrElementVisible(!Util.isEmpty(sHandlingInstr));
+		},
+
+		setHandlingInstrElementVisible: function (bValue) {
+			var oFormElement = this.oODOForm.getFormElements()[2];
+			oFormElement.setVisible(bValue);
+		},
+
+		getSerialNumberDialog: function () {
+			var oView = this.getView();
+			var oDialog = oView.byId(serialNumberDialogId);
+
+			if (!oDialog) {
+				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.SerialNumberDialog", this);
+				oView.addDependent(oDialog);
+			}
+			this.updateInputWithDefault(serialNumberInputId, "");
+			SerialNumber.clearSerialNumbersList();
+			return oDialog;
+		},
+		getStockLevelSnDialog: function (sProductId) {
+			var oView = this.getView();
+			var oDialog = oView.byId(stockLevleSnDialogId);
+			if (!oDialog) {
+				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.StockLevelSnDialog", this);
+				oView.addDependent(oDialog);
+			}
+			oDialog.removeAllCustomData();
+			var oProductId = new sap.ui.core.CustomData({
+				key: sProductId
+			});
+			oDialog.addCustomData(oProductId);
+			var oText = oView.byId("stockLevel-sn-dialog-text");
+			this.setDialogText(oText, "stockLevelSerialNumberNotification");
+			this.updateInputWithDefault(stockLevelSnInputId, "");
+			return oDialog;
+		},
+		/**
+		 * handle the event user input serial number in the stock level sn dialog 
+		 * stock level sn dialog poped out after user input a product which is stock level sn enabled
+		 * if the value is valid, it will close the dialog
+		 * if the value is invalid, it will set the input box to be error
+		 * @param {sap.ui.base.Event} oEvent The enter key event
+		 */
+		onStockLevelSNChange: function (oEvent) {
+			var oDialog = oEvent.getSource().getParent().getParent();
+			var sProductId = oDialog.getCustomData()[0].getKey();
+			var newValue = Util.trim(oEvent.getParameter("value")).toUpperCase();
+			if (!Util.isEmpty(newValue)) {
+				var iIndex = this.oItemHelper.getItemIndexBySerialNumber(sProductId, newValue);
+				if (iIndex !== -1) {
+					this.closeDialog(oDialog, iIndex, false);
+					return;
+				}
+			}
+			var sError = this.getI18nText("incorrectStockLevelSn");
+			this.updateInputWithError(stockLevelSnInputId, sError);
+			this.playAudio(Const.ERROR);
+			this.focus(stockLevelSnInputId);
+
+		},
+		onCancelStockLevelSNialog: function (oEvent) {
+			this.updateInputWithDefault(stockLevelSnInputId, "");
+			this.closeDialog(oEvent.getSource().getParent(), Const.ERRORS.INTERRUPT_WITH_NO_ACTION, true);
+		},
+		getSerialNumberVerifyPromise: function (sInput) {
+			var oVerifyPromise;
+			var sError;
+			var oError;
+			if (Util.isEmpty(sInput)) {
+				sError = this.getI18nText("emptySN");
+				oError = new CustomError("", sError);
+				oVerifyPromise = Util.getRejectPromise(oError);
+			} else if (this.isAllSerialNumberFinished()) {
+				//if all required serial numbers are assigned, display error message
+				sError = this.getI18nText("serialNumberExceed");
+				oError = new CustomError("", sError);
+				oVerifyPromise = Util.getRejectPromise(oError);
+			} else if (SerialNumber.hasSerialNumber(sInput)) {
+				sError = this.getI18nText("duplicateSNMsg", sInput);
+				oError = new CustomError("", sError);
+				oVerifyPromise = Util.getRejectPromise(oError);
+			} else {
+				if (this.oItemHelper.isStockLevelSerialNumber()) {
+					if (this.oItemHelper.hasSerialNumber(sInput)) {
+						oVerifyPromise = Util.getResolvePromise(sInput);
+					} else {
+						sError = this.getI18nText("incorrectSerialNumber", sInput);
+						oError = new CustomError("", sError);
+						oVerifyPromise = Util.getRejectPromise(oError);
+					}
+				} else {
+					oVerifyPromise = Service.verifySerialNumber(this.oItemHelper.getItemByIndex(0), sInput);
+				}
+			}
+			return oVerifyPromise;
+		},
+		onBatchNumberChange: function (oEvent) {
+			var oDialog = oEvent.getSource().getParent().getParent();
+			var sProductId = oDialog.getCustomData()[0].getKey();
+			var newValue = Util.trim(oEvent.getParameter("value")).toUpperCase();
+			var bError = false;
+			if (!Util.isEmpty(newValue)) {
+				var iIndex = this.oItemHelper.getItemIndexByProductAndBatch(sProductId, newValue);
+				if (iIndex !== -1) {
+					this.updateInputWithDefault(batchId, "");
+					this.closeDialog(oDialog, newValue, false);
+				} else {
+					bError = true;
+				}
+			} else {
+				bError = true;
+			}
+
+			if (bError) {
+				var sError = this.getI18nText("batchIncorrect");
+				this.updateInputWithError(batchId, sError);
+				this.playAudio(Const.ERROR);
+				this.focus(batchId);
+			}
+		},
+		getBatchNumberDialog: function (sProductId) {
+			var oView = this.getView();
+			var oDialog = oView.byId(batchDialogId);
+			if (!oDialog) {
+				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.BatchNumberDialog", this);
+				oView.addDependent(oDialog);
+			}
+			oDialog.removeAllCustomData();
+			var oProductId = new sap.ui.core.CustomData({
+				key: sProductId
+			});
+			oDialog.addCustomData(oProductId);
+			var oText = oView.byId("batch-dialog-text");
+			this.setDialogText(oText, "batchNumberNotification", [sProductId]);
+			return oDialog;
+		},
+		setDialogText: function (oText, sI18n, aValues) {
+			var sTextValue = this.getI18nText(sI18n, aValues);
+			oText.setText(sTextValue);
+		},
+		onCancelBatchDialog: function (oEvent) {
+			this.updateInputWithDefault(batchId, "");
+			this.closeDialog(oEvent.getSource().getParent(), Const.ERRORS.INTERRUPT_WITH_NO_ACTION, true);
+		},
+		onSerialNumberCancel: function (oEvent) {
+			this.closeDialog(oEvent.getSource().getParent(), Const.ERRORS.INTERRUPT_WITH_NO_ACTION, true);
+			this.oItemHelper.setItemQtyReducedInitialized();
+			this.oItemHelper.setItemReductCancelByIndex(0);
+			this.setBusy(false);
+		},
+		//when user has scan nothing in the input box
+		handleEmptyQuantityInput: function (vInput, sI18nKey) {
+			var sErrorMessage = this.getI18nText(sI18nKey);
+			this.updateInputWithError(vInput, sErrorMessage);
+			this.playAudio(Const.ERROR);
+			this.focus(vInput);
+		},
+		handleExceptionEnable: function () {
+			if (Util.isEmpty(Global.getSourceId()) || this.oItemHelper.isEmpty() || Util.isEmpty(Global.getProductId())) {
+				Global.setExceptionEnable(false);
+				return;
+			}
+			var sCurrentShipHU = Global.getCurrentShipHandlingUnit();
+			if (Global.getPendingTaskNumber() === 0 && !Util.isEmpty(sCurrentShipHU) && !ODataHelper.isShipHUClosed(sCurrentShipHU)) {
+				if (Global.getCheckConsolidationGroup()) {
+					var sSourceHUODO = this.oItemHelper.getFirstItemConsGroup();
+					var sCurrentShipHUODO = Cache.getShipHUConsGroup(sCurrentShipHU);
+					if (sCurrentShipHUODO === sSourceHUODO || sCurrentShipHUODO === "") {
+						Global.setExceptionEnable(true);
+					} else {
+						Global.setExceptionEnable(false);
+					}
+				} else {
+					Global.setExceptionEnable(true);
+				}
+			} else {
+				Global.setExceptionEnable(false);
+			}
+		},
+		getChangePackQuantityDialog: function (sProductId) {
+			var oView = this.getView();
+			var oDialog = oView.byId(reductionDialogId);
+			var sWarningText;
+
+			if (!oDialog) {
+				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.ChangePackingQuantityDialog", this);
+				oView.addDependent(oDialog);
+			}
+			oDialog.removeAllCustomData();
+			if (this.oItemHelper.getItemReductionQtyByIndex(0) === "0") {
+				sWarningText = this.getI18nText("orderCancelNotification");
+			} else {
+				sWarningText = this.getI18nText("changePackingQuantityNotification", [this.oItemHelper.getItemQuantityByIndex(0), this.oItemHelper
+					.getItemReductionQtyByIndex(0)
+				]);
+			}
+			var oText = oView.byId("reduction-dialog-text");
+			oText.setText(sWarningText);
+			this.playAudio(Const.WARNING);
+			return oDialog;
+		},
+		onProcessOrderReduction: function (oEvent) {
+			this.closeDialog(oEvent.getSource().getParent());
+			var oProduct = this.oItemHelper.getItemByIndex(0);
+			var oPackInfo = {
+				oProduct: oProduct
+			};
+			this.getWorkFlowFactory().getPackItemWorkFlow().run(oPackInfo);
+		},
+		onNotProcessOrderReduction: function (oEvent) {
+			this.closeDialog(oEvent.getSource().getParent());
+			this.oItemHelper.setItemQtyReducedInitialized();
+		},
+
+		onDamageQuantityChange: function (oEvent) {
+			var sInput = Util.trim(oEvent.getParameter("newValue"));
+			var bError = false;
+			if (!Util.isEmpty(sInput)) {
+				var iQuantity = Util.parseNumber(sInput);
+				var sQuantity = Util.formatNumber(iQuantity);
+				var iProductQuantity = Util.parseNumber(this.oItemHelper.getItemQuantityByIndex(0));
+				if (Util.isEmpty(sQuantity) || iQuantity > iProductQuantity || iQuantity <= 0) {
+					bError = true;
+				} else {
+					this.updateInputWithDefault(damageId, sQuantity);
+				}
+			} else {
+				bError = true;
+			}
+			if (bError) {
+				var sText = this.getI18nText("inputQuantityNotice");
+				this.updateInputWithError(damageId, sText);
+				this.playAudio(Const.ERROR);
+			}
+		},
+		onAfterCloseDialog: function (oEvent) {
+			var oInput = oEvent.getSource().getContent()[0].getContent()[2].getContent()[0].setValue("");
+			this.updateInputWithDefault(oInput, "");
+			this.focus(Const.ID.PRODUCT_INPUT);
+		},
+
+		onSerialNumberPopover: function (oEvent) {
+			this.openSerialNumberPopover(oEvent, Const.ITEM_MODEL_NAME, this.oItemHelper);
+		},
+
+		onSwitchToPackWithoutSN: function (oEvent) {
+			if (SerialNumber.getSerialNumberCount() > 0) {
+				var sError = this.getI18nText("snMaintained");
+				this.updateInputWithError(serialNumberPartialPackInputId, sError);
+				this.focus(serialNumberPartialPackInputId);
+				this.playAudio(Const.ERROR);
+			} else {
+				this.updateInputWithDefault(serialNumberPartialPackInputId, "");
+				var oDialog = oEvent.getSource().getParent();
+				this.closeDialog(oDialog);
+
+				var oView = this.getView();
+				var oNewDialog = oView.byId("partialDialog");
+				if (!oNewDialog) {
+					oNewDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.PartialPackDialog", this);
+					oView.addDependent(oNewDialog);
+				}
+				this.openDialog(oNewDialog).catch(function (sError) {});
+			}
+		},
+
+		onSerialNumberPack: function (oEvent) {
+			var oDialog = oEvent.getSource().getParent();
+			var sInput = this.byId(serialNumberInputId).getValue();
+			if (!Util.isEmpty(sInput)) {
+				this.verifySerialNumberInput(sInput, oDialog)
+					.then(function () {
+						this.handleSerialNumberPack();
+					}.bind(this));
+			} else {
+				if (this.isAllSerialNumberFinished()) {
+					this.closeDialog(oDialog);
+				} else {
+					this.handleSerialNumberPack();
+				}
+			}
+		},
+		onPackWithoutSerialNumber: function (oEvent) {
+			var oDialog = oEvent.getSource().getParent();
+			var sInput = this.byId(serialNumberInputId).getValue();
+			var sError = this.getI18nText("snMaintained");
+			if (!Util.isEmpty(sInput)) {
+				this.verifySerialNumberInput(sInput, oDialog, true)
+					.then(function (oResult) {
+						this.updateInputWithError(serialNumberInputId, sError);
+						this.focus(serialNumberInputId);
+						this.playAudio(Const.ERROR);
+						this.byId(serialNumberInputId).setShowValueStateMessage(true);
+					}.bind(this));
+			} else if (SerialNumber.getSerialNumberCount() !== 0) {
+				this.updateInputWithError(serialNumberInputId, sError);
+				this.focus(serialNumberInputId);
+				this.playAudio(Const.ERROR);
+			} else {
+				this.closeDialog(oDialog);
+			}
+		},
+
+		handleSerialNumberPack: function () {
+			if (!this.isAllSerialNumberFinished()) {
+				var iExpectedCount = Util.parseNumber(this.oItemHelper.getItemBaseQtyByIndex(0));
+				var sError = this.getI18nText("provideAllSNs", iExpectedCount);
+				this.updateInputWithError(serialNumberInputId, sError);
+				this.playAudio(Const.ERROR);
+				this.focus(serialNumberInputId);
+			}
+		},
+
+		onDeleteSerialNumber: function (oEvent) {
+			var oItem = oEvent.getParameter("listItem");
+			var sSerialNum = oItem.getTitle();
+			SerialNumber.removeSerialNumber(sSerialNum);
+			this.updateInputWithDefault(serialNumberInputId, "");
+			this.focus(serialNumberInputId);
+		},
+
+		onSerialNumChange: function (oEvent) {
+			var sInput = Util.trim(oEvent.getParameter("value"));
+			var oDialog = oEvent.getSource().getParent().getParent();
+			this.verifySerialNumberInput(sInput, oDialog);
+		},
+		verifySerialNumberInput: function (sInput, oDialog, bPackWithout) {
+			sInput = sInput.toUpperCase();
+
+			if (sInput.length > 30) {
+				this.handleEntryLengthExceed(serialNumberInputId);
+				return;
+			}
+
+			return new Promise(function (resolve, reject) {
+				oDialog.setBusy(true);
+				var oVerifyPromise;
+				oVerifyPromise = this.getSerialNumberVerifyPromise(sInput);
+				oVerifyPromise
+					.then(function (oSuccess) {
+						oDialog.setBusy(false);
+						SerialNumber.addSerialNumber(sInput);
+						this.updateInputWithDefault(serialNumberInputId, "");
+						this.focus(serialNumberInputId);
+						if (this.isAllSerialNumberFinished() && !bPackWithout) {
+							this.closeDialog(oDialog);
+						}
+						resolve();
+					}.bind(this))
+					.catch(function (oError) {
+						oDialog.setBusy(false);
+						this.updateInputWithError(serialNumberInputId, oError.getDescription());
+						this.playAudio(Const.ERROR);
+						this.focus(serialNumberInputId);
+					}.bind(this));
+			}.bind(this));
+		},
+		handleEntryLengthExceed: function (sInputId) {
+			var sError = this.getI18nText("serialNumberMaximunCharacters");
+			this.updateInputWithError(sInputId, sError);
+			this.playAudio(Const.ERROR);
+			this.focus(sInputId);
+		},
+		isAllSerialNumberFinished: function () {
+			var iCount = SerialNumber.getSerialNumberCount();
+			var iExpectedCount = Util.parseNumber(this.oItemHelper.getItemBaseQtyByIndex(0));
+			if (iCount === iExpectedCount) {
+				return true;
+			}
+			return false;
+		},
+		formatPackBtn: function (bValue) {
+			if (bValue === sap.ui.core.MessageType.Success) {
+				return true;
+			}
+			return false;
+		},
+		formatSerialNumberPackMsg: function (sShipId, sMode) {
+			return this.getTextAccordingToMode("serialNumberPackText", "serialNumberPackNotification", [sShipId], sMode);
+		},
+		formatExceptionMsg: function (sShipHU, sMode) {
+			return this.getTextAccordingToMode("internalExceptionDialogText", "exceptionDialogText", [sShipHU], sMode);
+		},
+		formatSerialNumQtyDisplay: function (aSerialNumbers, sQuantity) {
+			if (sQuantity === undefined) {
+				return "";
+			}
+			return SerialNumber.getSerialNumberCount() + "/" + sQuantity;
+		},
+		formatSNListMode: function (oItem) {
+			if (oItem !== undefined && this.oItemHelper.isStockLevelSerialNumber()) {
+				return ListMode.None;
+			} else {
+				return ListMode.Delete;
+			}
+		},
+		isSelectedItemAndCurrentShipHUInSameConsGroup: function (sConGroupOfHightSourceItem) {
+			var bSameConsolidationGroup = false;
+			if (!Util.isEmpty(Global.getProductId())) { // has an selected item
+				// current ship hu consolidation group
+				var sShipHUConsGroup = Cache.getShipHUConsGroup(Global.getCurrentShipHandlingUnit());
+				if (Util.isEmpty(sShipHUConsGroup) || sConGroupOfHightSourceItem === sShipHUConsGroup) {
+					bSameConsolidationGroup = true;
+				}
+			}
+			return bSameConsolidationGroup;
+		},
+		updateSourceItemStatus: function () {
+			if (Util.isEmpty(Global.getProductId())) {
+				//product id is not scanned
+				this.oItemHelper.setItemsStatusByConsGrp();
+				return;
+			}
+			if (this.canFirstSourceItemPackToCurrentShipHU()) {
+				this.oItemHelper.setItemHighlightByIndex(0);
+			} else {
+				this.oItemHelper.setItemsStatusByConsGrp();
+			}
+			return;
+		},
+		formatSourceHUEnabled: function (iPendingTaskNumber) {
+			if (iPendingTaskNumber > 0) {
+				return false;
+			}
+			return true;
+		},
+		onSourceItemPressed: function (oEvent) {
+			var oContext = oEvent.getSource().getBindingContext("itemModel");
+			var oProduct = oContext.getObject();
+			this.getWorkFlowFactory().getProductChangeWorkFlow().run(oProduct);
+		},
+		formatHandlingInstruction: function (sHandlingInstruction, sProductId) {
+			if (Util.isEmpty(sProductId)) {
+				return "";
+			}
+			return sHandlingInstruction;
+		},
+
+		/*
+		 * @param {string} sMessage
+		 * Show error message in message box, leave the app after click ok button
+		 * public
+		 */
+		showToLeaveMessagePopup: function (sMessage) {
+			var bCompact = !!this.getView().$().closest(".sapUiSizeCompact").length;
+			MessageBox.error(
+				sMessage, {
+					styleClass: bCompact ? "sapUiSizeCompact" : "",
+					actions: [sap.m.MessageBox.Action.OK],
+					onClose: function () {
+						this.setBusy(true);
+						this.getWorkFlowFactory().getLeaveWorkFlow().run();
+					}.bind(this)
+				}
+			);
+		},
+
+		formatBaseUoMVisible: function (oItem) {
+			if (!Util.isEmpty(oItem) && oItem.AlternativeUnit === oItem.BaseUnit) {
+				return false;
+			}
+			return true;
+		},
+		initColumnSettingModel: function () {
+			this.oColumnSettingsHelper.setData(this.getDefaultColumnSetting());
+		},
+		canFirstSourceItemPackToCurrentShipHU: function () {
+			var bValue = false;
+			var sCurrentShipHU = Global.getCurrentShipHandlingUnit();
+			var bIsCurrentShipHUClosed = Global.getCurrentShipHandlingUnitClosed();
+			if (Util.isEmpty(sCurrentShipHU) || bIsCurrentShipHUClosed) {
+				return false;
+			}
+			if (Global.getCheckConsolidationGroup()) {
+				var sSourceItemConGrp = this.oItemHelper.getFirstItemConsGroup();
+				var sCurrentShipHUConGrp = Cache.getShipHUConsGroup(sCurrentShipHU);
+				if (Util.isEmpty(sCurrentShipHUConGrp)) {
+					//ship hu may be empty or has broken items inside
+					if (!Util.isEmpty(sSourceItemConGrp) && Cache.getIsEmptyHU(sCurrentShipHU)) {
+						//it is a normal source item, ship hu is empty
+						bValue = true;
+					} else if (Util.isEmpty(sSourceItemConGrp)) {
+						//this is a broken source item
+						bValue = true;
+					}
+				} else if (sCurrentShipHUConGrp === sSourceItemConGrp) {
+					//ship hu have normal items inside
+					bValue = true;
+				}
+			} else {
+				bValue = true;
+			}
+			return bValue;
+		},
+		initDefaultColumnSetting: function () {
+			this._mAdvancedSourceTableDefaultSettings = JSON.parse(JSON.stringify(AdvancedSourceTableSetting.getData()));
+			this._mBasicSourceDefaultDefaultSettings = JSON.parse(JSON.stringify(BasicSourceTableSetting.getData()));
+			this._mInternalSourceTableDefaultSettings = JSON.parse(JSON.stringify(InternalSourceTableSetting.getData()));
+		},
+		formatProductText: function (sProduct, sProdcutDesc) {
+			if (!Util.isEmpty(sProduct)) {
+				return sProdcutDesc + " (" + sProduct + ")";
+			} else {
+				return "";
+			}
+		},
+		formatPackWithoutSNVisible: function (oItem) {
+			if (oItem !== undefined && oItem.SerialNumberRequiredLevel === Const.SN_DOC_LEVEL_PROFILE_A && oItem.EWMDeliveryDocumentCategory ===
+				Const.DOCUMENT_CAT_OUTBOUND) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	});
+});

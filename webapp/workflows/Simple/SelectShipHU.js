@@ -1,4 +1,86 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/workflows/WorkFlow","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/service/ODataService","scm/ewm/packoutbdlvs1/utils/Const","scm/ewm/packoutbdlvs1/modelHelper/Global","scm/ewm/packoutbdlvs1/modelHelper/Cache"],function(W,U,S,C,G,a){"use strict";return function(s,o){var w=new W().then(function(h,m){this.setBusy(true);m.Huid=h;return S.getHUItems(h,C.SHIP_TYPE_HU);},o).then(function(p,m){this.setBusy(false);this.oItemHelper.setItems(p);this.updateShippingHUMaterial(m.Huid);this.updateShipItemStatus();this.oItemHelper.setItemsPreviousAlterQuan();this.oItemHelper.setItemsPackedQuan();this.oItemHelper.setItemsDeltaQuan();this.oItemHelper.setItemsDefaultQuan();this.oItemHelper.setItemsStatusByConsGrp();this.clearGrossWeight();this.setBusy(false);},o).then(function(){this.focus(C.ID.PRODUCT_INPUT);},s).then(function(p,m){if(this.oItemHelper.getAllItems().length>0){a.updateShipHUConsGroup(G.getCurrentShipHandlingUnit(),this.oItemHelper.getAllItems()[0].EWMConsolidationGroup);this.oItemHelper.setItemsStatusToNone();this.oItemHelper.setItemHighlightByIndex(0);}else{a.updateShipHUConsGroup(G.getCurrentShipHandlingUnit(),"");}},o,"if it is the first item in the right, update packing info").then(function(p,P){P.sODO="";P.sPackInstr="";if(this.oItemHelper.getHighLightedItemIndex()===0){P.sODO=this.oItemHelper.getItemDocNoByIndex(0);P.sPackInstr=this.oItemHelper.getItemPackInstrByIndex(0);}},s).then(function(p,P){this.updatePackingInstr(P.sODO,P.sPackInstr);},o,"update packing info").then(function(p,m){var P=G.getSelectedProductInShip();if(!U.isEmpty(P)){var i=this.oItemHelper.getItemIndexByKey(P.StockItemUUID,m.Huid);if(i>=0){this.oItemHelper.setItemsStatusToNone();this.oItemHelper.setItemHighlightByIndex(i);}G.setSelectedProductInShip("");}},o,"highlight specific item in the ship table");w.errors().subscribe(C.ERRORS.NO_AUTHORIZATION_FOR_WAREHOUSE,function(e){this.showToLeaveMessagePopup(e);},s).default(function(e,p,m,c){if(c){this.showErrorMessagePopup(e);}},s).subscribe("",function(){}).always(function(){G.setBusy(false);this.playAudio(C.ERROR);},o);return w;};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/workflows/WorkFlow",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global",
+	"scm/ewm/packoutbdlvs1/modelHelper/Cache"
+], function (WorkFlow, Util, Service, Const, Global, Cache) {
+	"use strict";
+	return function (oSourceController, oShipController) {
+		var oWorkFlow = new WorkFlow()
+			.then(function (sHuid, mSession) {
+				this.setBusy(true);
+				mSession.Huid = sHuid;
+				return Service.getHUItems(sHuid, Const.SHIP_TYPE_HU);
+			}, oShipController)
+			.then(function (preResult, mSession) {
+				this.setBusy(false);
+				this.oItemHelper.setItems(preResult);
+				this.updateShippingHUMaterial(mSession.Huid);
+				this.updateShipItemStatus();
+				this.oItemHelper.setItemsPreviousAlterQuan();
+				this.oItemHelper.setItemsPackedQuan();
+				this.oItemHelper.setItemsDeltaQuan();
+				this.oItemHelper.setItemsDefaultQuan();
+				this.oItemHelper.setItemsStatusByConsGrp();
+				this.clearGrossWeight();
+				this.setBusy(false);
+			}, oShipController)
+			.then(function () {
+				this.focus(Const.ID.PRODUCT_INPUT);
+			}, oSourceController)
+			.then(function (pre, mSession) {
+				if (this.oItemHelper.getAllItems().length > 0) {
+					Cache.updateShipHUConsGroup(Global.getCurrentShipHandlingUnit(), this.oItemHelper.getAllItems()[0].EWMConsolidationGroup);
+					this.oItemHelper.setItemsStatusToNone();
+					this.oItemHelper.setItemHighlightByIndex(0);
+				} else {
+					Cache.updateShipHUConsGroup(Global.getCurrentShipHandlingUnit(), "");
+				}
+			}, oShipController, "if it is the first item in the right, update packing info")
+			.then(function (preResult, oParam) {
+				oParam.sODO = "";
+				oParam.sPackInstr = "";
+				if (this.oItemHelper.getHighLightedItemIndex() === 0) {
+					oParam.sODO = this.oItemHelper.getItemDocNoByIndex(0);
+					oParam.sPackInstr = this.oItemHelper.getItemPackInstrByIndex(0);
+				}
+			}, oSourceController)
+			.then(function (preResult, oParam) {
+				this.updatePackingInstr(oParam.sODO, oParam.sPackInstr);
+			}, oShipController, "update packing info")
+			.then(function (preResult, mSession) {
+				var oProduct = Global.getSelectedProductInShip();
+				if (!Util.isEmpty(oProduct)) {
+					var index = this.oItemHelper.getItemIndexByKey(oProduct.StockItemUUID, mSession.Huid);
+					if (index >= 0) {
+						this.oItemHelper.setItemsStatusToNone();
+						this.oItemHelper.setItemHighlightByIndex(index);
+					}
+					Global.setSelectedProductInShip("");
+				}
+			}, oShipController, "highlight specific item in the ship table");
+
+		oWorkFlow
+			.errors()
+			.subscribe(Const.ERRORS.NO_AUTHORIZATION_FOR_WAREHOUSE, function (sError) {
+				this.showToLeaveMessagePopup(sError);
+			}, oSourceController)
+			.default(function (sError, vPara, mSession, bCustomError) {
+				if (bCustomError) {
+					this.showErrorMessagePopup(sError);
+				}
+			}, oSourceController)
+			.subscribe("", function () {})
+			.always(function () {
+				Global.setBusy(false);
+				this.playAudio(Const.ERROR);
+			}, oShipController);
+		return oWorkFlow;
+
+	};
+});

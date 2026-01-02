@@ -1,4 +1,251 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow","scm/ewm/packoutbdlvs1/utils/Util","scm/ewm/packoutbdlvs1/utils/Const","scm/ewm/packoutbdlvs1/modelHelper/Message","scm/ewm/packoutbdlvs1/modelHelper/Global","scm/ewm/packoutbdlvs1/modelHelper/SerialNumber","scm/ewm/packoutbdlvs1/service/ODataService","scm/ewm/packoutbdlvs1/modelHelper/Cache"],function(W,U,C,M,G,S,a,b){"use strict";return function(s,o){var w=new W().then(function(p,m){m.sAlterQuan=JSON.parse(JSON.stringify(p.oProduct.AlterQuan));m.sBaseQuan=JSON.parse(JSON.stringify(p.oProduct.Quan));m.oProduct=JSON.parse(JSON.stringify(p.oProduct));m.oPackProduct=p.oProduct;m.SnList=m.oProduct.SnList;m.IuidList=m.oProduct.IuidList;},s,"disable ui interaction").then(function(p,m){if(!U.isEmpty(m.oProduct.SerialNumberRequiredLevel)&&m.oProduct.SerialNumberRequiredLevel!==C.SN_DOC_LEVEL_PROFILE_D){if(!(m.oProduct.SerialNumberRequiredLevel===C.SN_DOC_LEVEL_PROFILE_A&&m.oProduct.EWMDeliveryDocumentCategory!==C.DOCUMENT_CAT_OUTBOUND)){if(!(this.oItemHelper.getItemCountByProduct(m.oProduct.ProductName)===1&&m.oProduct.SerialNumberRequiredLevel===C.SERIAL_NUMBER_STOCK_LEVEL)){if(this.oItemHelper.isReductionFirstItem()){var r=this.oItemHelper.getAlternativeUOMRatio(m.oProduct);var R=U.parseNumber(this.oItemHelper.getItemReductionQtyByIndex(0));m.oPackProduct.QuanDefault=m.oProduct.Quan;var B=(R*r).toString();this.oItemHelper.setItemReductBaseQuanByIndex(0,B);}var d=this.getSerialNumberDialog();m.bManualAssignSn=true;return this.openDialog(d);}}}},s,"open serial number dialog in need").then(function(p,m){m.oProduct.AlterQuan=this.oItemHelper.getItemReductionQtyByIndex(0);},s,"set product packing quantity").then(function(p,m){if(!U.isEmpty(m.oProduct.SerialNumberRequiredLevel)&&m.bManualAssignSn===true){var P=S.convertSerialNumbersToString();if(m.oProduct.isIuidActive===C.ABAP_TRUE){m.oProduct.IuidList=S.getPackedUiis(m.oProduct.SnList.split(" "),m.oProduct.IuidList.split(" "),P.split(" "));}if(!U.isEmpty(P)){m.oProduct.SnList=P;}}},s,"get user input serial numbers").then(function(){return this.updateItemWeightInNeed();},s,"check if there exists source item which is not in ItemWeight").then(function(p,m){if(U.parseNumber(m.oProduct.QtyReduced)!==0){m.fPackQuantity=U.parseNumber(m.oProduct.AlterQuan);}},s,"check order reduction case").service(function(p,m){m.newSnList=m.oProduct.SnList;m.newIuidList=m.oProduct.IuidList;m.actualPackQuantity=m.oProduct.AlterQuan;this.setBusy(true);return a.pack(m.oProduct,m.fPackQuantity);},s,"pack item").then(function(p,m){if(!G.getAsyncMode()){m.NetWeight=p.NetWeight;m.WeightUoM=p.WeightUoM;}m.sStockItemUUID=p?p.StockItemUUID:"";if(!U.isEmpty(p)){m.oProduct=this.getNewItemWithPartialQuantity(m.oProduct,p);}this.setBusy(false);this.oItemHelper.deleteItem(m.oPackProduct);G.setProductId("");G.setExceptionEnable(false);},s,"remove item from the source table").then(function(){this.unbindProductInfo();this.unbindImage();},s,"unbind product info").then(function(){this.unbindODOInfo();this.focus(C.ID.PRODUCT_INPUT);if(!this.oItemHelper.isEmpty()){this.oItemHelper.setItemsStatusByConsGrp();this.bindODOInfo();}},s,"update odo info").then(function(p,m){if((m.oProduct.SerialNumberRequiredLevel===C.SN_DOC_LEVEL_PROFILE_A&&m.oProduct.EWMDeliveryDocumentCategory===C.DOCUMENT_CAT_OUTBOUND)||m.oProduct.SerialNumberRequiredLevel===C.SN_DOC_LEVEL_PROFILE_B){this.oItemHelper.removeSerialNumberFromOtherItems(m.oProduct.ProductName,S.getAllSerialNumerKeys());}},s,"remove serial number from other items").then(function(p,m){this.updateInputWithDefault(C.ID.SHIP_INPUT,"");m.bShipHUEmptyBeforePack=this.oItemHelper.isEmpty();},o).syncOnly(function(p,m){if(U.parseNumber(m.oProduct.AlterQuan)!==0){this.oItemHelper.updateItem(m.oProduct);}},o,"add item in the ship table").asyncOnly(function(p,m){if(U.parseNumber(m.oProduct.AlterQuan)!==0){if(U.isAbapTrue(m.oProduct.isSplit)){this.oItemHelper.addItemWithoutMerge(m.oProduct);}else{var c=this.oItemHelper.getItemStockIdByOriginalId(m.oProduct.StockItemUUID);m.oProduct=this.oItemHelper.updateItemStockId(m.oProduct,c);this.oItemHelper.addItem(m.oProduct,true);}}},o,"add item in the ship table").then(function(p,m){if(U.parseNumber(m.oProduct.QtyReduced)!==0){this.oItemHelper.setItemQtyReducedInitialized();}},o).then(function(p,m){if(!G.getAsyncMode()){this.updateNetWeightRelated(m.NetWeight,m.WeightUoM);this.clearGrossWeight();}},o,"update weight chart, color and text").asyncOnly(function(p,m){this.oItemHelper.updateHighlightStatus(m.oProduct,sap.ui.core.MessageType.None);this.oItemHelper.updatePendingStatus(m.oProduct,true);this.handleUnpackEnable();},o).then(function(){this.dehilightShipHandlingUnits();},o).then(function(p,m){if(m.bShipHUEmptyBeforePack){b.updateShipHUConsGroup(G.getCurrentShipHandlingUnit(),m.oProduct.EWMConsolidationGroup);}this.setBusy(false);},o,"update the status of the first item in the ship table ").syncOnly(function(){this.oItemHelper.setItemsStatusToNone();this.oItemHelper.setItemHighlightByIndex(0);this.handleUnpackEnable();},o).serviceCallback(function(p,m){m.NetWeight=p.NetWeight;m.WeightUoM=p.WeightUoM;this.updateNetWeightRelated(m.NetWeight,m.WeightUoM);this.clearGrossWeight();m.sStockItemUUID=p.StockItemUUID;this.oItemHelper.updateItemStockIdByKey(m.oProduct.StockItemUUID,m.sStockItemUUID,m.oProduct.Huident);this.oItemHelper.setItemsStatusToNone();this.oItemHelper.updateHighlightStatus(m.oProduct,sap.ui.core.MessageType.Success);this.oItemHelper.updatePendingStatus(m.oProduct,false);w.getAsyncPromise().then(function(){this.handleUnpackEnable();}.bind(this)).then(function(){this.handlePackAllEnable();}.bind(s));},o).then(function(p,P){this.clearPackingInstr();},o,"update packing info").then(function(p,P){this.updateCacheIsEmptyHU();},o,"update cache").syncOnly(function(p,m){this.handlePackAllEnable();},s,"handle pack all enable").then(function(p,m){this.delayCalledAdjustContainerHeight();},o);w.errors().default(function(e,p,m,c){if(c){this.showErrorMessagePopup(e);}},s).always(function(e,p,m){if(G.getAsyncMode()){var c=this.oItemHelper.getItemByKey(m.oProduct.StockItemUUID,m.oProduct.Huident);m.oUnpackItem=JSON.parse(JSON.stringify(c));if(c.AlterQuan===m.actualPackQuantity){this.oItemHelper.deleteItem(c);}else{this.oItemHelper.updateItemQuantity(c,m.sAlterQuan,true);this.oItemHelper.updatePendingStatus(m.oProduct,false);this.oItemHelper.setItemsStatusToNone();this.oItemHelper.updateHighlightStatus(m.oProduct,sap.ui.core.MessageType.Success);m.oUnpackItem.AlterQuan=m.sAlterQuan;if(!U.isEmpty(m.oProduct.SerialNumberRequiredLevel)){var d=this.oItemHelper.parseSerialNumber(m.newSnList);this.oItemHelper.removeSerialNumberFromItem(d,c);if(m.oProduct.isIuidActive===C.ABAP_TRUE){this.oItemHelper.removeIuidFromItem(c,m.newIuidList);}}}var l=this.getLoadingWeightInCurrentShipHandlingUnit();var u=this.getWeightUOMInCurrentShipHandlingUnit();this.updateNetWeightRelated(l,u);if(!U.isEmpty(m.oProduct.SerialNumberRequiredLevel)){m.oUnpackItem.SnList=m.SnList;m.oUnpackItem.IuidList=m.IuidList;}this.handleUnpackEnable();G.setExceptionEnable(true);}},o).always(function(e,p,m){if(G.getAsyncMode()){this.oItemHelper.addItem(m.oUnpackItem);this.oItemHelper.setItemsStatusByConsGrp();this.oItemHelper.setItemHighlightByIndex(0);this.handlePackAllEnable();}else{m.oPackProduct.AlterQuan=m.sAlterQuan;m.oPackProduct.Quan=m.sBaseQuan;}this.setBusy(false);this.focus(C.ID.PRODUCT_INPUT);this.playAudio(C.ERROR);},s);return w;};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+	"scm/ewm/packoutbdlvs1/utils/Const",
+	"scm/ewm/packoutbdlvs1/modelHelper/Message",
+	"scm/ewm/packoutbdlvs1/modelHelper/Global",
+	"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber",
+	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"scm/ewm/packoutbdlvs1/modelHelper/Cache"
+], function (WorkFlow, Util, Const, Message, Global, SerialNumber, Service, Cache) {
+	"use strict";
+	return function (oSourceController, oShipController) {
+		var oWorkFlow = new WorkFlow()
+			.then(function (oPackInfo, mSession) {
+				mSession.sAlterQuan = JSON.parse(JSON.stringify(oPackInfo.oProduct.AlterQuan));
+				mSession.sBaseQuan = JSON.parse(JSON.stringify(oPackInfo.oProduct.Quan));
+				mSession.oProduct = JSON.parse(JSON.stringify(oPackInfo.oProduct));
+				mSession.oPackProduct = oPackInfo.oProduct;
+				mSession.SnList = mSession.oProduct.SnList;
+				mSession.IuidList = mSession.oProduct.IuidList;
+			}, oSourceController, "disable ui interaction")
+			.then(function (preResult, mSession) {
+			    if (!Util.isEmpty(mSession.oProduct.SerialNumberRequiredLevel) && mSession.oProduct.SerialNumberRequiredLevel !== Const.SN_DOC_LEVEL_PROFILE_D) {
+					if (!(mSession.oProduct.SerialNumberRequiredLevel === Const.SN_DOC_LEVEL_PROFILE_A && mSession.oProduct.EWMDeliveryDocumentCategory !==
+							Const.DOCUMENT_CAT_OUTBOUND)) {
+						if (!(this.oItemHelper.getItemCountByProduct(mSession.oProduct.ProductName) === 1 && mSession.oProduct.SerialNumberRequiredLevel ===
+								Const.SERIAL_NUMBER_STOCK_LEVEL)) {
+							if (this.oItemHelper.isReductionFirstItem()) {
+								var iRatio = this.oItemHelper.getAlternativeUOMRatio(mSession.oProduct);
+								var iReductAlterQuan = Util.parseNumber(this.oItemHelper.getItemReductionQtyByIndex(0));
+								mSession.oPackProduct.QuanDefault = mSession.oProduct.Quan;
+								var sBaseQuantity = (iReductAlterQuan * iRatio).toString();
+								this.oItemHelper.setItemReductBaseQuanByIndex(0, sBaseQuantity);
+							}
+							var oDialog = this.getSerialNumberDialog();
+							mSession.bManualAssignSn = true;
+							return this.openDialog(oDialog);
+						}
+					}
+				}
+			}, oSourceController, "open serial number dialog in need")
+			.then(function (preResult, mSession) {
+				mSession.oProduct.AlterQuan = this.oItemHelper.getItemReductionQtyByIndex(0);
+			}, oSourceController, "set product packing quantity")
+			.then(function (preResult, mSession) {
+				if (!Util.isEmpty(mSession.oProduct.SerialNumberRequiredLevel) && mSession.bManualAssignSn === true) {
+					var sPackSnList = SerialNumber.convertSerialNumbersToString();
+					if (mSession.oProduct.isIuidActive === Const.ABAP_TRUE) { //IUID active
+						mSession.oProduct.IuidList = SerialNumber.getPackedUiis(
+							mSession.oProduct.SnList.split(" "),
+							mSession.oProduct.IuidList.split(" "),
+							sPackSnList.split(" "));
+					}
+					//A level SN optional, if user pack item without enter serial number, keep the original sn
+					if (!Util.isEmpty(sPackSnList)) {
+						mSession.oProduct.SnList = sPackSnList;
+					}
+				}
+			}, oSourceController, "get user input serial numbers")
+			.then(function () {
+				return this.updateItemWeightInNeed();
+			}, oSourceController, "check if there exists source item which is not in ItemWeight")
+			.then(function (preResult, mSession) {
+				if (Util.parseNumber(mSession.oProduct.QtyReduced) !== 0) {
+					mSession.fPackQuantity = Util.parseNumber(mSession.oProduct.AlterQuan);
+				}
+			}, oSourceController, "check order reduction case")
+			.service(function (preResult, mSession) {
+				mSession.newSnList = mSession.oProduct.SnList;
+				mSession.newIuidList = mSession.oProduct.IuidList;
+				mSession.actualPackQuantity = mSession.oProduct.AlterQuan;
+				this.setBusy(true);
+				return Service.pack(mSession.oProduct, mSession.fPackQuantity);
+			}, oSourceController, "pack item")
+			.then(function (preResult, mSession) {
+				if (!Global.getAsyncMode()) {
+					mSession.NetWeight = preResult.NetWeight;
+					mSession.WeightUoM = preResult.WeightUoM;
+				}
+				mSession.sStockItemUUID = preResult ? preResult.StockItemUUID : "";
+				if (!Util.isEmpty(preResult)) {
+					mSession.oProduct = this.getNewItemWithPartialQuantity(mSession.oProduct, preResult);
+				}
+				this.setBusy(false);
+				this.oItemHelper.deleteItem(mSession.oPackProduct);
+				Global.setProductId("");
+				Global.setExceptionEnable(false);
+			}, oSourceController, "remove item from the source table")
+			.then(function () {
+				this.unbindProductInfo();
+				this.unbindImage();
+			}, oSourceController, "unbind product info")
+			.then(function () {
+				this.unbindODOInfo();
+				this.focus(Const.ID.PRODUCT_INPUT);
+				if (!this.oItemHelper.isEmpty()) {
+					this.oItemHelper.setItemsStatusByConsGrp();
+					this.bindODOInfo();
+				}
+			}, oSourceController, "update odo info")
+			.then(function (preResult, mSession) {
+				if ((mSession.oProduct.SerialNumberRequiredLevel === Const.SN_DOC_LEVEL_PROFILE_A && mSession.oProduct.EWMDeliveryDocumentCategory ===
+						Const.DOCUMENT_CAT_OUTBOUND) ||
+					mSession.oProduct.SerialNumberRequiredLevel === Const.SN_DOC_LEVEL_PROFILE_B) {
+					this.oItemHelper.removeSerialNumberFromOtherItems(mSession.oProduct.ProductName, SerialNumber.getAllSerialNumerKeys());
+				}
+			}, oSourceController, "remove serial number from other items")
+			.then(function (preResult, mSession) {
+				this.updateInputWithDefault(Const.ID.SHIP_INPUT, "");
+				mSession.bShipHUEmptyBeforePack = this.oItemHelper.isEmpty();
+			}, oShipController)
+			.syncOnly(function (preResult, mSession) {
+				if (Util.parseNumber(mSession.oProduct.AlterQuan) !== 0) {
+					this.oItemHelper.updateItem(mSession.oProduct);
+				}
+			}, oShipController, "add item in the ship table")
+			.asyncOnly(function (preResult, mSession) {
+				if (Util.parseNumber(mSession.oProduct.AlterQuan) !== 0) {
+					if (Util.isAbapTrue(mSession.oProduct.isSplit)) {
+						this.oItemHelper.addItemWithoutMerge(mSession.oProduct);
+					} else {
+						var sChangeId = this.oItemHelper.getItemStockIdByOriginalId(mSession.oProduct.StockItemUUID);
+						mSession.oProduct = this.oItemHelper.updateItemStockId(mSession.oProduct, sChangeId);
+						this.oItemHelper.addItem(mSession.oProduct, true);
+					}
+				}
+			}, oShipController, "add item in the ship table")
+			.then(function (preResult, mSession) {
+				if (Util.parseNumber(mSession.oProduct.QtyReduced) !== 0) {
+					this.oItemHelper.setItemQtyReducedInitialized();
+				}
+			}, oShipController)
+			.then(function (preResult, mSession) {
+			if (!Global.getAsyncMode()) {
+				this.updateNetWeightRelated(mSession.NetWeight, mSession.WeightUoM);
+				this.clearGrossWeight();
+			}
+			}, oShipController, "update weight chart, color and text")
+			.asyncOnly(function (preResult, mSession) {
+				this.oItemHelper.updateHighlightStatus(mSession.oProduct, sap.ui.core.MessageType.None);
+				this.oItemHelper.updatePendingStatus(mSession.oProduct, true);
+				this.handleUnpackEnable();
+			}, oShipController)
+			.then(function () {
+				this.dehilightShipHandlingUnits();
+
+			}, oShipController)
+			.then(function (preResult, mSession) {
+				if (mSession.bShipHUEmptyBeforePack) {
+					Cache.updateShipHUConsGroup(Global.getCurrentShipHandlingUnit(), mSession.oProduct.EWMConsolidationGroup);
+				}
+				this.setBusy(false);
+			}, oShipController, "update the status of the first item in the ship table ")
+			.syncOnly(function () {
+				this.oItemHelper.setItemsStatusToNone();
+				this.oItemHelper.setItemHighlightByIndex(0);
+				this.handleUnpackEnable();
+			}, oShipController)
+			.serviceCallback(function (preResult, mSession) {
+				//todo TBD may split when former partial item exist
+				mSession.NetWeight = preResult.NetWeight;
+				mSession.WeightUoM = preResult.WeightUoM;
+				//update weight chart, color and text
+				this.updateNetWeightRelated(mSession.NetWeight, mSession.WeightUoM);
+				this.clearGrossWeight();
+
+				mSession.sStockItemUUID = preResult.StockItemUUID;
+				this.oItemHelper.updateItemStockIdByKey(mSession.oProduct.StockItemUUID, mSession.sStockItemUUID, mSession.oProduct.Huident);
+				this.oItemHelper.setItemsStatusToNone();
+				this.oItemHelper.updateHighlightStatus(mSession.oProduct, sap.ui.core.MessageType.Success);
+				this.oItemHelper.updatePendingStatus(mSession.oProduct, false);
+				oWorkFlow.getAsyncPromise().then(function () {
+						this.handleUnpackEnable();
+					}.bind(this))
+					.then(function () {
+						this.handlePackAllEnable();
+					}.bind(oSourceController));
+			}, oShipController)
+			.then(function (preResult, oParam) {
+				this.clearPackingInstr();
+			}, oShipController, "update packing info")
+			.then(function (preResult, oParam) {
+				this.updateCacheIsEmptyHU();
+			}, oShipController, "update cache")
+			.syncOnly(function (preResult, mSession) {
+				this.handlePackAllEnable();
+			}, oSourceController, "handle pack all enable")
+			.then(function (preResult, mSession) {
+				this.delayCalledAdjustContainerHeight();
+			}, oShipController);
+
+		oWorkFlow
+			.errors()
+			.default(function (sError, vPara, mSession, bCustomError) {
+				if (bCustomError) {
+					this.showErrorMessagePopup(sError);
+				}
+			}, oSourceController)
+			.always(function (sError, vParam, mSession) {
+				if (Global.getAsyncMode()) {
+					var oShipItem = this.oItemHelper.getItemByKey(mSession.oProduct.StockItemUUID, mSession.oProduct.Huident);
+					mSession.oUnpackItem = JSON.parse(JSON.stringify(oShipItem));
+					if (oShipItem.AlterQuan === mSession.actualPackQuantity) {
+						this.oItemHelper.deleteItem(oShipItem);
+					} else {
+						this.oItemHelper.updateItemQuantity(oShipItem, mSession.sAlterQuan, true);
+						this.oItemHelper.updatePendingStatus(mSession.oProduct, false);
+						this.oItemHelper.setItemsStatusToNone();
+						this.oItemHelper.updateHighlightStatus(mSession.oProduct, sap.ui.core.MessageType.Success);
+						mSession.oUnpackItem.AlterQuan = mSession.sAlterQuan;
+						if (!Util.isEmpty(mSession.oProduct.SerialNumberRequiredLevel)) {
+							var aSnList = this.oItemHelper.parseSerialNumber(mSession.newSnList);
+							this.oItemHelper.removeSerialNumberFromItem(aSnList, oShipItem);
+							if (mSession.oProduct.isIuidActive === Const.ABAP_TRUE) {
+								this.oItemHelper.removeIuidFromItem(oShipItem, mSession.newIuidList);
+							}
+						}
+					}
+					var fLoadingWeight = this.getLoadingWeightInCurrentShipHandlingUnit();
+					var sUOM = this.getWeightUOMInCurrentShipHandlingUnit();
+					this.updateNetWeightRelated(fLoadingWeight, sUOM);
+
+					if (!Util.isEmpty(mSession.oProduct.SerialNumberRequiredLevel)) {
+						mSession.oUnpackItem.SnList = mSession.SnList;
+						mSession.oUnpackItem.IuidList = mSession.IuidList;
+					}
+					this.handleUnpackEnable();
+					Global.setExceptionEnable(true);
+				}
+			}, oShipController)
+			.always(function (sError, vParam, mSession) {
+				if (Global.getAsyncMode()) {
+					this.oItemHelper.addItem(mSession.oUnpackItem);
+					this.oItemHelper.setItemsStatusByConsGrp();
+					this.oItemHelper.setItemHighlightByIndex(0);
+					this.handlePackAllEnable();
+				} else {
+					mSession.oPackProduct.AlterQuan = mSession.sAlterQuan;
+					mSession.oPackProduct.Quan = mSession.sBaseQuan;
+				}
+				this.setBusy(false);
+				this.focus(Const.ID.PRODUCT_INPUT);
+				this.playAudio(Const.ERROR);
+			}, oSourceController);
+		return oWorkFlow;
+
+	};
+});

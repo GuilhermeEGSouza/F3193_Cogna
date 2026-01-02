@@ -1,4 +1,88 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["scm/ewm/packoutbdlvs1/model/Global","scm/ewm/packoutbdlvs1/utils/Util",],function(M,U){"use strict";var _={};return{isItemWeightForSpecificPackMatExisted:function(p){return _[p]===undefined?false:true;},getItemWeightIndex:function(p,s){if(!this.isItemWeightForSpecificPackMatExisted(p)){return-1;}var i=_[p];var I=U.findIndex(i,function(w){if(w.StockItemUUID===s){return true;}return false;});return I;},isSpecificItemWeightExisted:function(p,s){return this.getItemWeightIndex(p,s)===-1?false:true;},getItemAlterWeight:function(p,s){var i=this.getItemWeightIndex(p,s);if(i!==-1){var I=_[p];return I[i].AlterWeight;}return 0;},getItemWeight:function(p,s){var i=this.getItemWeightIndex(p,s);if(i!==-1){var I=_[p];return I[i].NetWeight;}return 0;},clear:function(p){_={};},addItemWeightForPackMat:function(p,i){var e=_[p];if(U.isEmpty(e)){_[p]=i;return;}i.forEach(function(n){var I=this.getItemWeightIndex(p,n.StockItemUUID);if(I===-1){e.push(n);}}.bind(this));},getWeightUOMForSpecificPackMat:function(p){if(!this.isItemWeightForSpecificPackMatExisted(p)){return"";}return _[p][0].UoM;},getObject_Cache:function(){return _;},setObject_Cache:function(d){_=d;}};});
+sap.ui.define([
+	"scm/ewm/packoutbdlvs1/model/Global",
+	"scm/ewm/packoutbdlvs1/utils/Util",
+], function (Model, Util) {
+	//todo:: consider a more elegant way, or in a more propriate place
+	"use strict";
+	var _mCache = {};
+	return {
+		isItemWeightForSpecificPackMatExisted: function (sPackMat) {
+			return _mCache[sPackMat] === undefined ? false : true;
+		},
+
+		getItemWeightIndex: function (sPackMat, sStockItemUUID) {
+			if (!this.isItemWeightForSpecificPackMatExisted(sPackMat)) {
+				return -1;
+			}
+
+			var aItemWeight = _mCache[sPackMat];
+			var iIndex = Util.findIndex(aItemWeight, function (oWeight) {
+				if (oWeight.StockItemUUID === sStockItemUUID) {
+					return true;
+				}
+				return false;
+			});
+
+			return iIndex;
+		},
+
+		isSpecificItemWeightExisted: function (sPackMat, sStockItemUUID) {
+			return this.getItemWeightIndex(sPackMat, sStockItemUUID) === -1 ? false : true;
+		},
+
+		getItemAlterWeight: function (sPackMat, sStockItemUUID) {
+			var iIndex = this.getItemWeightIndex(sPackMat, sStockItemUUID);
+			if (iIndex !== -1) {
+				var aItemWeight = _mCache[sPackMat];
+				return aItemWeight[iIndex].AlterWeight;
+			}
+			return 0;
+		},
+		
+		getItemWeight: function (sPackMat, sStockItemUUID) {
+			var iIndex = this.getItemWeightIndex(sPackMat, sStockItemUUID);
+			if (iIndex !== -1) {
+				var aItemWeight = _mCache[sPackMat];
+				return aItemWeight[iIndex].NetWeight;
+			}
+			return 0;
+		},
+
+		clear: function (sPackMat) {
+			_mCache = {};
+		},
+		addItemWeightForPackMat: function (sPackMat, aItemWeight) {
+			var aExstingItemWeight = _mCache[sPackMat];
+			if (Util.isEmpty(aExstingItemWeight)) {
+				_mCache[sPackMat] = aItemWeight;
+				return;
+			}
+
+			aItemWeight.forEach(function (oNewItemWeight) {
+				var iIndex = this.getItemWeightIndex(sPackMat, oNewItemWeight.StockItemUUID);
+				if (iIndex === -1) {
+					aExstingItemWeight.push(oNewItemWeight);
+				}
+			}.bind(this));
+		},
+		getWeightUOMForSpecificPackMat: function (sPackMat) {
+			if (!this.isItemWeightForSpecificPackMatExisted(sPackMat)) {
+				return "";
+			}
+			return _mCache[sPackMat][0].UoM;
+
+		},
+		getObject_Cache:function()
+		{
+			return _mCache;
+		},
+		setObject_Cache:function(oData)
+		{
+			_mCache = oData;
+		}
+
+	};
+});
