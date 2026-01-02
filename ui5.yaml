@@ -1,6 +1,6 @@
 specVersion: "4.0"
 metadata:
-  name: scm.ewm.packoutbdlvs1
+  name: zcogna.ewm.packoutbdlvs1
 type: application
 server:
   customMiddleware:
@@ -26,5 +26,5 @@ server:
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:
-        component: scm.ewm.packoutbdlvs1
+        component: zcogna.ewm.packoutbdlvs1
         ui5Theme: sap_horizon

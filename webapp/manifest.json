@@ -1,7 +1,7 @@
 {
     "_version": "1.11.0",
     "sap.app": {
-        "id": "scm.ewm.packoutbdlvs1",
+        "id": "zcogna.ewm.packoutbdlvs1",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -92,9 +92,9 @@
     },
     "sap.ui5": {
         "flexEnabled": true,
-        "componentName": "scm.ewm.packoutbdlvs1",
+        "componentName": "zcogna.ewm.packoutbdlvs1",
         "rootView": {
-            "viewName": "scm.ewm.packoutbdlvs1.view.App",
+            "viewName": "zcogna.ewm.packoutbdlvs1.view.App",
             "type": "XML",
             "id": "rootView"
         },
@@ -147,7 +147,7 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "scm.ewm.packoutbdlvs1.i18n.i18n"
+                    "bundleName": "zcogna.ewm.packoutbdlvs1.i18n.i18n"
                 },
                 "preload": false
             },
@@ -186,7 +186,7 @@
                 "routerClass": "sap.ui.core.routing.Router",
                 "viewType": "XML",
                 "controlId": "appContainer",
-                "viewPath": "scm.ewm.packoutbdlvs1.view",
+                "viewPath": "zcogna.ewm.packoutbdlvs1.view",
                 "controlAggregation": "pages",
                 "clearControlAggregation": true,
                 "bypassed": {
