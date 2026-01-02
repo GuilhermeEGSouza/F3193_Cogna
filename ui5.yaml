@@ -1,0 +1,30 @@
+specVersion: "4.0"
+metadata:
+  name: scm.ewm.packoutbdlvs1
+type: application
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertErrors: true
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+        backend:
+        - path: /sap
+          url: https://vhediwddwd01.cogna.com.br:44380
+          client: '110'
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        component: scm.ewm.packoutbdlvs1
+        ui5Theme: sap_horizon

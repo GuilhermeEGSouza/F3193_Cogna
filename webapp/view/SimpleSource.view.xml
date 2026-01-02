@@ -1,0 +1,147 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<mvc:View id="pod---simplesource--view" controllerName="scm.ewm.packoutbdlvs1.controller.Left" height="100%" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:d="sap.f" xmlns:chart="sap.suite.ui.microchart"
+	xmlns:core="sap.ui.core" xmlns:custom="scm.ewm.packoutbdlvs1.control">
+	<ScrollContainer id="pod---simplesource--scrollcontainer">
+		<!--<custom:Container id="left-container">-->
+		<VBox id="left-container">
+			<l:Grid id="left-grid">
+				<f:Form id="source-hu-form" editable="true">
+					<f:layoutData>
+						<l:GridData span="XL12 L12 M12 S12" id="pod---simplesource--grid-form-layout"></l:GridData>
+					</f:layoutData>
+					<f:layout>
+						<f:ResponsiveGridLayout id="pod---simplesource--responsivegrid-layout" labelSpanXL="3" labelSpanL="4" labelSpanM="4" labelSpanS="5"
+							adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+							singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer id="pod---simplesource--formcontainer">
+							<f:formElements>
+								<f:FormElement id="pod---simplesource--formelement--source">
+									<f:label>
+										<Label id="pod---simplesource--source--lable" text="{i18n>sourceHandlingUnitOrBin}" wrapping="true"></Label>
+									</f:label>
+									<f:fields>
+										<Input id="source-hu-input" change="onSourceInputChange" enabled="{path:'global>/pendingTaskNumber',formatter:'.formatSourceHUEnabled'}">
+											<layoutData>
+												<l:GridData id="pod---simplesource--input-layout" span="XL4 L4 M4 S4"></l:GridData>
+											</layoutData>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="pod---simplesource--formelement--product">
+									<f:label>
+										<Label text="{i18n>product}" id="pod---simplesource--product--label" wrapping="true"></Label>
+									</f:label>
+									<f:fields>
+										<Input id="product-input" change="onProductChange">
+											<layoutData>
+												<l:GridData span="XL4 L4 M4 S4" id="pod---simplesource--grid-input-layout"></l:GridData>
+											</layoutData>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				<l:HorizontalLayout id="pod---simplesource--horizontallayout">
+					<l:layoutData>
+						<l:GridData id="pod---simplesource--horizontal-layout" span="XL3 L3 M6 S6"></l:GridData>
+					</l:layoutData>
+					<Image class="sapUiTinyMarginBegin" id="prod-image" width="100px" src="{PrdtPicURL}" tooltip="{ProductDesc}"></Image>
+				</l:HorizontalLayout>
+				<f:Form editable="false" id="pod---simplesource--form">
+					<f:layoutData>
+						<l:GridData span="XL9 L9 M9 S12" id="pod---simplesource--griddata"></l:GridData>
+					</f:layoutData>
+					<f:layout>
+						<f:ResponsiveGridLayout id="pod---simplesource--responsivegridlayout" labelSpanXL="3" labelSpanL="4" labelSpanM="4" labelSpanS="6"
+							adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+							singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer id="product-info">
+							<f:formElements>
+								<f:FormElement id="pod---simplesource--form--formelement">
+									<f:label>
+										<Label text="{i18n>description}" wrapping="true" id="pod---simplesource--desc"></Label>
+									</f:label>
+									<f:fields>
+										<Label design="Bold" text="{ProductDesc}" id="pod---simplesource--desc--label"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="ProductHandlingInstr">
+									<f:label>
+										<Label text="{i18n>handlingInstruction}" id="pod---simplesource--handlinginstrtuction--label" wrapping="true"></Label>
+									</f:label>
+									<f:fields>
+										<Label id="pod---simplesource--hanldinginstruction" design="Bold"
+											text="{parts:[{path:'HandlingInstr'},{path:'global>/productId'}],formatter:'.formatHandlingInstruction'}"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</l:Grid>
+		</VBox>
+		<!--</custom:Container>-->
+		<VBox class="pack-cb" id="source-toolbar-container">
+			<!--<custom:Container class="pack-cb" id="source-toolbar-container">-->
+			<Toolbar id="sourcehu-buttons-toolbar">
+				<ToolbarSpacer id="pod---simplesource--space"/>
+				<Button id="pack-all-button" width="18%" text="{i18n>packAll}" enabled="{global>/packAllEnable}" press="onPackAll"/>
+				<Button id="pack-button" text="{i18n>pack}" width="18%" type="Emphasized" enabled="{path:'itemModel>/0/Status', formatter:'.formatPackBtn'}"
+					press="onPack"></Button>
+			</Toolbar>
+		</VBox>
+		<!--</custom:Container>-->
+		<Table id="SourceProductTable" class="sapUiNoMarginBottom " noDataText="{i18n>noDataContent}" width="auto" items="{itemModel>/}">
+			<headerToolbar>
+				<OverflowToolbar id="source-table-toolbar" class="bigToolbar">
+					<Title id="table-title" text="{parts:[{path:'global>/sourceId'}, {path:'itemModel>/'}], formatter:'.formatTableTitle'}" level="H4"
+						titleStyle="H4"></Title>
+					<ToolbarSpacer id="pod---simplesource--space2"/>
+					<Button id="pod---simplesource--setting" tooltip="" icon="sap-icon://action-settings" press="handleSettingDialogButtonPressed"/>
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column id="pod---simplesource--product"><Text text="{i18n>productID}" id="pod---simplesource--column--product"/></Column>
+				<Column id="pod---simplesource--productdesc"><Text text="{i18n>description}" id="pod---simplesource--column--productdesc"/></Column>
+				<Column id="pod---simplesourc--productqty"><Text text="{i18n>quantity}" id="pod---simplesource--column--productqty"/></Column>
+				<Column id="pod---simplesource--uom"><Text text="{i18n>uom}" id="pod---simplesource--column--uom"/></Column>
+				<Column id="pod---simplesource--stocktype"><Text text="{i18n>stockType}" id="pod---simplesource--column--stocktype"/></Column>
+				<Column id="pod---simplesource--weight"><Text text="{i18n>loadingWeight}" id="pod---simplesource--column--weight"/></Column>
+				<Column id="pod---simplesource--weightuom"><Text text="{i18n>weightUoM}" id="pod---simplesource--column--weightuom"/></Column>
+				<Column id="pod---simplesource--volume"><Text text="{i18n>volume}" id="pod---simplesource--column--volume"/></Column>
+				<Column id="pod---simplesource--volumeuom"><Text text="{i18n>volumeUoM}" id="pod---simplesource--column--volumeuom"/></Column>
+				<Column id="pod---simplesource--stockDocumentNumber"><Text text="{i18n>stockDocumentNumber}" id="pod---simplesource--column--stockDocumentNumber"/></Column>
+				<Column id="pod---simplesource--stockItemNumber"><Text text="{i18n>stockItemNumber}" id="pod---simplesource--column--stockItemNumber"/></Column>
+			</columns>
+			<items>
+				<ColumnListItem highlight="{itemModel>Status}" id="pod---simplesource--columnlistitem--status" press="onSourceItemPressed" type="Active">
+					<cells>
+						<Text text="{itemModel>ProductName}" id="pod---simplesource--cell--product"></Text>
+						<Text text="{itemModel>ProductDesc}" id="pod---simplesource--cell--productdesc"></Text>
+						<Text text="{itemModel>AlterQuan}" id="pod---simplesource--cell--alterqty"></Text>
+						<Text text="{itemModel>AlternativeUnit}" id="pod---simplesource--cell--alteruom"></Text>
+						<Text text="{itemModel>EWMStockType}" id="pod---simplesource--cell--stocktype"
+							tooltip="{itemModel>EWMStockType}: {itemModel>EWMStockTypeText}"></Text>
+						<Text text="{itemModel>NetWeight}" id="pod---simplesource--cell--weight"></Text>
+						<Text text="{itemModel>WeightUoM}" id="pod---simplesource--cell--weightuom"></Text>
+						<Text text="{itemModel>Volume}" id="pod---simplesource--cell--volume"></Text>
+						<Text text="{itemModel>VolumeUoM}" id="pod---simplesource--cell--volumeuom"></Text>
+						<Text text="{itemModel>StockDocumentNumber}" id="pod---simplesource--cell--stockDocumentNumber"></Text>
+						<Text text="{itemModel>StockItemNumber}" id="pod---simplesource--cell--stockItemNumber"></Text>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</ScrollContainer>
+</mvc:View>

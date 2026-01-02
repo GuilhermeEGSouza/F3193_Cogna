@@ -1,0 +1,43 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---serialnumberdifference--fragmentdefinition" xmlns="sap.m" xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog id="serialNumberDifferenceDialog" title="{i18n>difference}" contentWidth="450px" draggable="true" ariaLabelledBy="id-serialNum-diff-msg">
+		<layout:Grid id="pod---sndifference--grid" defaultSpan="L10 M10 S10" vSpacing="0"
+			class="sapUiMediumMarginTop sapUiSmallMarginBottom sapUiTinyMarginBegin sapUiTinyMarginEnd">
+			<Text text="{parts:[{path:'global>/currentShipHandlingUnit'},{path:'packMode>/selectedMode'}], formatter:'.formatSerialNumberPackMsg'}"
+				id="id-serialNum-diff-msg" class="sapUiSmallMarginBottom">
+				<layoutData>
+					<layout:GridData span="L12 M12 S12" id="pod---sndifference--grid--text--layout"/>
+				</layoutData>
+			</Text>
+			<Label text="{i18n>serialNumberPack}" id="pod---sndifference--grid--snpack" labelFor="id-input-serialNumber-difference-pack">
+				<layoutData>
+					<layout:GridData span="L8 M8 S8" id="pod---sndifference--grid--snpack--layout"/>
+				</layoutData>
+			</Label>
+			<Input id="id-input-serialNumber-difference-pack" change="onSerialNumberDifferenceChange" enabled="true" class="sapUiTinyMarginEnd">
+				<layoutData>
+					<layout:GridData span="L10 M10 S10" id="pod---sndifference--grid--snpack--input--layout"/>
+				</layoutData>
+			</Input>
+			<Label id="pod---sndifference--grid--snpack--count" text="{= ${serialNum>/serialNumbers}.length}"
+				class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+				<layoutData>
+					<layout:GridData span="L2 M2 S2" id="pod---sndifference--grid--snpack--count--layout"/>
+				</layoutData>
+			</Label>
+			<List id="pod---sndifferencepack--snlist" mode="{path:'itemModel>/0', formatter:'.formatSNListMode'}" delete="onDeleteSerialNumber"
+				items="{path: 'serialNum>/serialNumbers' }" visible="true">
+				<StandardListItem id="pod---sndifferencepack--snlist--listitem" title="{serialNum>key}"/>
+			</List>
+		</layout:Grid>
+		<buttons>
+			<Button text="{i18n>Pack}" type="Emphasized" press="onSerialNumberDifferencePack" id="pod---sndifference--pack--button"/>
+			<Button text="{i18n>cancel}" id="pod---sndifference--grid--cancel--button" press="onSerialNumberCancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

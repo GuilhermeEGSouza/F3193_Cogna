@@ -1,0 +1,30 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---batchnumberdialog--fragmentdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog id="batchDialog" title="{i18n>batchNumber}" contentWidth="400px" draggable="true">
+		<layout:Grid id="pod---batchnumberdialog--dialog--layout" position="Left" defaultSpan="L10 M10 S10" vSpacing="0" defaultIndent="L2 M2 S2"
+			class="sapUiMediumMarginTop sapUiSmallMarginBottom" >
+			<Text id="batch-dialog-text" text="{i18n>batchNumberNotification}" class="sapUiSmallMarginBottom">
+				<layoutData>
+					<layout:GridData id="pod---batchnumberdialog--dialog--text--layout" span="L8 M8 S8"/>
+				</layoutData>
+			</Text>
+			<Label text="{i18n>batchNumber}" id="lbl_batch_number">
+				<layoutData>
+					<layout:GridData id="pod---batchnumberdialog--dialog--label--layout" span="L8 M8 S8"/>
+				</layoutData>
+			</Label>
+			<Input id="batch-input" submit="onBatchNumberChange" value="" editable="true" ariaLabelledBy="lbl_batch_number">
+				<layoutData>
+					<layout:GridData id="pod---batchnumberdialog--dialog--input--layout" span="L8 M8 S8"/>
+				</layoutData>
+			</Input>
+		</layout:Grid>
+		<buttons>
+			<Button text="{i18n>cancel}" id="pod---batchnumberdialog--dialog--button" press="onCancelBatchDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

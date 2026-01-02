@@ -1,0 +1,21 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---ship--fragment" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form"
+	xmlns:custom="scm.ewm.packoutbdlvs1.control">
+	<P13nDialog id="pod---shipsetting--p13dialog" showReset="true" ok="onConfirmColumnSettingsChange" cancel="onCancelColumnSettingsChange" class="sapUiSizeCompact" showResetEnabled="{path: 'columnModel>/enableRestore/'}" reset="onRestoreColumnSettings">
+		<panels>
+			<P13nColumnsPanel id="pod---shipsetting--p13panel" changeColumnsItems="onChangeColumnsItems" items="{path: 'columnModel>/columnSettings/'}"
+                              columnsItems="{path: 'columnModel>/columnSettings/'}">
+				<items>
+                    <P13nItem id="pod---shipsetting--columntext" columnKey="{columnModel>columnKey}" text="{columnModel>text}"/>
+                </items>
+                <columnsItems>
+                    <P13nColumnsItem id="pod---shipsetting--columnitem" columnKey="{columnModel>columnKey}" index="{columnModel>index}" visible="{columnModel>visible}"/>
+                </columnsItems>
+			</P13nColumnsPanel>
+		</panels>
+	</P13nDialog>
+</core:FragmentDefinition>

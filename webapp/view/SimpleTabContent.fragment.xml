@@ -1,0 +1,55 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---simpletab--fragmentdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:chart="sap.suite.ui.microchart"
+	xmlns:f="sap.ui.layout.form">
+	<IconTabFilter id="pod---simpletab--icontabfilter">
+		<l:Grid id="pod---simpletab--grid" class="sapUiSmallMarginTop" vSpacing="0">
+			<f:Form editable="false"  id="pod---simpletab--form" >
+				<f:layoutData>
+					<l:GridData span="XL12 L12 M12 S12"  id="pod---simpletab--griddata" ></l:GridData>
+				</f:layoutData>
+				<f:layout>
+					<f:ResponsiveGridLayout  id="pod---simpletab--responsivegrid"  class="sapUiNoContentPadding" labelSpanXL="3" labelSpanL="4" labelSpanM="4" labelSpanS="6" adjustLabelSpan="true"
+						emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer id="pod---simpletab--formcontainer--weight">
+						<f:layoutData>
+							<l:GridData span="XL12 L12 M12 S12"  id="pod---simpletab--layout--griddata" ></l:GridData>
+						</f:layoutData>
+						<f:formElements>
+							<f:FormElement id="pod---simpletab--formelement--weight">
+								<f:label>
+									<Label text="{i18n>grossWeight}" wrapping="true"  id="pod---simpletab--grossweight" ></Label>
+								</f:label>
+								<f:fields>
+									<Input id="actual-weight-input" editable="{parts:[ {path:'itemModel>/'},{path:'global>/pendingTaskNumber'}], formatter:'.formatWeightEnableInSimpleMode'}" change="onActualWeightChangeSimple">
+										<layoutData>
+											<l:GridData span="L4 M4 S4"  id="pod---simpletab--weight--input--layout" />
+										</layoutData>
+									</Input>
+									<Text textAlign="End" id="id-actual-weight" text="{material>/currentMaterial/MaxWeightUoM}" wrapping="true">
+										<layoutData>
+											<l:GridData span="L1 M1 S1"  id="pod---simpletab--weight--layout" />
+										</layoutData>
+									</Text>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement id="pod---simpletab--formelement--packinstr">
+								<f:label>
+									<Label text="{i18n>packingInstruction}"  id="pod---simpletab--packinginstruction--label" wrapping="true"></Label>
+								</f:label>
+								<f:fields>
+									<Label text="" id="id-packing-instruction" wrapping="true" design="Bold"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+		</l:Grid>
+	</IconTabFilter>
+</core:FragmentDefinition>

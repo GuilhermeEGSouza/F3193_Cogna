@@ -1,0 +1,21 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---changepackingqty--fragmentdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog id="reductionDialog" title="{i18n>changePackQty}" state="Warning" contentWidth="400px" draggable="true">
+		<layout:Grid id="pod---changepackingquantity--dialog--layout" position="Left" defaultSpan="L10 M10 S10" vSpacing="0" defaultIndent="L2 M2 S2"
+			class="sapUiMediumMarginTop sapUiSmallMarginBottom">
+			<Text id="reduction-dialog-text" class="sapUiSmallMarginBottom">
+				<layoutData>
+					<layout:GridData id="pod---changepackingquanity--dialog--text--layout" span="L8 M8 S8"/>
+				</layoutData>
+			</Text>
+		</layout:Grid>
+		<buttons>
+			<Button id="pod---changepackingquanity--button-yes" text="{i18n>yes}" press="onProcessOrderReduction"/>
+			<Button id="pod---changepackingquanity--button-no" text="{i18n>no}" press="onNotProcessOrderReduction"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

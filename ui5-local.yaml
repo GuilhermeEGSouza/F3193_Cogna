@@ -1,0 +1,43 @@
+specVersion: "4.0"
+metadata:
+  name: scm.ewm.packoutbdlvs1
+type: application
+framework:
+  name: SAPUI5
+  version: 1.114.2
+  libraries:
+    - name: sap.m
+    - name: sap.suite.ui.microchart
+    - name: sap.ui.comp
+    - name: sap.ui.core
+    - name: sap.ui.layout
+    - name: sap.suite.ui.commons
+    - name: sap.ushell
+    - name: sap.fe.navigation
+    - name: sap.f
+    - name: sap.ui.generic.app
+    - name: sap.ui.table
+    - name: themelib_sap_belize
+    - name: themelib_sap_bluecrystal
+    - name: themelib_sap_horizon
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertErrors: true
+        backend:
+          - path: /sap
+            url: https://vhediwddwd01.cogna.com.br:44380
+            client: '110'
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        component: scm.ewm.packoutbdlvs1
+        ui5Theme: sap_horizon

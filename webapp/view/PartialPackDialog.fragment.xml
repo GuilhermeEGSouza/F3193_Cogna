@@ -1,0 +1,73 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---partialpackdialog--fragementdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog id="partialDialog" title="{i18n>partialPack}" contentWidth="400px" draggable="true" beforeOpen="onBeforeOpenPartialDialog"
+		afterOpen="onAfterOpenPartialDialog" ariaLabelledBy="id-partial-pack-msg">
+		<layout:Grid position="Left" defaultSpan="L10 M10 S10" defaultIndent="L2 M2 S2" vSpacing="0" hSpacing="0"
+			class="sapUiMediumMarginTop sapUiSmallMarginBottom" id="pod---partialpack--dialog--grid">
+			<Text text="{parts:[{path:'global>/currentShipHandlingUnit'},{path:'packMode>/selectedMode'}], formatter:'.formatExceptionMsg'}"
+				class="sapUiSmallMarginBottom" id="id-partial-pack-msg">
+				<layoutData>
+					<layout:GridData span="L8 M8 S8" id="pod---partialpack--dialog--exceptionmsg"/>
+				</layoutData>
+			</Text>
+			<layout:Grid hSpacing="0.5" vSpacing="0" id="pod-partialpack---dialog--grid--grid">
+				<layout:layoutData>
+					<layout:GridData span="L10 M10 S10" id="pod---partialpack--dialog--grid-layout"/>
+				</layout:layoutData>
+				<Label id="partial-alter-label" text="{i18n>availableAlternativeUoM}" labelFor="partial-alternative-quantity">
+					<layoutData>
+						<layout:GridData span="L10 M10 S10" id="pod---partialpack--dialog--label--alternativeuom"/>
+					</layoutData>
+				</Label>
+				<Input id="partial-alternative-quantity" value="{itemModel>/0/AlterQuan}" editable="false">
+					<layoutData>
+						<layout:GridData span="L6 M6 S6" id="pod---partialpack--dialog--alternativeqty"/>
+					</layoutData>
+				</Input>
+				<Input id="partial-alternative-uom" value="{itemModel>/0/AlternativeUnit}" editable="false" ariaLabelledBy="partial-alter-label">
+					<layoutData>
+						<layout:GridData span="L4 M4 S4" id="pod---partialpack--dialog--alternativeuom"/>
+					</layoutData>
+				</Input>
+				<Label id="partial-base-label" text="{i18n>availableBaseUoM}" labelFor="partial-base-quantity">
+					<layoutData>
+						<layout:GridData span="L10 M10 S10" id="pod---partialpack--dialog--baseluom"/>
+					</layoutData>
+				</Label>
+				<Input id="partial-base-quantity" value="{itemModel>/0/Quan}" editable="false">
+					<layoutData>
+						<layout:GridData span="L6 M6 S6" id="pod---partialpack--dialog--baseqty"/>
+					</layoutData>
+				</Input>
+				<Input id="partial-base-uom" value="{itemModel>/0/BaseUnit}" editable="false" ariaLabelledBy="partial-base-label">
+					<layoutData>
+						<layout:GridData span="L4 M4 S4" id="pod---partailpack---dialog--uom--input--layout"/>
+					</layoutData>
+				</Input>
+				<Label id="partial-packed-quantity" text="{i18n>packedQuantity}" labelFor="partial-pack-input">
+					<layoutData>
+						<layout:GridData span="L10 M10 S10" id="pod---partialpack--dialog--packqty"/>
+					</layoutData>
+				</Label>
+				<Input id="partial-pack-input" value="">
+					<layoutData>
+						<layout:GridData span="L6 M6 S6" id="pod---partialpack--dialog--pack--input"/>
+					</layoutData>
+				</Input>
+				<Select id="partial-uom-select" ariaLabelledBy="partial-packed-quantity">
+					<layoutData>
+						<layout:GridData span="L4 M4 S4" id="pod---partialpack--dialog--uomselect"/>
+					</layoutData>
+				</Select>
+			</layout:Grid>
+		</layout:Grid>
+		<buttons>
+			<Button id="confirm-partial-pack-button" text="{i18n>pack}" type="Emphasized" press="onPartialPack"/>
+			<Button text="{i18n>cancel}" press="cancelDialog" id="cancel-partial-pack-button"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,4073 @@
+{
+	"_version": "1.1.0",
+	"resources": [
+		{
+			"name": "Component-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/Component.js",
+			"size": 7225,
+			"isDebug": true,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/tl/ewm/lib/reuses1/controllers/AccessCode.js",
+				"sap/ui/Device.js",
+				"sap/ui/core/UIComponent.js",
+				"scm/ewm/packoutbdlvs1/model/Models.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/ErrorHandler.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "Component-h2-preload-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/Component-h2-preload.js",
+			"size": 47844,
+			"isDebug": true,
+			"merged": true,
+			"required": [
+				"sap/fe/navigation/NavigationHandler.js",
+				"sap/m/App.js",
+				"sap/m/BusyIndicator.js",
+				"sap/m/Button.js",
+				"sap/m/Column.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/ComboBox.js",
+				"sap/m/CustomListItem.js",
+				"sap/m/Dialog.js",
+				"sap/m/FlexBox.js",
+				"sap/m/HBox.js",
+				"sap/m/IconTabBar.js",
+				"sap/m/IconTabFilter.js",
+				"sap/m/Image.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Link.js",
+				"sap/m/List.js",
+				"sap/m/ListMode.js",
+				"sap/m/Menu.js",
+				"sap/m/MenuItem.js",
+				"sap/m/MessageBox.js",
+				"sap/m/MessagePopover.js",
+				"sap/m/MessagePopoverItem.js",
+				"sap/m/MessageStrip.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/OverflowToolbarLayoutData.js",
+				"sap/m/OverflowToolbarMenuButton.js",
+				"sap/m/P13nColumnsItem.js",
+				"sap/m/P13nColumnsPanel.js",
+				"sap/m/P13nDialog.js",
+				"sap/m/P13nItem.js",
+				"sap/m/Page.js",
+				"sap/m/Popover.js",
+				"sap/m/QuickView.js",
+				"sap/m/QuickViewGroup.js",
+				"sap/m/QuickViewGroupElement.js",
+				"sap/m/QuickViewPage.js",
+				"sap/m/ScrollContainer.js",
+				"sap/m/Select.js",
+				"sap/m/StandardListItem.js",
+				"sap/m/Table.js",
+				"sap/m/Text.js",
+				"sap/m/Title.js",
+				"sap/m/ToggleButton.js",
+				"sap/m/Toolbar.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/m/VBox.js",
+				"sap/m/ValueColor.js",
+				"sap/suite/ui/commons/collaboration/CollaborationHelper.js",
+				"sap/suite/ui/commons/collaboration/ServiceContainer.js",
+				"sap/suite/ui/microchart/BulletMicroChart.js",
+				"sap/suite/ui/microchart/BulletMicroChartData.js",
+				"sap/tl/ewm/lib/reuses1/controllers/AccessCode.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/Device.js",
+				"sap/ui/base/Interface.js",
+				"sap/ui/base/Object.js",
+				"sap/ui/comp/smartfield/SmartField.js",
+				"sap/ui/comp/smartfield/SmartLabel.js",
+				"sap/ui/comp/valuehelpdialog/ValueHelpDialog.js",
+				"sap/ui/core/Control.js",
+				"sap/ui/core/CustomData.js",
+				"sap/ui/core/ExtensionPoint.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/core/Icon.js",
+				"sap/ui/core/Item.js",
+				"sap/ui/core/UIComponent.js",
+				"sap/ui/core/ValueState.js",
+				"sap/ui/core/format/NumberFormat.js",
+				"sap/ui/core/mvc/Controller.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/HorizontalLayout.js",
+				"sap/ui/layout/form/Form.js",
+				"sap/ui/layout/form/FormContainer.js",
+				"sap/ui/layout/form/FormElement.js",
+				"sap/ui/layout/form/ResponsiveGridLayout.js",
+				"sap/ui/layout/form/SimpleForm.js",
+				"sap/ui/model/Filter.js",
+				"sap/ui/model/FilterOperator.js",
+				"sap/ui/model/json/JSONModel.js",
+				"sap/ui/performance/trace/FESRHelper.js",
+				"sap/ushell/ui/footerbar/AddBookmarkButton.js"
+			],
+			"included": [
+				"scm/ewm/packoutbdlvs1/Component.js",
+				"scm/ewm/packoutbdlvs1/manifest.json",
+				"scm/ewm/packoutbdlvs1/control/Audio.js",
+				"scm/ewm/packoutbdlvs1/control/AudioList.js",
+				"scm/ewm/packoutbdlvs1/control/AudioListRenderer.js",
+				"scm/ewm/packoutbdlvs1/control/AudioRenderer.js",
+				"scm/ewm/packoutbdlvs1/control/Container.js",
+				"scm/ewm/packoutbdlvs1/control/ContainerRenderer.js",
+				"scm/ewm/packoutbdlvs1/controller/App.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseController.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+				"scm/ewm/packoutbdlvs1/controller/DefaultBin.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/InternalMain.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Left.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Main.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Right.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Simple.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/WorkFlowController.js",
+				"scm/ewm/packoutbdlvs1/i18n/i18n.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ar.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_bg.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ca.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_cs.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_da.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_de.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_el.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_en.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_en_US_sappsd.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_en_US_saptrc.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_es.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_et.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_fi.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_fr.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_hi.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_hr.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_hu.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_it.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_iw.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ja.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_kk.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ko.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_lt.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_lv.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ms.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_nl.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_no.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_pl.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_pt.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ro.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ru.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sh.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sk.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sl.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sv.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_th.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_tr.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_uk.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_vi.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_zh_CN.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_zh_TW.properties",
+				"scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/model/InternalShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/model/Models.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/ErrorHandler.js",
+				"scm/ewm/packoutbdlvs1/utils/Response.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/view/App.view.xml",
+				"scm/ewm/packoutbdlvs1/view/BatchNumberDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/ChangeMaterialDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/ChangePackingQuantityDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/CreateDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/DamageDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/DefaultBin.view.xml",
+				"scm/ewm/packoutbdlvs1/view/DifferenceDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/InternalMain.view.xml",
+				"scm/ewm/packoutbdlvs1/view/InternalShip.view.xml",
+				"scm/ewm/packoutbdlvs1/view/InternalSource.view.xml",
+				"scm/ewm/packoutbdlvs1/view/Main.view.xml",
+				"scm/ewm/packoutbdlvs1/view/MaterialQuickView.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/PartialPackDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberDamageDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberDifferenceDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberPartialPackDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberPopover.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberUiiPopover.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/Ship.view.xml",
+				"scm/ewm/packoutbdlvs1/view/ShipTableSettingDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleMode.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleShip.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleSource.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleTabContent.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/Source.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SourceTableSettingDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/StockLevelSnDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/StorageBinValueHelpDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/TabContent.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/WorkCenterValueHelpDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ChangeMaterial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Clear.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/CloseShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/CreateShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/DeleteShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Initialization.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Leave.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackPartial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackWithDifference.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Print.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ProductChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/QuantityChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/RestoreShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/SelectShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ShippingHUChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/SourceChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/Factory.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/ChangeMaterial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Clear.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/CloseShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/CreateShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/DeleteShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Initialization.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Leave.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackPartial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackWithDifference.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/ProductChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/QuantityChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/RestoreShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/SelectShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/SourceChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "Component-h2-preload.js",
+			"module": "scm/ewm/packoutbdlvs1/Component-h2-preload.js",
+			"size": 47662,
+			"merged": true,
+			"required": [
+				"sap/fe/navigation/NavigationHandler.js",
+				"sap/m/App.js",
+				"sap/m/BusyIndicator.js",
+				"sap/m/Button.js",
+				"sap/m/Column.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/ComboBox.js",
+				"sap/m/CustomListItem.js",
+				"sap/m/Dialog.js",
+				"sap/m/FlexBox.js",
+				"sap/m/HBox.js",
+				"sap/m/IconTabBar.js",
+				"sap/m/IconTabFilter.js",
+				"sap/m/Image.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Link.js",
+				"sap/m/List.js",
+				"sap/m/ListMode.js",
+				"sap/m/Menu.js",
+				"sap/m/MenuItem.js",
+				"sap/m/MessageBox.js",
+				"sap/m/MessagePopover.js",
+				"sap/m/MessagePopoverItem.js",
+				"sap/m/MessageStrip.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/OverflowToolbarLayoutData.js",
+				"sap/m/OverflowToolbarMenuButton.js",
+				"sap/m/P13nColumnsItem.js",
+				"sap/m/P13nColumnsPanel.js",
+				"sap/m/P13nDialog.js",
+				"sap/m/P13nItem.js",
+				"sap/m/Page.js",
+				"sap/m/Popover.js",
+				"sap/m/QuickView.js",
+				"sap/m/QuickViewGroup.js",
+				"sap/m/QuickViewGroupElement.js",
+				"sap/m/QuickViewPage.js",
+				"sap/m/ScrollContainer.js",
+				"sap/m/Select.js",
+				"sap/m/StandardListItem.js",
+				"sap/m/Table.js",
+				"sap/m/Text.js",
+				"sap/m/Title.js",
+				"sap/m/ToggleButton.js",
+				"sap/m/Toolbar.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/m/VBox.js",
+				"sap/m/ValueColor.js",
+				"sap/suite/ui/commons/collaboration/CollaborationHelper.js",
+				"sap/suite/ui/commons/collaboration/ServiceContainer.js",
+				"sap/suite/ui/microchart/BulletMicroChart.js",
+				"sap/suite/ui/microchart/BulletMicroChartData.js",
+				"sap/tl/ewm/lib/reuses1/controllers/AccessCode.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/Device.js",
+				"sap/ui/base/Interface.js",
+				"sap/ui/base/Object.js",
+				"sap/ui/comp/smartfield/SmartField.js",
+				"sap/ui/comp/smartfield/SmartLabel.js",
+				"sap/ui/comp/valuehelpdialog/ValueHelpDialog.js",
+				"sap/ui/core/Control.js",
+				"sap/ui/core/CustomData.js",
+				"sap/ui/core/ExtensionPoint.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/core/Icon.js",
+				"sap/ui/core/Item.js",
+				"sap/ui/core/UIComponent.js",
+				"sap/ui/core/ValueState.js",
+				"sap/ui/core/format/NumberFormat.js",
+				"sap/ui/core/mvc/Controller.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/HorizontalLayout.js",
+				"sap/ui/layout/form/Form.js",
+				"sap/ui/layout/form/FormContainer.js",
+				"sap/ui/layout/form/FormElement.js",
+				"sap/ui/layout/form/ResponsiveGridLayout.js",
+				"sap/ui/layout/form/SimpleForm.js",
+				"sap/ui/model/Filter.js",
+				"sap/ui/model/FilterOperator.js",
+				"sap/ui/model/json/JSONModel.js",
+				"sap/ui/performance/trace/FESRHelper.js",
+				"sap/ushell/ui/footerbar/AddBookmarkButton.js"
+			],
+			"included": [
+				"scm/ewm/packoutbdlvs1/Component.js",
+				"scm/ewm/packoutbdlvs1/manifest.json",
+				"scm/ewm/packoutbdlvs1/control/Audio.js",
+				"scm/ewm/packoutbdlvs1/control/AudioList.js",
+				"scm/ewm/packoutbdlvs1/control/AudioListRenderer.js",
+				"scm/ewm/packoutbdlvs1/control/AudioRenderer.js",
+				"scm/ewm/packoutbdlvs1/control/Container.js",
+				"scm/ewm/packoutbdlvs1/control/ContainerRenderer.js",
+				"scm/ewm/packoutbdlvs1/controller/App.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseController.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+				"scm/ewm/packoutbdlvs1/controller/DefaultBin.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/InternalMain.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Left.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Main.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Right.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Simple.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/WorkFlowController.js",
+				"scm/ewm/packoutbdlvs1/i18n/i18n.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ar.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_bg.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ca.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_cs.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_da.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_de.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_el.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_en.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_en_US_sappsd.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_en_US_saptrc.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_es.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_et.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_fi.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_fr.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_hi.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_hr.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_hu.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_it.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_iw.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ja.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_kk.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ko.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_lt.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_lv.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ms.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_nl.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_no.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_pl.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_pt.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ro.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ru.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sh.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sk.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sl.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sv.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_th.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_tr.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_uk.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_vi.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_zh_CN.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_zh_TW.properties",
+				"scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/model/InternalShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/model/Models.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/ErrorHandler.js",
+				"scm/ewm/packoutbdlvs1/utils/Response.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/view/App.view.xml",
+				"scm/ewm/packoutbdlvs1/view/BatchNumberDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/ChangeMaterialDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/ChangePackingQuantityDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/CreateDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/DamageDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/DefaultBin.view.xml",
+				"scm/ewm/packoutbdlvs1/view/DifferenceDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/InternalMain.view.xml",
+				"scm/ewm/packoutbdlvs1/view/InternalShip.view.xml",
+				"scm/ewm/packoutbdlvs1/view/InternalSource.view.xml",
+				"scm/ewm/packoutbdlvs1/view/Main.view.xml",
+				"scm/ewm/packoutbdlvs1/view/MaterialQuickView.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/PartialPackDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberDamageDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberDifferenceDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberPartialPackDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberPopover.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberUiiPopover.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/Ship.view.xml",
+				"scm/ewm/packoutbdlvs1/view/ShipTableSettingDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleMode.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleShip.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleSource.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleTabContent.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/Source.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SourceTableSettingDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/StockLevelSnDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/StorageBinValueHelpDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/TabContent.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/WorkCenterValueHelpDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ChangeMaterial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Clear.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/CloseShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/CreateShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/DeleteShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Initialization.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Leave.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackPartial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackWithDifference.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Print.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ProductChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/QuantityChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/RestoreShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/SelectShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ShippingHUChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/SourceChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/Factory.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/ChangeMaterial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Clear.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/CloseShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/CreateShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/DeleteShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Initialization.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Leave.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackPartial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackWithDifference.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/ProductChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/QuantityChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/RestoreShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/SelectShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/SourceChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "Component-preload.js",
+			"module": "scm/ewm/packoutbdlvs1/Component-preload.js",
+			"size": 1383301,
+			"merged": true,
+			"required": [
+				"sap/fe/navigation/NavigationHandler.js",
+				"sap/m/App.js",
+				"sap/m/BusyIndicator.js",
+				"sap/m/Button.js",
+				"sap/m/Column.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/ComboBox.js",
+				"sap/m/CustomListItem.js",
+				"sap/m/Dialog.js",
+				"sap/m/FlexBox.js",
+				"sap/m/HBox.js",
+				"sap/m/IconTabBar.js",
+				"sap/m/IconTabFilter.js",
+				"sap/m/Image.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Link.js",
+				"sap/m/List.js",
+				"sap/m/ListMode.js",
+				"sap/m/Menu.js",
+				"sap/m/MenuItem.js",
+				"sap/m/MessageBox.js",
+				"sap/m/MessagePopover.js",
+				"sap/m/MessagePopoverItem.js",
+				"sap/m/MessageStrip.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/OverflowToolbarLayoutData.js",
+				"sap/m/OverflowToolbarMenuButton.js",
+				"sap/m/P13nColumnsItem.js",
+				"sap/m/P13nColumnsPanel.js",
+				"sap/m/P13nDialog.js",
+				"sap/m/P13nItem.js",
+				"sap/m/Page.js",
+				"sap/m/Popover.js",
+				"sap/m/QuickView.js",
+				"sap/m/QuickViewGroup.js",
+				"sap/m/QuickViewGroupElement.js",
+				"sap/m/QuickViewPage.js",
+				"sap/m/ScrollContainer.js",
+				"sap/m/Select.js",
+				"sap/m/StandardListItem.js",
+				"sap/m/Table.js",
+				"sap/m/Text.js",
+				"sap/m/Title.js",
+				"sap/m/ToggleButton.js",
+				"sap/m/Toolbar.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/m/VBox.js",
+				"sap/m/ValueColor.js",
+				"sap/suite/ui/commons/collaboration/CollaborationHelper.js",
+				"sap/suite/ui/commons/collaboration/ServiceContainer.js",
+				"sap/suite/ui/microchart/BulletMicroChart.js",
+				"sap/suite/ui/microchart/BulletMicroChartData.js",
+				"sap/tl/ewm/lib/reuses1/controllers/AccessCode.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/Device.js",
+				"sap/ui/base/Interface.js",
+				"sap/ui/base/Object.js",
+				"sap/ui/comp/smartfield/SmartField.js",
+				"sap/ui/comp/smartfield/SmartLabel.js",
+				"sap/ui/comp/valuehelpdialog/ValueHelpDialog.js",
+				"sap/ui/core/Control.js",
+				"sap/ui/core/CustomData.js",
+				"sap/ui/core/ExtensionPoint.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/core/Icon.js",
+				"sap/ui/core/Item.js",
+				"sap/ui/core/UIComponent.js",
+				"sap/ui/core/ValueState.js",
+				"sap/ui/core/format/NumberFormat.js",
+				"sap/ui/core/mvc/Controller.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/HorizontalLayout.js",
+				"sap/ui/layout/form/Form.js",
+				"sap/ui/layout/form/FormContainer.js",
+				"sap/ui/layout/form/FormElement.js",
+				"sap/ui/layout/form/ResponsiveGridLayout.js",
+				"sap/ui/layout/form/SimpleForm.js",
+				"sap/ui/model/Filter.js",
+				"sap/ui/model/FilterOperator.js",
+				"sap/ui/model/json/JSONModel.js",
+				"sap/ui/performance/trace/FESRHelper.js",
+				"sap/ushell/ui/footerbar/AddBookmarkButton.js"
+			],
+			"included": [
+				"scm/ewm/packoutbdlvs1/Component.js",
+				"scm/ewm/packoutbdlvs1/control/Audio.js",
+				"scm/ewm/packoutbdlvs1/control/AudioList.js",
+				"scm/ewm/packoutbdlvs1/control/AudioListRenderer.js",
+				"scm/ewm/packoutbdlvs1/control/AudioRenderer.js",
+				"scm/ewm/packoutbdlvs1/control/Container.js",
+				"scm/ewm/packoutbdlvs1/control/ContainerRenderer.js",
+				"scm/ewm/packoutbdlvs1/controller/App.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseController.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+				"scm/ewm/packoutbdlvs1/controller/DefaultBin.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/InternalMain.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Left.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Main.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Right.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/Simple.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/WorkFlowController.js",
+				"scm/ewm/packoutbdlvs1/i18n/i18n.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ar.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_bg.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ca.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_cs.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_da.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_de.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_el.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_en.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_en_US_sappsd.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_en_US_saptrc.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_es.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_et.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_fi.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_fr.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_hi.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_hr.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_hu.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_it.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_iw.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ja.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_kk.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ko.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_lt.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_lv.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ms.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_nl.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_no.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_pl.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_pt.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ro.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_ru.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sh.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sk.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sl.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_sv.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_th.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_tr.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_uk.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_vi.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_zh_CN.properties",
+				"scm/ewm/packoutbdlvs1/i18n/i18n_zh_TW.properties",
+				"scm/ewm/packoutbdlvs1/manifest.json",
+				"scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/model/InternalShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/model/Models.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/ErrorHandler.js",
+				"scm/ewm/packoutbdlvs1/utils/Response.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/view/App.view.xml",
+				"scm/ewm/packoutbdlvs1/view/BatchNumberDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/ChangeMaterialDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/ChangePackingQuantityDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/CreateDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/DamageDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/DefaultBin.view.xml",
+				"scm/ewm/packoutbdlvs1/view/DifferenceDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/InternalMain.view.xml",
+				"scm/ewm/packoutbdlvs1/view/InternalShip.view.xml",
+				"scm/ewm/packoutbdlvs1/view/InternalSource.view.xml",
+				"scm/ewm/packoutbdlvs1/view/Main.view.xml",
+				"scm/ewm/packoutbdlvs1/view/MaterialQuickView.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/PartialPackDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberDamageDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberDifferenceDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberPartialPackDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberPopover.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SerialNumberUiiPopover.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/Ship.view.xml",
+				"scm/ewm/packoutbdlvs1/view/ShipTableSettingDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleMode.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleShip.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleSource.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleTabContent.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/Source.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SourceTableSettingDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/StockLevelSnDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/StorageBinValueHelpDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/TabContent.fragment.xml",
+				"scm/ewm/packoutbdlvs1/view/WorkCenterValueHelpDialog.fragment.xml",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ChangeMaterial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Clear.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/CloseShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/CreateShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/DeleteShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Initialization.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Leave.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackPartial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackWithDifference.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Print.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ProductChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/QuantityChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/RestoreShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/SelectShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ShippingHUChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/SourceChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/Factory.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/ChangeMaterial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Clear.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/CloseShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/CreateShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/DeleteShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Initialization.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Leave.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackPartial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackWithDifference.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/ProductChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/QuantityChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/RestoreShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/SelectShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/SourceChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "Component.js",
+			"module": "scm/ewm/packoutbdlvs1/Component.js",
+			"size": 4308,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/tl/ewm/lib/reuses1/controllers/AccessCode.js",
+				"sap/ui/Device.js",
+				"sap/ui/core/UIComponent.js",
+				"scm/ewm/packoutbdlvs1/model/Models.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/ErrorHandler.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "control/Audio-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/control/Audio.js",
+			"size": 948,
+			"isDebug": true,
+			"required": [
+				"sap/ui/core/Control.js"
+			]
+		},
+		{
+			"name": "control/Audio.js",
+			"module": "scm/ewm/packoutbdlvs1/control/Audio.js",
+			"size": 447,
+			"required": [
+				"sap/ui/core/Control.js"
+			]
+		},
+		{
+			"name": "control/AudioList-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/control/AudioList.js",
+			"size": 1343,
+			"isDebug": true,
+			"required": [
+				"sap/ui/core/Control.js"
+			]
+		},
+		{
+			"name": "control/AudioList.js",
+			"module": "scm/ewm/packoutbdlvs1/control/AudioList.js",
+			"size": 586,
+			"required": [
+				"sap/ui/core/Control.js"
+			]
+		},
+		{
+			"name": "control/AudioListRenderer-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/control/AudioListRenderer.js",
+			"size": 1093,
+			"isDebug": true
+		},
+		{
+			"name": "control/AudioListRenderer.js",
+			"module": "scm/ewm/packoutbdlvs1/control/AudioListRenderer.js",
+			"size": 331
+		},
+		{
+			"name": "control/AudioRenderer-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/control/AudioRenderer.js",
+			"size": 890,
+			"isDebug": true
+		},
+		{
+			"name": "control/AudioRenderer.js",
+			"module": "scm/ewm/packoutbdlvs1/control/AudioRenderer.js",
+			"size": 307
+		},
+		{
+			"name": "control/Container-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/control/Container.js",
+			"size": 1589,
+			"isDebug": true,
+			"required": [
+				"sap/ui/core/Control.js"
+			]
+		},
+		{
+			"name": "control/Container.js",
+			"module": "scm/ewm/packoutbdlvs1/control/Container.js",
+			"size": 823,
+			"required": [
+				"sap/ui/core/Control.js"
+			]
+		},
+		{
+			"name": "control/ContainerRenderer-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/control/ContainerRenderer.js",
+			"size": 1946,
+			"isDebug": true
+		},
+		{
+			"name": "control/ContainerRenderer.js",
+			"module": "scm/ewm/packoutbdlvs1/control/ContainerRenderer.js",
+			"size": 874
+		},
+		{
+			"name": "controller/App-dbg.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/App.controller.js",
+			"size": 929,
+			"isDebug": true,
+			"required": [
+				"sap/suite/ui/commons/collaboration/CollaborationHelper.js",
+				"sap/ui/core/mvc/Controller.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/control/Audio.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js"
+			]
+		},
+		{
+			"name": "controller/App.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/App.controller.js",
+			"size": 689,
+			"required": [
+				"sap/suite/ui/commons/collaboration/CollaborationHelper.js",
+				"sap/ui/core/mvc/Controller.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/control/Audio.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js"
+			]
+		},
+		{
+			"name": "controller/BaseController-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/BaseController.js",
+			"size": 28298,
+			"isDebug": true,
+			"required": [
+				"sap/fe/navigation/NavigationHandler.js",
+				"sap/m/MessageBox.js",
+				"sap/suite/ui/commons/collaboration/CollaborationHelper.js",
+				"sap/suite/ui/commons/collaboration/ServiceContainer.js",
+				"sap/ui/core/CustomData.js",
+				"sap/ui/core/ValueState.js",
+				"sap/ui/core/mvc/Controller.js",
+				"sap/ui/model/json/JSONModel.js",
+				"sap/ui/performance/trace/FESRHelper.js",
+				"sap/ushell/ui/footerbar/AddBookmarkButton.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/model/InternalShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "controller/BaseController.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/BaseController.js",
+			"size": 15955,
+			"required": [
+				"sap/fe/navigation/NavigationHandler.js",
+				"sap/m/MessageBox.js",
+				"sap/suite/ui/commons/collaboration/CollaborationHelper.js",
+				"sap/suite/ui/commons/collaboration/ServiceContainer.js",
+				"sap/ui/core/CustomData.js",
+				"sap/ui/core/ValueState.js",
+				"sap/ui/core/mvc/Controller.js",
+				"sap/ui/model/json/JSONModel.js",
+				"sap/ui/performance/trace/FESRHelper.js",
+				"sap/ushell/ui/footerbar/AddBookmarkButton.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/model/InternalShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "controller/BaseMain-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+			"size": 4948,
+			"isDebug": true,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/m/MessagePopover.js",
+				"sap/m/MessagePopoverItem.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseController.js",
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js"
+			]
+		},
+		{
+			"name": "controller/BaseMain.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+			"size": 3200,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/m/MessagePopover.js",
+				"sap/m/MessagePopoverItem.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseController.js",
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js"
+			]
+		},
+		{
+			"name": "controller/DefaultBin-dbg.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/DefaultBin.controller.js",
+			"size": 24555,
+			"isDebug": true,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/ui/model/Filter.js",
+				"sap/ui/model/FilterOperator.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseController.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "controller/DefaultBin.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/DefaultBin.controller.js",
+			"size": 14537,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/ui/model/Filter.js",
+				"sap/ui/model/FilterOperator.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseController.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "controller/InternalMain-dbg.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/InternalMain.controller.js",
+			"size": 1883,
+			"isDebug": true,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/m/MessagePopover.js",
+				"sap/m/MessagePopoverItem.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js"
+			]
+		},
+		{
+			"name": "controller/InternalMain.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/InternalMain.controller.js",
+			"size": 1438,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/m/MessagePopover.js",
+				"sap/m/MessagePopoverItem.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js"
+			]
+		},
+		{
+			"name": "controller/Left-dbg.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/Left.controller.js",
+			"size": 54114,
+			"isDebug": true,
+			"required": [
+				"sap/m/ListMode.js",
+				"sap/m/MessageBox.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/core/ValueState.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/WorkFlowController.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "controller/Left.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/Left.controller.js",
+			"size": 33669,
+			"required": [
+				"sap/m/ListMode.js",
+				"sap/m/MessageBox.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/core/ValueState.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/WorkFlowController.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "controller/Main-dbg.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/Main.controller.js",
+			"size": 1868,
+			"isDebug": true,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/m/MessagePopover.js",
+				"sap/m/MessagePopoverItem.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js"
+			]
+		},
+		{
+			"name": "controller/Main.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/Main.controller.js",
+			"size": 1425,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/m/MessagePopover.js",
+				"sap/m/MessagePopoverItem.js",
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js"
+			]
+		},
+		{
+			"name": "controller/Right-dbg.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/Right.controller.js",
+			"size": 58528,
+			"isDebug": true,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/m/ValueColor.js",
+				"sap/ui/core/ValueState.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/WorkFlowController.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/InternalShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "controller/Right.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/Right.controller.js",
+			"size": 35193,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/m/ValueColor.js",
+				"sap/ui/core/ValueState.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/WorkFlowController.js",
+				"scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/BasicShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/InternalShipTableSetting.js",
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "controller/Simple-dbg.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/Simple.controller.js",
+			"size": 1444,
+			"isDebug": true,
+			"required": [
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js"
+			]
+		},
+		{
+			"name": "controller/Simple.controller.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/Simple.controller.js",
+			"size": 1071,
+			"required": [
+				"sap/tl/ewm/lib/reuses1/controllers/Base.controller.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseMain.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js"
+			]
+		},
+		{
+			"name": "controller/WorkFlowController-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/WorkFlowController.js",
+			"size": 11074,
+			"isDebug": true,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseController.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "controller/WorkFlowController.js",
+			"module": "scm/ewm/packoutbdlvs1/controller/WorkFlowController.js",
+			"size": 7358,
+			"required": [
+				"sap/m/MessageBox.js",
+				"sap/ui/model/json/JSONModel.js",
+				"scm/ewm/packoutbdlvs1/controller/BaseController.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "css/style-dbg.css",
+			"size": 194,
+			"isDebug": true
+		},
+		{
+			"name": "css/style.css",
+			"size": 120
+		},
+		{
+			"name": "i18n/i18n.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n.properties",
+			"size": 17728,
+			"locale": "",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_ar.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_ar.properties",
+			"size": 42034,
+			"locale": "ar",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_bg.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_bg.properties",
+			"size": 54189,
+			"locale": "bg",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_ca.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_ca.properties",
+			"size": 20548,
+			"locale": "ca",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_cs.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_cs.properties",
+			"size": 22318,
+			"locale": "cs",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_da.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_da.properties",
+			"size": 18722,
+			"locale": "da",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_de.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_de.properties",
+			"size": 19286,
+			"locale": "de",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_el.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_el.properties",
+			"size": 55659,
+			"locale": "el",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_en.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_en.properties",
+			"size": 17620,
+			"locale": "en",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_en_US_sappsd.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_en_US_sappsd.properties",
+			"size": 58542,
+			"locale": "en_US_sappsd",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_en_US_saptrc.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_en_US_saptrc.properties",
+			"size": 22389,
+			"locale": "en_US_saptrc",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_es.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_es.properties",
+			"size": 20016,
+			"locale": "es",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_et.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_et.properties",
+			"size": 18595,
+			"locale": "et",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_fi.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_fi.properties",
+			"size": 19825,
+			"locale": "fi",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_fr.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_fr.properties",
+			"size": 21365,
+			"locale": "fr",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_hi.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_hi.properties",
+			"size": 46857,
+			"locale": "hi",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_hr.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_hr.properties",
+			"size": 19062,
+			"locale": "hr",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_hu.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_hu.properties",
+			"size": 22424,
+			"locale": "hu",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_it.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_it.properties",
+			"size": 19958,
+			"locale": "it",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_iw.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_iw.properties",
+			"size": 38105,
+			"locale": "iw",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_ja.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_ja.properties",
+			"size": 27816,
+			"locale": "ja",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_kk.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_kk.properties",
+			"size": 49167,
+			"locale": "kk",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_ko.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_ko.properties",
+			"size": 26397,
+			"locale": "ko",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_lt.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_lt.properties",
+			"size": 20275,
+			"locale": "lt",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_lv.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_lv.properties",
+			"size": 21905,
+			"locale": "lv",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_ms.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_ms.properties",
+			"size": 18382,
+			"locale": "ms",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_nl.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_nl.properties",
+			"size": 18227,
+			"locale": "nl",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_no.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_no.properties",
+			"size": 18241,
+			"locale": "no",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_pl.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_pl.properties",
+			"size": 20490,
+			"locale": "pl",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_pt.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_pt.properties",
+			"size": 20061,
+			"locale": "pt",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_ro.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_ro.properties",
+			"size": 21074,
+			"locale": "ro",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_ru.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_ru.properties",
+			"size": 49800,
+			"locale": "ru",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_sh.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_sh.properties",
+			"size": 19397,
+			"locale": "sh",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_sk.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_sk.properties",
+			"size": 21837,
+			"locale": "sk",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_sl.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_sl.properties",
+			"size": 19384,
+			"locale": "sl",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_sv.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_sv.properties",
+			"size": 18393,
+			"locale": "sv",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_th.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_th.properties",
+			"size": 49175,
+			"locale": "th",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_tr.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_tr.properties",
+			"size": 20864,
+			"locale": "tr",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_uk.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_uk.properties",
+			"size": 51513,
+			"locale": "uk",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_vi.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_vi.properties",
+			"size": 31195,
+			"locale": "vi",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_zh_CN.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_zh_CN.properties",
+			"size": 22490,
+			"locale": "zh_CN",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "i18n/i18n_zh_TW.properties",
+			"module": "scm/ewm/packoutbdlvs1/i18n/i18n_zh_TW.properties",
+			"size": 22437,
+			"locale": "zh_TW",
+			"raw": "i18n/i18n.properties"
+		},
+		{
+			"name": "localService/defaultParamsMetadata.xml",
+			"size": 7565
+		},
+		{
+			"name": "localService/metadata.xml",
+			"size": 102623
+		},
+		{
+			"name": "localService/mockConfig-dbg.js",
+			"size": 25321,
+			"isDebug": true
+		},
+		{
+			"name": "localService/mockConfig.js",
+			"size": 13647
+		},
+		{
+			"name": "localService/mockserver-dbg.js",
+			"size": 3876,
+			"isDebug": true
+		},
+		{
+			"name": "localService/mockserver.js",
+			"size": 2183
+		},
+		{
+			"name": "localService/odataapi.json",
+			"size": 10938
+		},
+		{
+			"name": "manifest.json",
+			"module": "scm/ewm/packoutbdlvs1/manifest.json",
+			"size": 5281
+		},
+		{
+			"name": "model/AdvancedShipTableSetting-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting.js",
+			"size": 2771,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/AdvancedShipTableSetting.js",
+			"module": "scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting.js",
+			"size": 1777,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/AdvancedSourceTableSetting-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting.js",
+			"size": 2975,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/AdvancedSourceTableSetting.js",
+			"module": "scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting.js",
+			"size": 1904,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/BasicShipTableSetting-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/BasicShipTableSetting.js",
+			"size": 2404,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/BasicShipTableSetting.js",
+			"module": "scm/ewm/packoutbdlvs1/model/BasicShipTableSetting.js",
+			"size": 1552,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/BasicSourceTableSetting-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting.js",
+			"size": 2404,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/BasicSourceTableSetting.js",
+			"module": "scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting.js",
+			"size": 1552,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/Global-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/Global.js",
+			"size": 890,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/Global.js",
+			"module": "scm/ewm/packoutbdlvs1/model/Global.js",
+			"size": 609,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/InternalShipTableSetting-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/InternalShipTableSetting.js",
+			"size": 2769,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/InternalShipTableSetting.js",
+			"module": "scm/ewm/packoutbdlvs1/model/InternalShipTableSetting.js",
+			"size": 1775,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/InternalSourceTableSetting-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting.js",
+			"size": 2769,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/InternalSourceTableSetting.js",
+			"module": "scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting.js",
+			"size": 1775,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/Material-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/Material.js",
+			"size": 393,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/Material.js",
+			"module": "scm/ewm/packoutbdlvs1/model/Material.js",
+			"size": 337,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/Message-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/Message.js",
+			"size": 537,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/Message.js",
+			"module": "scm/ewm/packoutbdlvs1/model/Message.js",
+			"size": 183,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/Models-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/Models.js",
+			"size": 362,
+			"isDebug": true,
+			"required": [
+				"sap/ui/Device.js",
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/Models.js",
+			"module": "scm/ewm/packoutbdlvs1/model/Models.js",
+			"size": 281,
+			"required": [
+				"sap/ui/Device.js",
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/PackingMode-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/PackingMode.js",
+			"size": 246,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/PackingMode.js",
+			"module": "scm/ewm/packoutbdlvs1/model/PackingMode.js",
+			"size": 211,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/SerialNumber-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+			"size": 307,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "model/SerialNumber.js",
+			"module": "scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+			"size": 253,
+			"required": [
+				"sap/ui/model/json/JSONModel.js"
+			]
+		},
+		{
+			"name": "modelHelper/Cache-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+			"size": 1305,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/Cache.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+			"size": 769,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/ColumnSettings-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings.js",
+			"size": 3736,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/ColumnSettings.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings.js",
+			"size": 2200,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/Global-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+			"size": 7581,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/Global.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+			"size": 5207,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/ItemWeight-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+			"size": 2301,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/ItemWeight.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+			"size": 1269,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Global.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/Items-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+			"size": 32268,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/Items.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/Items.js",
+			"size": 18081,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/Material-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+			"size": 7416,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/Material.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+			"size": 4230,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/Message-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+			"size": 995,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/Message.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+			"size": 671,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Message.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/OData-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+			"size": 10567,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/OData.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+			"size": 7352,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/PackingMode-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+			"size": 1050,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/PackingMode.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+			"size": 808,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/SerialNumber-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+			"size": 2611,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "modelHelper/SerialNumber.js",
+			"module": "scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+			"size": 1530,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "resources.json",
+			"size": 80370
+		},
+		{
+			"name": "service/ODataService-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/service/ODataService.js",
+			"size": 14089,
+			"isDebug": true,
+			"required": [
+				"sap/ui/model/Filter.js",
+				"sap/ui/model/FilterOperator.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Response.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "service/ODataService.js",
+			"module": "scm/ewm/packoutbdlvs1/service/ODataService.js",
+			"size": 7686,
+			"required": [
+				"sap/ui/model/Filter.js",
+				"sap/ui/model/FilterOperator.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Response.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "utils/Const-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/utils/Const.js",
+			"size": 5412,
+			"isDebug": true
+		},
+		{
+			"name": "utils/Const.js",
+			"module": "scm/ewm/packoutbdlvs1/utils/Const.js",
+			"size": 4731
+		},
+		{
+			"name": "utils/CustomError-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/utils/CustomError.js",
+			"size": 774,
+			"isDebug": true
+		},
+		{
+			"name": "utils/CustomError.js",
+			"module": "scm/ewm/packoutbdlvs1/utils/CustomError.js",
+			"size": 556
+		},
+		{
+			"name": "utils/ErrorHandler-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/utils/ErrorHandler.js",
+			"size": 2323,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "utils/ErrorHandler.js",
+			"module": "scm/ewm/packoutbdlvs1/utils/ErrorHandler.js",
+			"size": 1281,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "utils/Response-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/utils/Response.js",
+			"size": 1230,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js"
+			]
+		},
+		{
+			"name": "utils/Response.js",
+			"module": "scm/ewm/packoutbdlvs1/utils/Response.js",
+			"size": 736,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js"
+			]
+		},
+		{
+			"name": "utils/Util-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/utils/Util.js",
+			"size": 5104,
+			"isDebug": true,
+			"required": [
+				"sap/ui/core/format/NumberFormat.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js"
+			]
+		},
+		{
+			"name": "utils/Util.js",
+			"module": "scm/ewm/packoutbdlvs1/utils/Util.js",
+			"size": 2756,
+			"required": [
+				"sap/ui/core/format/NumberFormat.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js"
+			]
+		},
+		{
+			"name": "version.json",
+			"size": 292
+		},
+		{
+			"name": "view/App.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/App.view.xml",
+			"size": 633,
+			"required": [
+				"sap/m/App.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"scm/ewm/packoutbdlvs1/control/Audio.js",
+				"scm/ewm/packoutbdlvs1/control/AudioList.js",
+				"scm/ewm/packoutbdlvs1/controller/App.controller.js"
+			]
+		},
+		{
+			"name": "view/BatchNumberDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/BatchNumberDialog.fragment.xml",
+			"size": 1438,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js"
+			]
+		},
+		{
+			"name": "view/ChangeMaterialDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/ChangeMaterialDialog.fragment.xml",
+			"size": 4785,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/ComboBox.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/MessageStrip.js",
+				"sap/m/Table.js",
+				"sap/m/ToggleButton.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/core/Item.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/form/SimpleForm.js"
+			]
+		},
+		{
+			"name": "view/ChangePackingQuantityDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/ChangePackingQuantityDialog.fragment.xml",
+			"size": 1106,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Dialog.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js"
+			]
+		},
+		{
+			"name": "view/CreateDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/CreateDialog.fragment.xml",
+			"size": 4220,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/ComboBox.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/MessageStrip.js",
+				"sap/m/Table.js",
+				"sap/m/ToggleButton.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/core/Item.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/form/SimpleForm.js"
+			]
+		},
+		{
+			"name": "view/DamageDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/DamageDialog.fragment.xml",
+			"size": 3432,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Select.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js"
+			]
+		},
+		{
+			"name": "view/DefaultBin.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/DefaultBin.view.xml",
+			"size": 3247,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Page.js",
+				"sap/m/Select.js",
+				"sap/ui/comp/smartfield/SmartField.js",
+				"sap/ui/comp/smartfield/SmartLabel.js",
+				"sap/ui/core/Item.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/HorizontalLayout.js",
+				"sap/ui/layout/form/SimpleForm.js",
+				"scm/ewm/packoutbdlvs1/controller/DefaultBin.controller.js"
+			]
+		},
+		{
+			"name": "view/DifferenceDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/DifferenceDialog.fragment.xml",
+			"size": 3789,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Select.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js"
+			]
+		},
+		{
+			"name": "view/InternalMain.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/InternalMain.view.xml",
+			"size": 2881,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Menu.js",
+				"sap/m/MenuItem.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/OverflowToolbarLayoutData.js",
+				"sap/m/OverflowToolbarMenuButton.js",
+				"sap/m/Page.js",
+				"sap/m/Title.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"scm/ewm/packoutbdlvs1/controller/InternalMain.controller.js",
+				"scm/ewm/packoutbdlvs1/view/InternalShip.view.xml",
+				"scm/ewm/packoutbdlvs1/view/InternalSource.view.xml"
+			]
+		},
+		{
+			"name": "view/InternalShip.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/InternalShip.view.xml",
+			"size": 11145,
+			"required": [
+				"sap/m/BusyIndicator.js",
+				"sap/m/Button.js",
+				"sap/m/Column.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/IconTabBar.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/OverflowToolbarLayoutData.js",
+				"sap/m/ScrollContainer.js",
+				"sap/m/Table.js",
+				"sap/m/Text.js",
+				"sap/m/Title.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/m/VBox.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/core/Icon.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/form/Form.js",
+				"sap/ui/layout/form/FormContainer.js",
+				"sap/ui/layout/form/FormElement.js",
+				"sap/ui/layout/form/ResponsiveGridLayout.js",
+				"scm/ewm/packoutbdlvs1/control/Container.js",
+				"scm/ewm/packoutbdlvs1/controller/Right.controller.js",
+				"scm/ewm/packoutbdlvs1/view/TabContent.fragment.xml"
+			]
+		},
+		{
+			"name": "view/InternalSource.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/InternalSource.view.xml",
+			"size": 11151,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Column.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/Image.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/ScrollContainer.js",
+				"sap/m/Table.js",
+				"sap/m/Text.js",
+				"sap/m/Title.js",
+				"sap/m/Toolbar.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/m/VBox.js",
+				"sap/ui/core/Icon.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/HorizontalLayout.js",
+				"sap/ui/layout/form/Form.js",
+				"sap/ui/layout/form/FormContainer.js",
+				"sap/ui/layout/form/FormElement.js",
+				"sap/ui/layout/form/ResponsiveGridLayout.js",
+				"scm/ewm/packoutbdlvs1/control/Container.js",
+				"scm/ewm/packoutbdlvs1/controller/Left.controller.js"
+			]
+		},
+		{
+			"name": "view/Main.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/Main.view.xml",
+			"size": 2658,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Menu.js",
+				"sap/m/MenuItem.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/OverflowToolbarLayoutData.js",
+				"sap/m/OverflowToolbarMenuButton.js",
+				"sap/m/Page.js",
+				"sap/m/Title.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"scm/ewm/packoutbdlvs1/controller/Main.controller.js",
+				"scm/ewm/packoutbdlvs1/view/Ship.view.xml",
+				"scm/ewm/packoutbdlvs1/view/Source.view.xml"
+			]
+		},
+		{
+			"name": "view/MaterialQuickView.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/MaterialQuickView.fragment.xml",
+			"size": 2601,
+			"required": [
+				"sap/m/QuickView.js",
+				"sap/m/QuickViewGroup.js",
+				"sap/m/QuickViewGroupElement.js",
+				"sap/m/QuickViewPage.js",
+				"sap/ui/core/Fragment.js"
+			]
+		},
+		{
+			"name": "view/PartialPackDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/PartialPackDialog.fragment.xml",
+			"size": 3625,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Select.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js"
+			]
+		},
+		{
+			"name": "view/SerialNumberDamageDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SerialNumberDamageDialog.fragment.xml",
+			"size": 2141,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/List.js",
+				"sap/m/StandardListItem.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js"
+			]
+		},
+		{
+			"name": "view/SerialNumberDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SerialNumberDialog.fragment.xml",
+			"size": 2663,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/List.js",
+				"sap/m/StandardListItem.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js"
+			]
+		},
+		{
+			"name": "view/SerialNumberDifferenceDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SerialNumberDifferenceDialog.fragment.xml",
+			"size": 2392,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/List.js",
+				"sap/m/StandardListItem.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js"
+			]
+		},
+		{
+			"name": "view/SerialNumberPartialPackDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SerialNumberPartialPackDialog.fragment.xml",
+			"size": 2615,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/List.js",
+				"sap/m/StandardListItem.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js"
+			]
+		},
+		{
+			"name": "view/SerialNumberPopover.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SerialNumberPopover.fragment.xml",
+			"size": 671,
+			"required": [
+				"sap/m/List.js",
+				"sap/m/Popover.js",
+				"sap/m/StandardListItem.js",
+				"sap/ui/core/Fragment.js"
+			]
+		},
+		{
+			"name": "view/SerialNumberUiiPopover.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SerialNumberUiiPopover.fragment.xml",
+			"size": 1070,
+			"required": [
+				"sap/m/CustomListItem.js",
+				"sap/m/HBox.js",
+				"sap/m/Label.js",
+				"sap/m/List.js",
+				"sap/m/Popover.js",
+				"sap/m/VBox.js",
+				"sap/ui/core/Fragment.js"
+			]
+		},
+		{
+			"name": "view/Ship.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/Ship.view.xml",
+			"size": 10591,
+			"required": [
+				"sap/m/BusyIndicator.js",
+				"sap/m/Button.js",
+				"sap/m/Column.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/IconTabBar.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/OverflowToolbarLayoutData.js",
+				"sap/m/ScrollContainer.js",
+				"sap/m/Table.js",
+				"sap/m/Text.js",
+				"sap/m/Title.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/m/VBox.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/core/Icon.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/form/Form.js",
+				"sap/ui/layout/form/FormContainer.js",
+				"sap/ui/layout/form/FormElement.js",
+				"sap/ui/layout/form/ResponsiveGridLayout.js",
+				"scm/ewm/packoutbdlvs1/control/Container.js",
+				"scm/ewm/packoutbdlvs1/controller/Right.controller.js",
+				"scm/ewm/packoutbdlvs1/view/TabContent.fragment.xml"
+			]
+		},
+		{
+			"name": "view/ShipTableSettingDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/ShipTableSettingDialog.fragment.xml",
+			"size": 1261,
+			"required": [
+				"sap/m/P13nColumnsItem.js",
+				"sap/m/P13nColumnsPanel.js",
+				"sap/m/P13nDialog.js",
+				"sap/m/P13nItem.js",
+				"sap/ui/core/Fragment.js"
+			]
+		},
+		{
+			"name": "view/SimpleMode.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SimpleMode.view.xml",
+			"size": 2826,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Menu.js",
+				"sap/m/MenuItem.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/OverflowToolbarLayoutData.js",
+				"sap/m/OverflowToolbarMenuButton.js",
+				"sap/m/Page.js",
+				"sap/m/Title.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"scm/ewm/packoutbdlvs1/controller/Simple.controller.js",
+				"scm/ewm/packoutbdlvs1/view/SimpleShip.view.xml",
+				"scm/ewm/packoutbdlvs1/view/SimpleSource.view.xml"
+			]
+		},
+		{
+			"name": "view/SimpleShip.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SimpleShip.view.xml",
+			"size": 6188,
+			"required": [
+				"sap/m/BusyIndicator.js",
+				"sap/m/Button.js",
+				"sap/m/Column.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/IconTabBar.js",
+				"sap/m/Input.js",
+				"sap/m/ScrollContainer.js",
+				"sap/m/Table.js",
+				"sap/m/Text.js",
+				"sap/m/Title.js",
+				"sap/m/Toolbar.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/m/VBox.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/core/Icon.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"scm/ewm/packoutbdlvs1/control/Container.js",
+				"scm/ewm/packoutbdlvs1/controller/Right.controller.js",
+				"scm/ewm/packoutbdlvs1/view/SimpleTabContent.fragment.xml"
+			]
+		},
+		{
+			"name": "view/SimpleSource.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SimpleSource.view.xml",
+			"size": 8421,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Column.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/Image.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/ScrollContainer.js",
+				"sap/m/Table.js",
+				"sap/m/Text.js",
+				"sap/m/Title.js",
+				"sap/m/Toolbar.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/m/VBox.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/HorizontalLayout.js",
+				"sap/ui/layout/form/Form.js",
+				"sap/ui/layout/form/FormContainer.js",
+				"sap/ui/layout/form/FormElement.js",
+				"sap/ui/layout/form/ResponsiveGridLayout.js",
+				"scm/ewm/packoutbdlvs1/controller/Left.controller.js"
+			]
+		},
+		{
+			"name": "view/SimpleTabContent.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SimpleTabContent.fragment.xml",
+			"size": 2618,
+			"required": [
+				"sap/m/IconTabFilter.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/form/Form.js",
+				"sap/ui/layout/form/FormContainer.js",
+				"sap/ui/layout/form/FormElement.js",
+				"sap/ui/layout/form/ResponsiveGridLayout.js"
+			]
+		},
+		{
+			"name": "view/Source.view.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/Source.view.xml",
+			"size": 10479,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Column.js",
+				"sap/m/ColumnListItem.js",
+				"sap/m/Image.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/OverflowToolbar.js",
+				"sap/m/ScrollContainer.js",
+				"sap/m/Table.js",
+				"sap/m/Text.js",
+				"sap/m/Title.js",
+				"sap/m/Toolbar.js",
+				"sap/m/ToolbarSpacer.js",
+				"sap/m/VBox.js",
+				"sap/ui/core/ExtensionPoint.js",
+				"sap/ui/core/Icon.js",
+				"sap/ui/core/mvc/XMLView.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/HorizontalLayout.js",
+				"sap/ui/layout/form/Form.js",
+				"sap/ui/layout/form/FormContainer.js",
+				"sap/ui/layout/form/FormElement.js",
+				"sap/ui/layout/form/ResponsiveGridLayout.js",
+				"scm/ewm/packoutbdlvs1/control/Container.js",
+				"scm/ewm/packoutbdlvs1/controller/Left.controller.js"
+			]
+		},
+		{
+			"name": "view/SourceTableSettingDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/SourceTableSettingDialog.fragment.xml",
+			"size": 1293,
+			"required": [
+				"sap/m/P13nColumnsItem.js",
+				"sap/m/P13nColumnsPanel.js",
+				"sap/m/P13nDialog.js",
+				"sap/m/P13nItem.js",
+				"sap/ui/core/Fragment.js"
+			]
+		},
+		{
+			"name": "view/StockLevelSnDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/StockLevelSnDialog.fragment.xml",
+			"size": 1365,
+			"required": [
+				"sap/m/Button.js",
+				"sap/m/Dialog.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Text.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js"
+			]
+		},
+		{
+			"name": "view/StorageBinValueHelpDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/StorageBinValueHelpDialog.fragment.xml",
+			"size": 598,
+			"required": [
+				"sap/ui/comp/valuehelpdialog/ValueHelpDialog.js",
+				"sap/ui/core/Fragment.js"
+			]
+		},
+		{
+			"name": "view/TabContent.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/TabContent.fragment.xml",
+			"size": 6513,
+			"required": [
+				"sap/m/FlexBox.js",
+				"sap/m/IconTabFilter.js",
+				"sap/m/Input.js",
+				"sap/m/Label.js",
+				"sap/m/Link.js",
+				"sap/m/Text.js",
+				"sap/suite/ui/microchart/BulletMicroChart.js",
+				"sap/suite/ui/microchart/BulletMicroChartData.js",
+				"sap/ui/core/Fragment.js",
+				"sap/ui/core/Icon.js",
+				"sap/ui/layout/Grid.js",
+				"sap/ui/layout/GridData.js",
+				"sap/ui/layout/form/Form.js",
+				"sap/ui/layout/form/FormContainer.js",
+				"sap/ui/layout/form/FormElement.js",
+				"sap/ui/layout/form/ResponsiveGridLayout.js"
+			]
+		},
+		{
+			"name": "view/WorkCenterValueHelpDialog.fragment.xml",
+			"module": "scm/ewm/packoutbdlvs1/view/WorkCenterValueHelpDialog.fragment.xml",
+			"size": 648,
+			"required": [
+				"sap/ui/comp/valuehelpdialog/ValueHelpDialog.js",
+				"sap/ui/core/Fragment.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/ChangeMaterial-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/ChangeMaterial.js",
+			"size": 6521,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/ChangeMaterial.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/ChangeMaterial.js",
+			"size": 4239,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/Clear-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/Clear.js",
+			"size": 3397,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/Clear.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/Clear.js",
+			"size": 2089,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/CloseShipHU-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/CloseShipHU.js",
+			"size": 5138,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/CloseShipHU.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/CloseShipHU.js",
+			"size": 3259,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/CreateShipHU-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/CreateShipHU.js",
+			"size": 4391,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/CreateShipHU.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/CreateShipHU.js",
+			"size": 2831,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/DeleteShipHU-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/DeleteShipHU.js",
+			"size": 4777,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/DeleteShipHU.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/DeleteShipHU.js",
+			"size": 3092,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/Initialization-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/Initialization.js",
+			"size": 430,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/Initialization.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/Initialization.js",
+			"size": 299,
+			"required": [
+				"scm/ewm/packoutbdlvs1/model/Material.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/Leave-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/Leave.js",
+			"size": 1778,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/Leave.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/Leave.js",
+			"size": 1221,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/PackAll-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/PackAll.js",
+			"size": 3359,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/PackAll.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/PackAll.js",
+			"size": 2217,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/PackItem-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/PackItem.js",
+			"size": 11485,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/PackItem.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/PackItem.js",
+			"size": 7562,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/PackPartial-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/PackPartial.js",
+			"size": 6106,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/PackPartial.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/PackPartial.js",
+			"size": 3972,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/PackWithDifference-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/PackWithDifference.js",
+			"size": 5395,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/PackWithDifference.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/PackWithDifference.js",
+			"size": 3383,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/Print-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/Print.js",
+			"size": 1011,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/Print.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/Print.js",
+			"size": 674,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/ProductChange-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/ProductChange.js",
+			"size": 7332,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/ProductChange.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/ProductChange.js",
+			"size": 4686,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/QuantityChange-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/QuantityChange.js",
+			"size": 530,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/QuantityChange.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/QuantityChange.js",
+			"size": 342,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/RestoreShipHU-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/RestoreShipHU.js",
+			"size": 2363,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/RestoreShipHU.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/RestoreShipHU.js",
+			"size": 1303,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/SelectShipHU-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/SelectShipHU.js",
+			"size": 3020,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/SelectShipHU.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/SelectShipHU.js",
+			"size": 1942,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/ShippingHUChange-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/ShippingHUChange.js",
+			"size": 4701,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/ShippingHUChange.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/ShippingHUChange.js",
+			"size": 3119,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/SourceChange-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/SourceChange.js",
+			"size": 9634,
+			"isDebug": true,
+			"required": [
+				"sap/m/MessageBox.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/SourceChange.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/SourceChange.js",
+			"size": 6574,
+			"required": [
+				"sap/m/MessageBox.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/OData.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/UnpackAll-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackAll.js",
+			"size": 3349,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/UnpackAll.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackAll.js",
+			"size": 2271,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/UnpackItem-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackItem.js",
+			"size": 4390,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Advanced/UnpackItem.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackItem.js",
+			"size": 2972,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/AdvancedFactory-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+			"size": 1963,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ChangeMaterial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Clear.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/CloseShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/CreateShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/DeleteShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Leave.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackPartial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackWithDifference.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Print.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ProductChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/QuantityChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/RestoreShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/SelectShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ShippingHUChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/SourceChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Factory.js"
+			]
+		},
+		{
+			"name": "workflows/AdvancedFactory.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/AdvancedFactory.js",
+			"size": 1395,
+			"required": [
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ChangeMaterial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Clear.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/CloseShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/CreateShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/DeleteShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Leave.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackPartial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/PackWithDifference.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Print.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ProductChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/QuantityChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/RestoreShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/SelectShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/ShippingHUChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/SourceChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/UnpackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Factory.js"
+			]
+		},
+		{
+			"name": "workflows/Factory-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Factory.js",
+			"size": 1947,
+			"isDebug": true,
+			"required": [
+				"sap/ui/base/Interface.js",
+				"sap/ui/base/Object.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js"
+			]
+		},
+		{
+			"name": "workflows/Factory.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Factory.js",
+			"size": 1307,
+			"required": [
+				"sap/ui/base/Interface.js",
+				"sap/ui/base/Object.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js"
+			]
+		},
+		{
+			"name": "workflows/MixedWorkFlow-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js",
+			"size": 3417,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/MixedWorkFlow.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js",
+			"size": 1623,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/ChangeMaterial-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/ChangeMaterial.js",
+			"size": 3935,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/ChangeMaterial.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/ChangeMaterial.js",
+			"size": 2388,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/Clear-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/Clear.js",
+			"size": 2629,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/Clear.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/Clear.js",
+			"size": 1728,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/PackingMode.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/CloseShipHU-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/CloseShipHU.js",
+			"size": 2954,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/CloseShipHU.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/CloseShipHU.js",
+			"size": 1980,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/CreateShipHU-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/CreateShipHU.js",
+			"size": 2734,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/CreateShipHU.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/CreateShipHU.js",
+			"size": 1713,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/DeleteShipHU-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/DeleteShipHU.js",
+			"size": 530,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/DeleteShipHU.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/DeleteShipHU.js",
+			"size": 342,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/Initialization-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/Initialization.js",
+			"size": 1269,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/Initialization.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/Initialization.js",
+			"size": 864,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/Leave-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/Leave.js",
+			"size": 1704,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/Leave.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/Leave.js",
+			"size": 1147,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/PackAll-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/PackAll.js",
+			"size": 2558,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/PackAll.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/PackAll.js",
+			"size": 1738,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/PackItem-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/PackItem.js",
+			"size": 8954,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/PackItem.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/PackItem.js",
+			"size": 5073,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/MixedWorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/PackPartial-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/PackPartial.js",
+			"size": 530,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/PackPartial.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/PackPartial.js",
+			"size": 342,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/PackWithDifference-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/PackWithDifference.js",
+			"size": 530,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/PackWithDifference.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/PackWithDifference.js",
+			"size": 342,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/ProductChange-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/ProductChange.js",
+			"size": 4293,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/ProductChange.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/ProductChange.js",
+			"size": 2718,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/QuantityChange-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/QuantityChange.js",
+			"size": 3216,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/QuantityChange.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/QuantityChange.js",
+			"size": 2034,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/RestoreShipHU-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/RestoreShipHU.js",
+			"size": 1988,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/RestoreShipHU.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/RestoreShipHU.js",
+			"size": 1276,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/SelectShipHU-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/SelectShipHU.js",
+			"size": 3205,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/SelectShipHU.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/SelectShipHU.js",
+			"size": 2231,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/SourceChange-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/SourceChange.js",
+			"size": 9143,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/SourceChange.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/SourceChange.js",
+			"size": 6176,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Material.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/UnpackAll-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/UnpackAll.js",
+			"size": 530,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/UnpackAll.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/UnpackAll.js",
+			"size": 342,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/UnpackItem-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/UnpackItem.js",
+			"size": 5612,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/Simple/UnpackItem.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/Simple/UnpackItem.js",
+			"size": 3335,
+			"required": [
+				"scm/ewm/packoutbdlvs1/modelHelper/Cache.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Global.js",
+				"scm/ewm/packoutbdlvs1/modelHelper/Message.js",
+				"scm/ewm/packoutbdlvs1/service/ODataService.js",
+				"scm/ewm/packoutbdlvs1/utils/Const.js",
+				"scm/ewm/packoutbdlvs1/utils/CustomError.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js",
+				"scm/ewm/packoutbdlvs1/workflows/WorkFlow.js"
+			]
+		},
+		{
+			"name": "workflows/SimpleFactory-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js",
+			"size": 1885,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Print.js",
+				"scm/ewm/packoutbdlvs1/workflows/Factory.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/ChangeMaterial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Clear.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/CloseShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/CreateShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/DeleteShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Initialization.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Leave.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackPartial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackWithDifference.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/ProductChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/QuantityChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/RestoreShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/SelectShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/SourceChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackItem.js"
+			]
+		},
+		{
+			"name": "workflows/SimpleFactory.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/SimpleFactory.js",
+			"size": 1367,
+			"required": [
+				"scm/ewm/packoutbdlvs1/workflows/Advanced/Print.js",
+				"scm/ewm/packoutbdlvs1/workflows/Factory.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/ChangeMaterial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Clear.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/CloseShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/CreateShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/DeleteShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Initialization.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/Leave.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackItem.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackPartial.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/PackWithDifference.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/ProductChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/QuantityChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/RestoreShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/SelectShipHU.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/SourceChange.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackAll.js",
+				"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackItem.js"
+			]
+		},
+		{
+			"name": "workflows/WorkFlow-dbg.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/WorkFlow.js",
+			"size": 1220,
+			"isDebug": true,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/ErrorHandler.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		},
+		{
+			"name": "workflows/WorkFlow.js",
+			"module": "scm/ewm/packoutbdlvs1/workflows/WorkFlow.js",
+			"size": 793,
+			"required": [
+				"scm/ewm/packoutbdlvs1/utils/ErrorHandler.js",
+				"scm/ewm/packoutbdlvs1/utils/Util.js"
+			]
+		}
+	]
+}

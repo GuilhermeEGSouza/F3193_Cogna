@@ -1,0 +1,52 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<mvc:View id="pod---internalmain--view" controllerName="scm.ewm.packoutbdlvs1.controller.InternalMain"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" displayBlock="true" xmlns="sap.m"
+	xmlns:l="sap.ui.layout">
+	<Page showHeader="false" id="appPage" busy="{global>/busy}" floatingFooter="true">
+		<OverflowToolbar id="pod---internalmain-page-toolbar" design="Transparent" height="3rem">
+			<Title id="pod---internalmain-page--title" class="sapUiMediumMarginBegin"
+				text="{parts:[{path:'global>/bin'}, {path:'global>/workstation'}, {path: 'global>/warehouseNumber'}], formatter:'.formatTitle'}"></Title>
+			<ToolbarSpacer id="pod---internalmain---space3"/>
+			<OverflowToolbarMenuButton id="ShareButton" icon="sap-icon://action" type="Transparent" tooltip="{i18n>SHARE_BUTTON}"
+				visible="{share>/isShareMenuButtonVisible}" text="">
+				<layoutData>
+					<OverflowToolbarLayoutData id="pod---internalmain--overflowtoolbarlayoutdata-id" shrinkable="false" priority="NeverOverflow"/>
+				</layoutData>
+				<menu>
+					<Menu id="ShareMenu">
+						<MenuItem id="shareEmailButton" icon="sap-icon://email" press="onShareEmailPressed" text="{share>/emailButtonText}" class="sapMFlexBox"/>
+						<MenuItem id="bookmarkButton" icon="sap-icon://add-favorite" press="onSaveAsTilePressed" text="{share>/bookmarkButtonText}"
+							class="sapMFlexBox"/>
+					</Menu>
+				</menu>
+			</OverflowToolbarMenuButton>
+		</OverflowToolbar>
+		<content>
+			<l:Grid id="pod---internalmain-page--grid" class="sapUiTinyMargin">
+				<mvc:XMLView viewName="scm.ewm.packoutbdlvs1.view.InternalSource" id="id-source-view" type="XML">
+					<mvc:layoutData>
+						<l:GridData id="pod---internalmain-page--grid--layout" span="XL6 L6 M12 S12"></l:GridData>
+					</mvc:layoutData>
+				</mvc:XMLView>
+				<mvc:XMLView viewName="scm.ewm.packoutbdlvs1.view.InternalShip" id="id-ship-view" type="XML">
+					<mvc:layoutData id="pod---internalmain-page--grid--internalship--layoutdata">
+						<l:GridData id="pod---internalmain-page--grid--internalship" span="XL6 L6 M12 S12"></l:GridData>
+					</mvc:layoutData>
+				</mvc:XMLView>
+			</l:Grid>
+		</content>
+		<footer>
+			<OverflowToolbar id="pod---internalmain--overflowtoolbar--footer">
+				<Button icon="sap-icon://message-popup" type="Emphasized" press="onMessagePopoverPress" visible="{= ${message>/}.length > 0 ? true : false}"
+					text="{= ${message>/}.length}" class="sapUiSmallMarginBegin" id="pod---internalmain-page--message"/>
+				<ToolbarSpacer id="pod---internalmain---space1"/>
+				<ToolbarSpacer id="pod---internalmain---space2"/>
+				<Button id="leave-button" text="{i18n>leave}" type="Emphasized" press="onLeave" class="sapUiSmallMarginEnd"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

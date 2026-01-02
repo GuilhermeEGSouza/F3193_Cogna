@@ -1,0 +1,124 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---tabcontent--fragmentdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:chart="sap.suite.ui.microchart"
+	xmlns:f="sap.ui.layout.form">
+	<IconTabFilter id="pod---tabcontent--icontabfilter">
+		<l:Grid id="pod--tab--grid" class="sapUiSmallMarginTop" vSpacing="0" hSpacing="0">
+			<l:Grid hSpacing="0" vSpacing="0" id="pod--tab--grid--grid">
+				<l:layoutData>
+					<l:GridData span="XL6 L6 M6 S12" id="pod--tab--grid--layout"></l:GridData>
+				</l:layoutData>
+				<f:Form editable="false" id="pod--tab--form">
+					<f:layoutData>
+						<l:GridData span="XL12 L12 M12 S12" id="pod--tab--form--layout"></l:GridData>
+					</f:layoutData>
+					<f:layout>
+						<f:ResponsiveGridLayout id="pod--tab--responsivegrid" class="sapUiNoContentPadding" labelSpanXL="3" labelSpanL="4" labelSpanM="4" labelSpanS="6" adjustLabelSpan="true"
+							emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer id="pod--tab--formcontainer"> 
+							<f:layoutData>
+								<l:GridData id="pod--tab--formcontainer--layout" span="XL12 L12 M12 S12"></l:GridData>
+							</f:layoutData>
+							<f:formElements>
+								<f:FormElement id="pod--tab--formelement">
+									<f:label>
+										<Label text="{i18n>packagingMaterial}" wrapping="true" id="pod--tab--packmaterial"></Label>
+									</f:label>
+									<f:fields>
+										<Link id="pod--tab--material-link" press="onMaterialQuickView" wrapping="true"
+											text="{parts:[{path:'material>/currentMaterial/PackagingMaterialDescription'},{path:'material>/currentMaterial/PackagingMaterial'}],formatter:'.formatMaterialDisplay'}"></Link>
+										<core:Icon id="pod--tab--materia--icon" src="sap-icon://edit" press="onEditMaterial" tooltip="{i18n>edit}"
+											visible="{parts:[{path:'global>/currentShipHandlingUnitClosed'},{path:'material>/currentMaterial/PackagingMaterial'}],formatter:'.formatEditIconVisible'}">
+											<core:layoutData>
+												<l:GridData span="L1 M1 S1" id="pod--tab--material-layout" />
+											</core:layoutData>
+										</core:Icon>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="pod--tab--formelelement--packinginstruction">
+									<f:label>
+										<Label text="{i18n>packingInstruction}" wrapping="true" id="pod--tab--formelelement--packinginstruction--label"></Label>
+									</f:label>
+									<f:fields>
+										<Label text="" id="id-packing-instruction" wrapping="true" design="Bold"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</l:Grid>
+			<l:Grid id="pod--tab--grid--tab" vSpacing="0" hSpacing="0">
+				<l:layoutData>
+					<l:GridData span="XL6 L6 M6 S12" id="pod--tab--grid--griddata"></l:GridData>
+				</l:layoutData>
+				<FlexBox alignItems="Center" justifyContent="SpaceBetween" id="pod--tab--grid--flexbox">
+					<layoutData>
+						<l:GridData span="XL12 L12 M12 S12" id="pod--tab--grid--flexbox--layout"></l:GridData>
+					</layoutData>
+					<items id="pod--tab--grid--items">
+						<chart:BulletMicroChart id="weight-chart-id" scale="{material>/currentMaterial/MaxWeightUoM}"
+							targetValue="{path:'material>/currentMaterial/HandlingUnitMaxWeight', formatter:'.formatMaxWeightInChart'}" press="press" minValue="0"
+							showTargetValue="{path:'material>/currentMaterial/HandlingUnitMaxWeight', formatter:'.formatTargetValueDisplay'}" showValueMarker="true" size="Auto">
+							<chart:layoutData>
+								<l:GridData span="XL12 L12 M12 S12" id="pod--tab--grid--items--layout"></l:GridData>
+							</chart:layoutData>
+							<chart:actual >
+								<chart:BulletMicroChartData value="0" color="Good" id="pod--tab--grid--items--bulletchart"/>
+							</chart:actual>
+							<chart:thresholds>
+								<chart:BulletMicroChartData id="pod--tab--grid--bulletchartdata" tooltip="" value="{path:'material>/currentMaterial/MaxWeightTol', formatter:'.formatMaxWeightInChart'}" color="Error"/>
+							</chart:thresholds>
+						</chart:BulletMicroChart>
+					</items>
+				</FlexBox>
+				<f:Form editable="false" id="pod--tab--grid--form">
+					<f:layoutData>
+						<l:GridData span="XL12 L12 M12 S12" id="pod--tab--grid--form--layout"></l:GridData>
+					</f:layoutData>
+					<f:layout>
+						<f:ResponsiveGridLayout id="pod--tab--grid--form--responsivegrid--layout" class="sapUiNoContentPadding" labelSpanXL="3" labelSpanL="4" labelSpanM="4" labelSpanS="5" adjustLabelSpan="true"
+							emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers id="pod--tab--grid--form--containers">
+						<f:FormContainer id="weight-comparison-id">
+							<f:layoutData>
+								<l:GridData span="XL12 L12 M12 S12" id="pod--tab--grid--form--weight--comparison--layout"></l:GridData>
+							</f:layoutData>
+							<f:formElements id="pod---tab--grid--form--weight---containers--formelements">
+								<f:FormElement id="pod--tab--grid--form--weight---containers--formelement">
+									<f:label>
+										<Label text="{i18n>netWeight}" wrapping="true" id="pod--tab--grid--form--weight--netweight"></Label>
+									</f:label>
+									<f:fields>
+										<Text id="id-estimated-weight" text=""/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="pod---tab--formelement--weight">
+									<f:label>
+										<Label text="{i18n>grossWeight}" id="pod--tab--grid--form--weight--grossweight" wrapping="true"></Label>
+									</f:label>
+									<f:fields>
+										<Input id="actual-weight-input"
+											editable="{parts:[{path:'global>/currentShipHandlingUnitClosed'}, {path:'itemModel>/'},{path:'global>/pendingTaskNumber'}], formatter:'.formatWeightEnable'}"
+											change="onActualWeightChangeAdvanced"></Input>
+										<Text id="id-actual-weight" text="{material>/currentMaterial/MaxWeightUoM}">
+											<layoutData>
+												<l:GridData span="L2 M2 S2" id="pod--tab--grid--form--weight--actualweight"/>
+											</layoutData>
+										</Text>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</l:Grid>
+		</l:Grid>
+	</IconTabFilter>
+</core:FragmentDefinition>

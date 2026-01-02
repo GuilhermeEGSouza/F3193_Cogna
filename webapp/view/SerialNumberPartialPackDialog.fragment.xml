@@ -1,0 +1,46 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---serialnumberpartialpack--fragement" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"
+	xmlns:form="sap.ui.layout.form">
+	<Dialog id="serialNumberPartialPackDialog" title="{i18n>partialPack}" contentWidth="450px" draggable="true"
+		ariaLabelledBy="id-serialNum-partial-msg">
+		<layout:Grid id="pod---snpartialpack-grid" defaultSpan="L10 M10 S10" vSpacing="0"
+			class="sapUiMediumMarginTop sapUiSmallMarginBottom sapUiTinyMarginBegin sapUiTinyMarginEnd">
+			<Text text="{parts:[{path:'global>/currentShipHandlingUnit'},{path:'packMode>/selectedMode'}], formatter:'.formatSerialNumberPackMsg'}"
+				id="id-serialNum-partial-msg" class="sapUiSmallMarginBottom">
+				<layoutData>
+					<layout:GridData span="L12 M12 S12" id="pod---snpartialpack-msg--layout"/>
+				</layoutData>
+			</Text>
+			<Label text="{i18n>serialNumberPack}" labelFor="id-input-serialNumber-partial-pack" id="pod---snpartialpack-pack">
+				<layoutData>
+					<layout:GridData span="L8 M8 S8" id="pod---snpartialpack-pack--layout"/>
+				</layoutData>
+			</Label>
+			<Input id="id-input-serialNumber-partial-pack" change="onSerialNumberPartialPackChange" enabled="true" class="sapUiTinyMarginEnd">
+				<layoutData>
+					<layout:GridData span="L10 M10 S10" id="pod---snpartialpack--input--layout"/>
+				</layoutData>
+			</Input>
+			<Label text="{= ${serialNum>/serialNumbers}.length}" id="pod---snpartialpack--count--label" class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+				<layoutData>
+					<layout:GridData span="L2 M2 S2" id="pod---snpartialpack--count--layout"/>
+				</layoutData>
+			</Label>
+			<!--<core:Fragment fragmentName="scm.ewm.packoutbdlvs1.view.SerialNumberList" type="XML"></core:Fragment>-->
+			<List id="pod---snpartialpack--snlist" mode="{path:'itemModel>/0', formatter:'.formatSNListMode'}" delete="onDeleteSerialNumber"
+				items="{path: 'serialNum>/serialNumbers' }" visible="true">
+				<StandardListItem id="pod---snpartialpack--snlist--item" title="{serialNum>key}"/>
+			</List>
+		</layout:Grid>
+		<buttons>
+			<Button text="{i18n>Pack}" type="Emphasized" press="onSerialNumberPartialPack" id="pod---snpartialpack--pack--button"/>
+			<Button text="{i18n>PackWithoutSN}" press="onSwitchToPackWithoutSN" id="pod---snpartialpack--switch--button"
+				visible="{path:'itemModel>/0',formatter:'.formatPackWithoutSNVisible'}"/>
+			<Button text="{i18n>cancel}" press="onSerialNumberCancel" id="pod---snpartialpack--cancel--button"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

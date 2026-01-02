@@ -1,0 +1,72 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---damagedialog--fragmentdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog id="damageDialog" title="{i18n>damagedProduct}" contentWidth="400px" draggable="true" afterOpen="onAfterOpenDamageDialog"
+		beforeOpen="onBeforeOpenDamageDialog" ariaLabelledBy="id-damage-pack-msg">
+		<layout:Grid id="pod---damagedialog--grid" position="Left" defaultSpan="L10 M10 S10" vSpacing="0" defaultIndent="L2 M2 S2"
+			class="sapUiMediumMarginTop sapUiSmallMarginBottom">
+			<Text text="{i18n>damageNotification}" class="sapUiSmallMarginBottom" id="id-damage-pack-msg">
+				<layoutData>
+					<layout:GridData id="pod---damagedialog--msg--layout" span="L8 M8 S8"/>
+				</layoutData>
+			</Text>
+			<layout:Grid id="pod---damagedialog--grid--layout" hSpacing="0.5" vSpacing="0">
+				<layout:layoutData>
+					<layout:GridData id="pod---damagedialog--grid--layout--layout" span="L10 M10 S10"/>
+				</layout:layoutData>
+				<Label id="damage-alter-label" text="{i18n>availableAlternativeUoM}" labelFor="damage-alternative-quantity">
+					<layoutData>
+						<layout:GridData  id="pod---damagedialog--aauom-layout" span="L10 M10 S10"/>
+					</layoutData>
+				</Label>
+				<Input id="damage-alternative-quantity" value="{itemModel>/0/AlterQuan}" editable="false">
+					<layoutData> 
+						<layout:GridData id="pod---damagedialog--aauqtyt" span="L6 M6 S6"/>
+					</layoutData>
+				</Input>
+				<Input id="damage-alternative-uom" value="{itemModel>/0/AlternativeUnit}" editable="false" ariaLabelledBy="damage-alter-label">
+					<layoutData>
+						<layout:GridData id="pod---damagedialog--damage--aauom" span="L4 M4 S4"/>
+					</layoutData>
+				</Input>
+				<Label id="damage-base-label" text="{i18n>availableBaseUoM}" labelFor="damage-base-quantity">
+					<layoutData>
+						<layout:GridData id="pod---damagedialog--damage--base--label" span="L10 M10 S10"/>
+					</layoutData>
+				</Label>
+				<Input id="damage-base-quantity" value="{itemModel>/0/Quan}" editable="false">
+					<layoutData>
+						<layout:GridData id="pod---damagedialog--damage--base--qty" span="L6 M6 S6"/>
+					</layoutData>
+				</Input>
+				<Input id="damage-base-uom" value="{itemModel>/0/BaseUnit}" editable="false" ariaLabelledBy="damage-base-label">
+					<layoutData>
+						<layout:GridData id="pod---damagedialog--damage--base--uom" span="L4 M4 S4"/>
+					</layoutData>
+				</Input>
+				<Label id="damage-quantity-label" text="{i18n>productQuantity}" labelFor="damage-quantity-input">
+					<layoutData>
+						<layout:GridData id="pod---damagedialog--damage--qty--layout" span="L10 M10 S10"/>
+					</layoutData>
+				</Label>
+				<Input id="damage-quantity-input" value="">
+					<layoutData>
+						<layout:GridData id="pod---damagedialog--damage--qty--input" span="L6 M6 S6"/>
+					</layoutData>
+				</Input>
+				<Select id="damage-uom-select" ariaLabelledBy="damage-quantity-label">
+					<layoutData>
+						<layout:GridData id="pod---damagedialog--damage--uom--select" span="L4 M4 S4"/>
+					</layoutData>
+				</Select>
+			</layout:Grid>
+		</layout:Grid>
+		<buttons>
+			<Button id="confirm-damage-button" text="{i18n>ok}" press="onDamage"/>
+			<Button text="{i18n>cancel}" id="pod---damagedialog--cancel--button" press="cancelDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

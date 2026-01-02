@@ -1,0 +1,73 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---differencedialog--fragementdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog id="differenceDialog" title="{i18n>difference}" contentWidth="400px" afterOpen="onAfterOpenDifferenceDialog"
+		beforeOpen="onBeforeOpenDifferenceDialog" draggable="true" ariaLabelledBy="id-difference-pack-msg">
+		<layout:Grid id="pod---differentdialog--grid" position="Left" defaultSpan="L10 M10 S10" vSpacing="0" hSpacing="0" defaultIndent="L2 M2 S2"
+			class="sapUiMediumMarginTop sapUiSmallMarginBottom">
+			<Text text="{parts:[{path:'global>/currentShipHandlingUnit'},{path:'packMode>/selectedMode'}], formatter:'.formatExceptionMsg'}"
+				class="sapUiSmallMarginBottom" id="id-difference-pack-msg">
+				<layoutData id="pod---differentdialog--msg-layoutdata">
+					<layout:GridData span="L8 M8 S8" id="pod---differentdialog--msg-layoutdata--griddata"/>
+				</layoutData>
+			</Text>
+			<layout:Grid id="pod---differentdialog--grid--layout" hSpacing="0.5" vSpacing="0">
+				<layout:layoutData>
+					<layout:GridData id="pod-differentdialog--grid--laoyout" span="L10 M10 S10"/>
+				</layout:layoutData>
+				<Label id="difference-alter-label" text="{i18n>availableAlternativeUoM}" labelFor="difference-alternative-quantity">
+					<layoutData>
+						<layout:GridData id="pod---differentdialog--alter-label" span="L10 M10 S10"/>
+					</layoutData>
+				</Label>
+				<Input id="difference-alternative-quantity" value="{itemModel>/0/AlterQuan}" editable="false">
+					<layoutData>
+						<layout:GridData id="pod---differentdialog--input-layout" span="L6 M6 S6"/>
+					</layoutData>
+				</Input>
+				<Input id="difference-alternative-uom" value="{itemModel>/0/AlternativeUnit}" editable="false" ariaLabelledBy="difference-alter-label">
+					<layoutData>
+						<layout:GridData id="pod---differentdialog--alternative-uom-layout" span="L4 M4 S4"/>
+					</layoutData>
+				</Input>
+				<Label id="difference-base-label" text="{i18n>availableBaseUoM}" labelFor="difference-base-quantity">
+					<layoutData>
+						<layout:GridData id="pod---differentdialog--difference-base-label-layout" span="L10 M10 S10"/>
+					</layoutData>
+				</Label>
+				<Input id="difference-base-quantity" value="{itemModel>/0/Quan}" editable="false">
+					<layoutData>
+						<layout:GridData id="pod---differentdialog--difference-base-quantity" span="L6 M6 S6"/>
+					</layoutData>
+				</Input>
+				<Input id="difference-base-uom" value="{itemModel>/0/BaseUnit}" editable="false" ariaLabelledBy="difference-alter-label">
+					<layoutData>
+						<layout:GridData id="pod---differentdialog--difference-base-uom-layout" span="L4 M4 S4"/>
+					</layoutData>
+				</Input>
+				<Label id="difference-packed-quantity" text="{i18n>packedQuantity}" labelFor="difference-quantity-input">
+					<layoutData>
+						<layout:GridData id="pod---differentdialog--difference-packed-quantity-layout" span="L10 M10 S10"/>
+					</layoutData>
+				</Label>
+				<Input id="difference-quantity-input" value="">
+					<layoutData>
+						<layout:GridData id="pod---differentdialog--difference-quantity-input--layout" span="L6 M6 S6"/>
+					</layoutData>
+				</Input>
+				<Select id="difference-uom-select" ariaLabelledBy="difference-packed-quantity">
+					<layoutData>
+						<layout:GridData id="pod---differentdialog--uomselect--layout" span="L4 M4 S4"/>
+					</layoutData>
+				</Select>
+			</layout:Grid>
+		</layout:Grid>
+		<buttons>
+			<Button id="confirm-difference-button" type="Emphasized" text="{i18n>pack}" press="onDifference"/>
+			<Button id="cancel-difference-button" text="{i18n>cancel}" press="cancelDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

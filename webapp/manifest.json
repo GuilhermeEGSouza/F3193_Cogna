@@ -1,0 +1,267 @@
+{
+    "_version": "1.11.0",
+    "sap.app": {
+        "id": "scm.ewm.packoutbdlvs1",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "12.0.5"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "ach": "SCM-EWM-WC",
+        "sourceTemplate": {
+            "id": "ui5template.basicSAPUI5ApplicationProject",
+            "version": "1.40.12",
+            "toolsId": "bcae97f4-f6e6-4bfe-8cfe-029fbb264ed2"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/SCWM/PACK_OUTBDLV_SRV",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "defaultParametersService": {
+                "uri": "/sap/opu/odata/SCWM/USER_DEFAULTPARAMETER_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/defaultParamsMetadata.xml"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "EWMOutboundDelivery-packOutboundDelivery": {
+                    "semanticObject": "EWMOutboundDelivery",
+                    "action": "packOutboundDelivery",
+                    "signature": {
+                        "parameters": {
+                            "Warehouse": {
+                                "defaultValue": {
+                                    "value": "UserDefault.Warehouse",
+                                    "format": "reference"
+                                }
+                            }
+                        },
+                        "additionalParameters": "allowed"
+                    }
+                },
+                "EWMWorkCenter-packInternal": {
+                    "title": "{{internalTitle}}",
+                    "semanticObject": "EWMWorkCenter",
+                    "action": "packInternal",
+                    "signature": {
+                        "parameters": {
+                            "Warehouse": {
+                                "defaultValue": {
+                                    "value": "UserDefault.Warehouse",
+                                    "format": "reference"
+                                }
+                            }
+                        },
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_hcb",
+            "sap_belize"
+        ]
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "componentName": "scm.ewm.packoutbdlvs1",
+        "rootView": {
+            "viewName": "scm.ewm.packoutbdlvs1.view.App",
+            "type": "XML",
+            "id": "rootView"
+        },
+        "dependencies": {
+            "minUI5Version": "1.114.2",
+            "libs": {
+                "sap.m": {},
+                "sap.suite.ui.microchart": {
+                    "lazy": false
+                },
+                "sap.ui.comp": {
+                    "lazy": false
+                },
+                "sap.ui.core": {},
+                "sap.ui.layout": {
+                    "lazy": true
+                },
+                "sap.tl.ewm.lib.reuses1": {
+                    "lazy": true
+                },
+                "sap.suite.ui.commons": {
+                    "lazy": false
+                },
+                "sap.ushell": {
+                    "lazy": false
+                },
+                "sap.fe.navigation": {
+                    "lazy": false
+                }
+            }
+        },
+        "commands": {
+            "Share": {
+                "shortcut": "Shift+Ctrl+S"
+            },
+            "Enter": {
+                "shortcut": "Enter"
+            }
+        },
+        "contentDensities": {
+            "compact": false,
+            "cozy": true
+        },
+        "services": {
+            "ShellUIService": {
+                "factoryName": "sap.ushell.ui5service.ShellUIService"
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "scm.ewm.packoutbdlvs1.i18n.i18n"
+                },
+                "preload": false
+            },
+            "": {
+                "dataSource": "mainService",
+                "settings": {
+                    "defaultUpdateMethod": "PUT",
+                    "defaultBindingMode": "TwoWay",
+                    "refreshAfterChange": true
+                },
+                "preload": true
+            },
+            "defaultParameters": {
+                "dataSource": "defaultParametersService",
+                "settings": {
+                    "metadataUrlParams": {
+                        "sap-documentation": "heading"
+                    },
+                    "defaultBindingMode": "TwoWay",
+                    "defaultOperationMode": "Server",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true
+                },
+                "preload": true
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.ui.core.routing.Router",
+                "viewType": "XML",
+                "controlId": "appContainer",
+                "viewPath": "scm.ewm.packoutbdlvs1.view",
+                "controlAggregation": "pages",
+                "clearControlAggregation": true,
+                "bypassed": {
+                    "target": [
+                        "default"
+                    ]
+                },
+                "async": true
+            },
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "default",
+                    "target": "default"
+                },
+                {
+                    "pattern": "main",
+                    "name": "main",
+                    "target": "main"
+                },
+                {
+                    "pattern": "simple",
+                    "name": "simple",
+                    "target": "simple"
+                },
+                {
+                    "pattern": "internal",
+                    "name": "internal",
+                    "target": "internal"
+                },
+                {
+                    "pattern": "main?sap-iapp-state={id}",
+                    "name": "localstate-advanced",
+                    "target": "main"
+                },
+                {
+                    "pattern": "simple?sap-iapp-state={id}",
+                    "name": "localstate-simple",
+                    "target": "simple"
+                },
+                {
+                    "pattern": "internal?sap-iapp-state={id}",
+                    "name": "localstate-internal",
+                    "target": "internal"
+                }
+            ],
+            "targets": {
+                "default": {
+                    "viewName": "DefaultBin",
+                    "viewId": "default"
+                },
+                "main": {
+                    "viewName": "Main",
+                    "viewId": "main"
+                },
+                "simple": {
+                    "viewName": "SimpleMode",
+                    "viewId": "simple"
+                },
+                "internal": {
+                    "viewName": "InternalMain",
+                    "viewId": "internal"
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "_version": "1.1.0",
+        "registrationIds": [
+            "F3193"
+        ],
+        "archeType": "transactional"
+    },
+    "sap.platform.abap": {
+        "_version": "1.1.0",
+        "uri": "/sap/bc/ui5_ui5/sap/ewm_pkodl_mans1"
+    }
+}

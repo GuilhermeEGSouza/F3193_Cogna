@@ -1,0 +1,10 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---workcenter--fragmentdefinition" xmlns="sap.m" xmlns:v="sap.ui.comp.valuehelpdialog" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core">
+	<v:ValueHelpDialog id="pod---workcenter--valuehelpdialog" filterMode="false" supportMultiselect="false" afterClose="_handleValueHelpAfterClose" ok="_handleWorkCenterValueHelpOK"
+		cancel="_handleValueHelpClose" title="{i18n>workCenter}" supportRanges="false" supportRangesOnly="false" key="WorkCenter"
+		descriptionKey="Desc"></v:ValueHelpDialog>
+</core:FragmentDefinition>

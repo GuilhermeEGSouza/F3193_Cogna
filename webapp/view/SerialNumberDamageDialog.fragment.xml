@@ -1,0 +1,41 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod--sndamage--fragmentdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog id="serialNumberDamageDialog" title="{i18n>damagedProduct}" contentWidth="450px" draggable="true">
+		<layout:Grid defaultSpan="L10 M10 S10" vSpacing="0"
+			class="sapUiMediumMarginTop sapUiSmallMarginBottom sapUiTinyMarginBegin sapUiTinyMarginEnd" id="pod---sndamage--grid">
+			<Text text="{parts:[{path:'global>/currentShipHandlingUnit'},{path:'packMode>/selectedMode'}], formatter:'.formatSerialNumberPackMsg'}"
+				class="sapUiSmallMarginBottom" id="pod---sndamage--msg">
+				<layoutData>
+					<layout:GridData span="L12 M12 S12" id="pod---sndamage--msg--layout"/>
+				</layoutData>
+			</Text>
+			<Label text="{i18n>serialNumberPack}" id="pod---sndamage--snpack">
+				<layoutData>
+					<layout:GridData span="L8 M8 S8" id="pod---sndamage--snpack--layout"/>
+				</layoutData>
+			</Label>
+			<Input id="id-input-serialNumber-damage-pack" change="onSerialNumberDamageChange" enabled="true" class="sapUiTinyMarginEnd">
+				<layoutData>
+					<layout:GridData span="L10 M10 S10" id="pod---sndamage--pack--input"/>
+				</layoutData>
+			</Input>
+			<Label text="{= ${serialNum>/serialNumbers}.length}" class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="pod---sndamage--count">
+				<layoutData>
+					<layout:GridData span="L2 M2 S2" id="pod---sndamage--count--layout"/>
+				</layoutData>
+			</Label>
+			<List id="pod---sndamagepack--snlist" mode="{path:'itemModel>/0', formatter:'.formatSNListMode'}" delete="onDeleteSerialNumber"
+				items="{path: 'serialNum>/serialNumbers' }" visible="true">
+				<StandardListItem id="pod---sndamagepack--snlist--listitem" title="{serialNum>key}"/>
+			</List>
+		</layout:Grid>
+		<buttons>
+			<Button text="{i18n>Pack}" type="Emphasized" press="onSerialNumberDamagePack" id="pod---sndamage--pack"/>
+			<Button text="{i18n>cancel}" press="onSerialNumberCancel" id="pod---sndamage--cancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

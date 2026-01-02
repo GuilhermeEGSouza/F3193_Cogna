@@ -1,0 +1,71 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---changematerialdialog---fragmentdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog id="change-material-dialog" title="{path:'packMode>/selectedMode',formatter:'.formatChangeDialogTitle'}"
+		contentWidth="{=${material>/favoriteMaterials}.length === 0? '400px':'500px'}" draggable="true" beforeOpen="onBeforeOpenChangeMaterial"
+		afterOpen="onAfterOpenChangeMaterial" afterClose="onAfterCloseChangeDialog">
+		<form:SimpleForm layout="ResponsiveGridLayout" editable="true" id="pod---changematerialdialog--dialog--form">
+			<layout:Grid position="Left" defaultSpan="L10 M10 S10" vSpacing="0" defaultIndent="L1 M1 S1" id="pod---changematerialdialog--dialog--form--grid">
+				<Label id="pod---changematerialdialog--dialog--form--lable" text="{path:'material>/favoriteMaterials',formatter:'.formatDialogMaterialLabel'}">
+					<layoutData>
+						<layout:GridData id="pod---changematerialdialog--dialog--form--lable--layout" span="L8 M8 S8"/>
+					</layoutData>
+				</Label>
+				<Table id="pack-material-table" items="{path:'material>/materialLayout'}"
+					visible="{=${material>/favoriteMaterials}.length === 0? false:true}" backgroundDesign="Transparent" class="sapUiNoContentPadding">
+					<layoutData>
+						<layout:GridData id="pod---changematerialdialog--dialog--form--layout--table--layout" span="L10 M10 S10"></layout:GridData>
+					</layoutData>
+					<columns/>
+					<items>
+						<ColumnListItem id="pod---changematerialdialog--dialog--form--layout--table--items" cells="{path:'material>cells',templateShareable:true}" class="sapUiNoContentPadding">
+							<cells>
+								<ToggleButton id="pod---changematerialdialog--dialog--table--cellTemplate" pressed="{material>pressed}" icon="{path:'material>pressed',formatter:'.formatMaterialButtonIcon'}" enabled="true"
+									press="onToggleMaterialInChange" width="100%" iconFirst="false"
+									text="{parts:[{path:'material>materialCode'},{path:'material>materialName'},{path:'material>materialId'}],formatter:'.formatFavoriteMaterialText'}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<Label text="{i18n>otherOption}" visible="{=${material>/favoriteMaterials}.length === 0? false:true}" labelFor="pack-material-combo"
+					class="sapUiSmallMarginTop" id="lbl_other_option">
+					<layoutData>
+						<layout:GridData id="pod---changematerialdialog--dialog--form--layout--lable" span="L10 M10 S10"/>
+					</layoutData>
+				</Label>
+				<ComboBox id="change-material-combo" width="100%" ariaLabelledBy="lbl_other_option" items="{path: 'material>/otherMaterials'}"
+					change="onSelectOtherMaterialInChange">
+					<layoutData>
+						<layout:GridData id="pod---changematerialdialog--dialog--form--layout--table--combobox--layout" span="L10 M10 S10"/>
+					</layoutData>
+					<core:Item id="pod---changematerialdialog--dialog--form--layout--table--combox--item" key="{material>PackagingMaterial}"
+						text="{parts:[{path:'material>PackagingMaterialDescription'},{path:'material>PackagingMaterial'}],formatter:'.formatMaterialComboText'}"></core:Item>
+				</ComboBox>
+				<Label id="pod---changematerialdialog--dialog--form--label" text="{path:'packMode>selectedMode',formatter:'.formatDialogLabel'}" labelFor="change-hu-id-input">
+					<layoutData>
+						<layout:GridData id="pod---changematerialdialog--dialog--form--label--layoutData" span="L10 M10 S10"/>
+					</layoutData>
+				</Label>
+				<Input id="change-hu-id-input" editable="true" value="" change="onChangeShippingHUId" submit="onChangeShippingHUIdSubmit"
+					required="{path:'material>/selectedMaterialId',formatter:'.formatShipHUIdRequired'}">
+					<layoutData>
+						<layout:GridData id="pod---changematerialdialog--dialog--form--input--layoutData" span="L10 M10 S10"/>
+					</layoutData>
+				</Input>
+			</layout:Grid>
+		</form:SimpleForm>
+		<MessageStrip id="error-material-strip" text="" visible="false" type="Error" showIcon="false" showCloseButton="false"
+			class="sapUiMediumMarginBottom"></MessageStrip>
+		<MessageStrip id="empty-material-strip" text="{i18n>materialEmptyMsg}" visible="false" type="Error" showIcon="false" showCloseButton="false"
+			class="sapUiMediumMarginBottom"></MessageStrip>
+		<MessageStrip id="no-change-strip" text="{i18n>noChangeMessage}" visible="false" type="Warning" showIcon="false" showCloseButton="false"
+			class="sapUiMediumMarginBottom"></MessageStrip>
+		<buttons>
+			<Button id="confirm-change-material-button" text="{i18n>ok}" press="onChangeMaterial"/>
+			<Button id="cancel-change-material-button" text="{i18n>cancel}" press="onCancelDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

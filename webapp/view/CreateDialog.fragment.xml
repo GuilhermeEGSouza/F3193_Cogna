@@ -1,0 +1,68 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---create--fragement" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"
+	xmlns:form="sap.ui.layout.form">
+	<Dialog id="createShipHUDialog" title="{path:'packMode>/selectedMode',formatter:'.formatCreateDialogTitle'}" draggable="true"
+		contentWidth="{=${material>/favoriteMaterials}.length === 0? '400px':'500px'}" afterClose="onAfterCloseCreateDialog"
+		afterOpen="onAfterOpenCreateDialog" beforeOpen="onBeforeOpenCreateDialog">
+		<form:SimpleForm id="pod---createdialog--dialog--form" layout="ResponsiveGridLayout" editable="true">
+			<layout:Grid id="pod---createdialog--dialog--form--grid" position="Left" defaultSpan="L10 M10 S10" vSpacing="0" defaultIndent="L1 M1 S1">
+				<Label id="pod---createdialog--dialog--form--grid--label" text="{path:'material>/favoriteMaterials',formatter:'.formatDialogMaterialLabel'}">
+					<layoutData>
+						<layout:GridData id="pod---createdialog--dialog--form--grid--label--layoutdata" span="L8 M8 S8"/>
+					</layoutData>
+				</Label>
+				<Table id="packaging-material-table" items="{path:'material>/materialLayout'}"
+					visible="{=${material>/favoriteMaterials}.length === 0? false:true}" backgroundDesign="Transparent" class="sapUiNoContentPadding">
+					<layoutData>
+						<layout:GridData id="pod---createdialog--dialog--form--grid--table" span="L10 M10 S10"></layout:GridData>
+					</layoutData>
+					<columns/>
+					<items>
+						<ColumnListItem id="pod---createdialog--dialog--form--grid--table--columnlistitem" cells="{path:'material>cells',templateShareable:true}" class="sapUiNoContentPadding">
+							<cells>
+								<ToggleButton id="pod---createdialog--dialog--table--cellTemplate" pressed="{material>pressed}" icon="{path:'material>pressed',formatter:'.formatMaterialButtonIcon'}" enabled="true"
+									press="onToggleMaterial" width="100%" iconFirst="false"
+									text="{parts:[{path:'material>materialCode'},{path:'material>materialName'},{path:'material>materialId'}],formatter:'.formatFavoriteMaterialText'}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<Label id="pod---createdialog--dialog--otheroption--label" text="{i18n>otherOption}" labelFor="other-material-combo"
+					class="sapUiSmallMarginTop" visible="{=${material>/favoriteMaterials}.length === 0? false:true}">
+					<layoutData>
+						<layout:GridData id="pod---createdialog--dialog--otheroption--layoutdata" span="L10 M10 S10"/>
+					</layoutData>
+				</Label>
+				<ComboBox id="other-material-combo" items="{path: 'material>/otherMaterials'}" width="100%" change="onSelectOtherMaterial">
+					<layoutData>
+						<layout:GridData id="pod---createdialog--dialog--form--grid--label--combobox" span="L10 M10 S10"/>
+					</layoutData>
+					<core:Item id="pod---createdialog--combobox--packmatitem" key="{material>PackagingMaterial}"
+						text="{parts:[{path:'material>PackagingMaterialDescription'},{path:'material>PackagingMaterial'}],formatter:'.formatMaterialComboText'}"></core:Item>
+				</ComboBox>
+				<Label id="pod---createdialog--combobox--packmatitem--label" text="{path:'packMode>/selectedMode',formatter:'.formatDialogLabel'}"
+					labelFor="create-ship-hu-input">
+					<layoutData>
+						<layout:GridData span="L10 M10 S10" id="pod---createdialog--combobox--packmatitem--griddata"/>
+					</layoutData>
+				</Label>
+				<Input id="create-ship-hu-input" change="onShipHUIDChange" submit="onShipHUIDSubmit" value=""
+					required="{path:'material>/selectedMaterialId',formatter:'.formatShipHUIdRequired'}">
+					<layoutData>
+						<layout:GridData id="pod---createdialog--createshiphu-input-layout" span="L10 M10 S10"/>
+					</layoutData>
+				</Input>
+			</layout:Grid>
+		</form:SimpleForm>
+		<MessageStrip id="empty-material-msg-strip" text="{i18n>materialEmptyMsg}" visible="false" type="Error" showIcon="false"
+			showCloseButton="false" class="sapUiMediumMarginBottom"></MessageStrip>
+		<buttons>
+			<Button text="{i18n>create}" id="create" type="Emphasized" press="onCreateShippingHU"/>
+			<Button text="{i18n>cancel}" id="cancel" press="onCancelDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

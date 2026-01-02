@@ -1,0 +1,16 @@
+/* Enter your custom styles here */
+.pack-ship-hus .sapMITBContent{
+	border-bottom: 0;
+}
+
+
+.dummyCss {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+.pack-cb{
+	clear: both;
+}
+

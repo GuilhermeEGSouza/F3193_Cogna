@@ -1,0 +1,22 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---snuii--fragement" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
+	<Popover id="serial-number-uii-popover" title="{i18n>uniqueItemIdentifier}" placement="Auto" afterOpen="onAfterOpenSerialNumberPopover" 
+	  verticalScrolling="true" class="sapUiContentPadding">
+		<List id="pod---snuii--list" items="{path: 'serialNum>/uiis'}" ariaLabelledBy="serial-number-uii-popover-header">
+			<CustomListItem id="pod---snuii--listitem">
+			<HBox id="pod---snuii--hbox" justifyContent="SpaceAround" alignContent="Center">
+				<VBox id="pod---snuii--vbox" class="sapUiTinyMargin">
+					<Label text="{serialNum>SerialNum}" textAlign="Center"  id="pod---snuii--snlabel"/>
+				</VBox>
+				<VBox class="sapUiTinyMargin" id="pod---snuii--vobx2">
+					<Label text="{serialNum>UniqueItemIdentifier}" textAlign="Center" id="pod---snuii--uiilabel"/>
+				</VBox>
+			</HBox>
+			</CustomListItem>
+		</List>
+	</Popover>
+</core:FragmentDefinition>

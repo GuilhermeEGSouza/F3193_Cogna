@@ -1,0 +1,169 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<mvc:View id="pod---internalship--view" controllerName="scm.ewm.packoutbdlvs1.controller.Right" height="100%" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:d="sap.f" xmlns:chart="sap.suite.ui.microchart"
+	xmlns:core="sap.ui.core" xmlns:custom="scm.ewm.packoutbdlvs1.control">
+	<ScrollContainer id="pod---internalship--scrollcontainer">
+		<!--<custom:Container id="right-container">-->
+		<VBox id="right-container">
+			<l:Grid id="pod---ship--grid" vSpacing="0">
+				<f:Form id="ship-hu-form" editable="true">
+					<f:layoutData>
+						<l:GridData id="pod---internalship--grid--layout" span="XL10 L10 M10 S10"></l:GridData>
+					</f:layoutData>
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="4" labelSpanM="4" labelSpanS="5" adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0"
+							emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"
+							id="pod---internalship--grid--gridlayout"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer id="pod---internalship--formcontainer">
+							<f:formElements>
+								<f:FormElement id="pod---internalship--formelement">
+									<f:label>
+										<Label text="{i18n>handlingUnit}" wrapping="true" id="pod---internalship--label"></Label>
+									</f:label>
+									<f:fields>
+										<Input id="shipping-hu-input" change="onShippingHUChange">
+											<layoutData>
+												<l:GridData span="XL5 L5 M5 S5" id="pod---internalship--grid--grid-data"></l:GridData>
+											</layoutData>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				<Button text="{i18n>create}" id="create-ship-unit" class="sapUiSmallMarginTop" press="onOpenCreateShipHUDialog" type="Emphasized"
+					enabled="{parts:[{path:'material>/favoriteMaterials'}, {path:'material>/otherMaterials'},{path:'global>/pendingTaskNumber'}], formatter:'.formatCreateButton'}">
+					<layoutData>
+						<l:GridData span="XL2 L2 M2 S2" id="pod---internalship--create--griddata"></l:GridData>
+					</layoutData>
+				</Button>
+			</l:Grid>
+			<l:Grid id="right-grid" vSpacing="0" hSpacing="0.5">
+				<IconTabBar id="shipHUBar" select="onSelectShippingHU" expandable="false" expanded="true"
+					class="sapUiNoMarginTop sapUiNoContentPadding pack-ship-hus" backgroundDesign="Transparent" headerBackgroundDesign="Transparent">
+					<layoutData>
+						<l:GridData span="XL12 L12 M12 S12" id="pod---internalship--shiphubar--griddata"></l:GridData>
+					</layoutData>
+					<items>
+						<core:Fragment fragmentName="scm.ewm.packoutbdlvs1.view.TabContent" type="XML" id="pod---internalship--shiphubar--items"></core:Fragment>
+					</items>
+				</IconTabBar>
+			</l:Grid>
+		</VBox>
+		<!--</custom:Container>-->
+		<VBox class="pack-cb" id="ship-toolbar-container">
+			<!--<custom:Container class="pack-cb" id="ship-toolbar-container">-->
+			<OverflowToolbar id="shiphu-buttons-toolbar">
+				<Button id="print-button" text="{path:'global>/currentShipHandlingUnitClosed', formatter:'.formatPrintText'}" width="17%"
+					enabled="{parts:[{path:'global>/currentShipHandlingUnit'},{path:'global>/pendingTaskNumber'}] , formatter:'.formatPrintEnable'}"
+					press="onPrint">
+					<layoutData>
+						<OverflowToolbarLayoutData id="pod---internalship--overflowtoolbar" priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+				<Button id="unpack-all-button" text="{i18n>unpackAll}" width="17%" enabled="{global>/unpackEnable}" press="onUnpackAll">
+					<layoutData>
+						<OverflowToolbarLayoutData id="pod---internalship--unpackall" priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+				<Button id="unpack-button" text="{i18n>unpack}" width="17%" enabled="{global>/unpackEnable}" press="onUnpack">
+					<layoutData>
+						<OverflowToolbarLayoutData id="pod---internalship--unpack" priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+				<Button id="id-weight" text="{i18n>weigh}" width="17%" type="Emphasized" visible="{global>/scaleEnabled}"
+					enabled="{parts:[{path:'global>/currentShipHandlingUnitClosed'}, {path:'itemModel>/'},{path:'global>/pendingTaskNumber'}], formatter:'.formatWeightEnable'}"
+					press="onGetScaleWeight">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow" id="pod---internalship--weight"/>
+					</layoutData>
+				</Button>
+				<ToolbarSpacer id="pod---internalship--space"/>
+				<Button id="close-ship-hu" text="{i18n>btnTextClose}" width="17%" type="Accept"
+					enabled="{parts:[{path:'itemModel>/'},{path:'global>/currentShipHandlingUnit'}] , formatter:'.formatCloseBtn'}" press="onCloseCurrentShipHU"
+					visible="{=${global>/currentShipHandlingUnitClosed} ? false : true}">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow" id="pod---internalship--ship--hu"/>
+					</layoutData>
+				</Button>
+				<Button id="close-closed-ship-hu" text="{i18n>ok}" width="17%" type="Accept"
+					visible="{=${global>/currentShipHandlingUnitClosed} ? true : false}" press="onRemoveClosedShipHU">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow" id="pod---internalship--close-closeshiphu"/>
+					</layoutData>
+				</Button>
+				<Button text="{i18n>deleteHU}" id="delete-ship-unit" press="onOpenDeleteShipHUDialog"
+					enabled="{parts:[{path:'global>/currentShipHandlingUnit'}, {path:'global>/currentShipHandlingUnitClosed'},{path:'global>/pendingTaskNumber'}], formatter:'.formatDeleteBtn'}">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="AlwaysOverflow" id="pod---internalship--deletehu"/>
+					</layoutData>
+				</Button>
+			</OverflowToolbar>
+		</VBox>
+		<!--</custom:Container>-->
+		<Table id="ShipProductTable" class="sapUiNoMarginTop sapUiNoMarginBottom " noDataText="{i18n>noDataContent}" inset="false" width="auto"
+			items="{itemModel>/}">
+			<headerToolbar>
+				<OverflowToolbar id="pod---shipinternal--table--toolbar">
+					<Title id="table-title" text="{parts:[{path:'global>/currentShipHandlingUnit'}, {path:'itemModel>/'}], formatter:'.formatTableTitle'}"
+						level="H4" titleStyle="H4"></Title>
+					<ToolbarSpacer id="pod---shipinternal--table--space"/>
+					<Button tooltip="" icon="sap-icon://action-settings" id="pod---internalship--columnsetting" press="handleSettingDialogButtonPressed"/>
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column id="pod---internalship--ship--column-productdesc"><Text text="{i18n>productID}" id="pod---internalship--ship--productid"/></Column>
+				<Column id="pod---internalship--ship--column--productdesc" visible="false"><Text text="{i18n>productDesc}" id="pod---internalship--ship--productdesc"/></Column>
+				<Column hAlign="End" width="5rem" id="pod---internalship--ship--column-qty"><Text text="{i18n>quantity}" id="pod---internalship--ship--qty"/></Column>
+				<Column width="2.5rem" id="pod---internalship--ship--column--uom"><Text text="{i18n>uom}" id="pod---internalship--ship--uom"/></Column>
+				<Column minScreenWidth="Tablet" demandPopin="true" id="pod---internalship--ship--column--batch"><Text text="{i18n>batch}" id="pod---internalship--ship--batch"/></Column>
+				<Column minScreenWidth="Tablet" demandPopin="true" width="2rem" id="pod---internalship--ship--column--sn"><Text text="{i18n>sn}" width="2rem" id="pod---internalship--ship--sn"/></Column>
+				<Column id="pod---internalship--ship--column--stocktype"><Text text="{i18n>stockType}" id="pod---internalship--ship--stocktype"/></Column>
+				<Column id="pod---internalship--ship--column--weight"><Text text="{i18n>loadingWeight}" id="pod---internalship--ship--weight"/></Column>
+				<Column id="pod---internalship--ship--column--weightuom"><Text text="{i18n>weightUoM}" id="pod---internalship--ship--weightuom"/></Column>
+				<Column id="pod---internalship--ship--column--volume"><Text text="{i18n>volume}" id="pod---internalship--ship--volume"/></Column>
+				<Column id="pod---internalship--ship--column--volumeuom"><Text text="{i18n>volumeUoM}" id="pod---internalship--ship--volumeuom"/></Column>
+				<Column id="pod---internalship--ship--column--stockDocumentNumber"><Text text="{i18n>stockDocumentNumber}" id="pod---internalship--ship--stockDocumentNumber"/></Column>
+				<Column id="pod---internalship--ship--column--stockItemNumber"><Text text="{i18n>stockItemNumber}" id="pod---internalship--ship--stockItemNumber"/></Column>
+				<Column minScreenWidth="Tablet" id="pod---internalship--ship--column--status" demandPopin="true" width="3.5rem"
+					visible="{global>/asyncMode}"><Text text="{i18n>status}" id="pod---internalship--ship--status"/></Column>
+			</columns>
+			<items>
+				<ColumnListItem highlight="{itemModel>Status}" id="pod---internalship--ship--columnlist--status" press="onHighlightColumnListItem"
+					type="Active">
+					<cells>
+						<Text text="{itemModel>ProductName}" id="pod---internalship--ship--columnlist--product"></Text>
+						<Text text="{itemModel>ProductDesc}" id="pod---internalship--ship--columnlist--productdesc"></Text>
+						<Text text="{itemModel>AlterQuan}" id="pod---internalship--ship--columnlist--alterqty"></Text>
+						<Text text="{itemModel>AlternativeUnit}" id="pod---internalship--ship--columnlist--alterunit"></Text>
+						<Text text="{itemModel>Batch}" id="pod---internalship--ship--columnlist--batch"></Text>
+						<custom:Container id="pod---internalship--ship--container-sn">
+							<core:Icon press="onSerialNumberPopover" id="pod---internalship--ship--columnlist--sn" src="sap-icon://numbered-text"
+								visible="{=${itemModel>SerialNumberRequiredLevel} === '' ? false : true}"></core:Icon>
+						</custom:Container>
+						<Text text="{itemModel>EWMStockType}" tooltip="{itemModel>EWMStockType}: {itemModel>EWMStockTypeText}"
+							id="pod---internalship--ship--columnlist--stocktype"></Text>
+						<Text text="{itemModel>NetWeight}" id="pod---internalship--ship--columnlist--weight"></Text>
+						<Text text="{itemModel>WeightUoM}" id="pod---internalship--ship--columnlist--weightuom"></Text>
+						<Text text="{itemModel>Volume}" id="pod---internalship--ship--columnlist--volume"></Text>
+						<Text text="{itemModel>VolumeUoM}" id="pod---internalship--ship--columnlist--volumeuom"></Text>
+						<Text text="{itemModel>StockDocumentNumber}" id="pod---internalship--ship--columnlist--stockDocumentNumber"></Text>
+						<Text text="{itemModel>StockItemNumber}" id="pod---internalship--ship--columnlist--stockItemNumber"></Text>
+						<custom:Container id="pod---internalship--ship--contianer--busy">
+							<core:Icon src="sap-icon://accept" visible="{path:'itemModel>Pending',formatter:'.formatCompleteIconVisible'}" color="Positive"
+								id="pod---internalship--ship--accept"></core:Icon>
+							<BusyIndicator visible="{path:'itemModel>Pending',formatter:'.formatBusyIndicatorVisible'}" id="pod---internalship--ship--pending"></BusyIndicator>
+						</custom:Container>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</ScrollContainer>
+</mvc:View>

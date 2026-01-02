@@ -1,0 +1,4 @@
+/*
+ * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+ */
+sap.ui.define([],function(){"use strict";var C={};C.render=function(r,c){var a=r;a.write("<div");a.writeControlData(c);a.addClass("container");if(c.getWidth()&&c.getWidth()!==""){a.addStyle("width",c.getWidth());}if(c.getHeight()&&c.getHeight()!==""){a.addStyle("height",c.getHeight());}if(c.getMinWidth()&&c.getMinWidth()!==""){a.addStyle("min-width",c.getMinWidth());}if(c.getMaxWidth()&&c.getMaxWidth()!==""){a.addStyle("max-width",c.getMaxWidth());}if(c.getMinHeight()&&c.getMinHeight()!==""){a.addStyle("min-height",c.getMinHeight());}if(c.getMaxHeight()&&c.getMaxHeight()!==""){a.addStyle("max-height",c.getMaxHeight());}a.writeStyles();a.writeClasses();a.write(">");var b=c.getContent();for(var i=0;i<b.length;i++){a.renderControl(b[i]);}a.write("</div>");};return C;},true);

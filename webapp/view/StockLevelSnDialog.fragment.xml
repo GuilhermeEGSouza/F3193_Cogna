@@ -1,0 +1,30 @@
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="pod---stocklevelsn--fragementdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog id="stockLevelSnDialog" title="{i18n>serialNumber}" contentWidth="400px" draggable="true">
+		<layout:Grid id="pod--stocklevelsn--grid" position="Left" defaultSpan="L10 M10 S10" vSpacing="0" defaultIndent="L2 M2 S2"
+			class="sapUiMediumMarginTop sapUiSmallMarginBottom">
+			<Text id="stockLevel-sn-dialog-text" text="{i18n>stockLevelSnNotification}" class="sapUiSmallMarginBottom">
+				<layoutData>
+					<layout:GridData span="L8 M8 S8" id="pod--stocklevelsn--msg--layout"/>
+				</layoutData>
+			</Text>
+			<Label text="{i18n>serialNumber}" id="pod--stocklevelsn--sn">
+				<layoutData>
+					<layout:GridData span="L8 M8 S8" id="pod--stocklevelsn--sn--layout"/>
+				</layoutData>
+			</Label>
+			<Input id="stockLevel-sn-input" submit="onStockLevelSNChange" value="" editable="true">
+				<layoutData>
+					<layout:GridData span="L8 M8 S8" id="pod--stocklevelsn--sn--input--layout"/>
+				</layoutData>
+			</Input>
+		</layout:Grid>
+		<buttons>
+			<Button text="{i18n>cancel}" press="onCancelStockLevelSNialog" id="pod--stocklevelsn--cancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="USER_DEFAULTPARAMETER_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="DefaultParameter" sap:content-version="1">
+				<Key><PropertyRef Name="Template"/></Key><Property Name="Template" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false"
+					sap:visible="false" sap:label="Template" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="EWMWorkCenter" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:unicode="false" sap:label="Work Center"
+					sap:creatable="false" sap:sortable="false" sap:filterable="false" sap:value-list="standard"/><Property Name="Warehouse" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:unicode="false" sap:label="Warehouse Number"
+					sap:creatable="false" sap:sortable="false" sap:filterable="false" sap:value-list="standard"/></EntityType>
+			<EntityType Name="AccessCode" sap:content-version="1">
+				<Key><PropertyRef Name="ExternalAccessCode"/><PropertyRef Name="Step"/></Key><Property Name="ExternalAccessCode" Type="Edm.String" Nullable="false" MaxLength="16" sap:display-format="UpperCase" sap:unicode="false"
+					sap:label="External Access Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Step" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false"
+					sap:label="Business Step" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="InternalAccessCode" Type="Edm.String" Nullable="false" MaxLength="24" sap:display-format="UpperCase" sap:unicode="false"
+					sap:label="Int. Acc. Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Prefix" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="UpperCase" sap:unicode="false"
+					sap:label="Prefix" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="SemanticField" Type="Edm.String" Nullable="false" MaxLength="16" sap:display-format="UpperCase" sap:unicode="false"
+					sap:label="Semantic Field" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="VL_SH_xSCWMxSEARCH_EWMWorkCenter" sap:value-list="true" sap:content-version="1">
+				<Key><PropertyRef Name="LGNUM"/><PropertyRef Name="EWMWorkCenter"/></Key><Property Name="LGTYP" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Storage Type" sap:filterable="false"/><Property Name="LGNUM" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Warehouse Number"/><Property Name="EWMWorkCenter" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Work Center"/><Property Name="DESCRIPTION" Type="Edm.String" MaxLength="40" sap:label="Description"/></EntityType>
+			<EntityType Name="VL_SH_xSCWMxSH_LGNUM" sap:value-list="true" sap:content-version="1">
+				<Key><PropertyRef Name="LGNUM"/></Key><Property Name="LGNUM" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Warehouse Number"/><Property Name="LNUMT" Type="Edm.String" MaxLength="40" sap:label="Description"/></EntityType>
+			<EntityContainer Name="USER_DEFAULTPARAMETER_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="DefaultParameterSet" EntityType="USER_DEFAULTPARAMETER_SRV.DefaultParameter" sap:creatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/><EntitySet Name="AccessCodeSet" EntityType="USER_DEFAULTPARAMETER_SRV.AccessCode" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="VL_SH_xSCWMxSEARCH_EWMWorkCenter" EntityType="USER_DEFAULTPARAMETER_SRV.VL_SH_xSCWMxSEARCH_EWMWorkCenter" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="false"/><EntitySet Name="VL_SH_xSCWMxSH_LGNUM" EntityType="USER_DEFAULTPARAMETER_SRV.VL_SH_xSCWMxSH_LGNUM" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="false"/></EntityContainer>
+			<Annotations Target="USER_DEFAULTPARAMETER_SRV.DefaultParameter/EWMWorkCenter" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record><PropertyValue Property="Label" String="Search Help for a Work Station"/><PropertyValue Property="CollectionPath" String="VL_SH_xSCWMxSEARCH_EWMWorkCenter"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="Warehouse"/><PropertyValue Property="ValueListProperty" String="LGNUM"/></Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="EWMWorkCenter"/><PropertyValue Property="ValueListProperty" String="EWMWorkCenter"/></Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="DESCRIPTION"/></Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="LGTYP"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="USER_DEFAULTPARAMETER_SRV.DefaultParameter/Warehouse" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record><PropertyValue Property="Label" String="Search Help for Warehouse Number"/><PropertyValue Property="CollectionPath" String="VL_SH_xSCWMxSH_LGNUM"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="Warehouse"/><PropertyValue Property="ValueListProperty" String="LGNUM"/></Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="LNUMT"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations><atom:link rel="self" href="/sap/opu/odata/SCWM/USER_DEFAULTPARAMETER_SRV/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/><atom:link rel="latest-version" href="/sap/opu/odata/SCWM/USER_DEFAULTPARAMETER_SRV/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="UTF-8"?><edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+<!--
+
+    Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+	<edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+		<edmx:Include Alias="SAP__CodeList" Namespace="com.sap.vocabularies.CodeList.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+		<edmx:Include Alias="SAP__common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CORE',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+		<edmx:Include Alias="SAP__core" Namespace="Org.OData.Core.V1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PDF',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+		<edmx:Include Alias="SAP__PDF" Namespace="com.sap.vocabularies.PDF.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="pack_outbdlv_srv" sap:schema-version="1" xml:lang="en">
+			<EntityType Name="HUItemWeight" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="EWMWarehouse"/>
+					<PropertyRef Name="EWMWorkCenter"/>
+					<PropertyRef Name="EWMStorageBin"/>
+					<PropertyRef Name="DocumentReltdStockDocUUID"/>
+					<PropertyRef Name="DocumentReltdStockDocItemUUID"/>
+					<PropertyRef Name="PackagingMaterialUUID"/>
+				</Key>
+				<Property Name="StockItemUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="GUID Stock" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="PackagingMaterial" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Product" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="SourceId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Handling Unit" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Work Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Storage Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="DocumentReltdStockDocUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="Document ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="DocumentReltdStockDocItemUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="Item" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="PackagingMaterialUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="Product" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="NetWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Weight" sap:sortable="false" sap:unicode="false" sap:unit="UoM" sap:updatable="false"/>
+				<Property Name="AlterWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Weight" sap:sortable="false" sap:unicode="false" sap:unit="UoM" sap:updatable="false"/>
+				<Property MaxLength="3" Name="UoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weight Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="BaseUnit" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Base Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="AlternativeUnit" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Alternatve Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="SourceType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="/SCWM/PACK_TYP_CODE" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SearchHelpBin" sap:content-version="1" sap:value-list="true">
+				<Key>
+					<PropertyRef Name="EWMStorageBin"/>
+					<PropertyRef Name="EWMWarehouse"/>
+				</Key>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Storage Bin" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Warehouse No." sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="EWMStorageType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Storage Type" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMStorageSection" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Storage Section" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMStorageBinType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Stor. Bin Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SearchHelpWorkCenter" sap:content-version="1" sap:label="Search Help for Work Center" sap:value-list="true">
+				<Key>
+					<PropertyRef Name="EWMWorkCenter"/>
+					<PropertyRef Name="EWMWarehouse"/>
+				</Key>
+				<Property MaxLength="8" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Work Center" sap:text="Description" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Warehouse No." sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="Default_Bin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Default Storage Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="Item" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="StockItemUUID"/>
+				</Key>
+				<Property MaxLength="20" Name="Huident" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Handling Unit" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="ParentHandlingUnitUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="Parent" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="StockItemUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="GUID Stock" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="DocumentReltdStockDocUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="Document ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="DocumentReltdStockDocItemUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="Item" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="EWMConsolidationGroup" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Cons.Grp" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="BaseUnit" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Base Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="AlternativeUnit" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Alternatve Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Quan" Nullable="false" Precision="31" Scale="14" Type="Edm.Decimal" sap:creatable="false" sap:label="Quantity" sap:sortable="false" sap:unicode="false" sap:unit="BaseUnit" sap:updatable="false"/>
+				<Property Name="AlterQuan" Nullable="false" Precision="31" Scale="14" Type="Edm.Decimal" sap:creatable="false" sap:label="Quantity in AUoM" sap:sortable="false" sap:unicode="false" sap:unit="AlternativeUnit" sap:updatable="false"/>
+				<Property MaxLength="35" Name="EWMRefDeliveryDocumentNumber" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Document Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="HuId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Reference Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="Batch" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Batch" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="SerialNumberRequiredLevel" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Serial No. Reqm" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="SnList" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="SN List" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="IuidList" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="IUID List" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="ProductName" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Product" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="ProductDesc" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Product Descr." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="ProductWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Loading Weight" sap:sortable="false" sap:unicode="false" sap:unit="ProductUoM" sap:updatable="false"/>
+				<Property MaxLength="3" Name="ProductUoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weight Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Type" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Indicate Bin or HU" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Work Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1000" Name="HandlingInstr" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Handling instruction" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="EAN" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="EAN/UPC" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="PrdtPicURL" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Web URI" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Storage Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="QtyReduced" Nullable="false" Precision="31" Scale="14" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Reduced Quantity" sap:sortable="false" sap:unicode="false" sap:unit="AlternativeUnit" sap:updatable="false"/>
+				<Property MaxLength="1" Name="isSplit" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Single-Character Flag" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="isIuidActive" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="IUID Active" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="EWMStockType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Stock Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="30" Name="EWMStockTypeText" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Desc.Stock Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="NetWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="HU Item Weight" sap:sortable="false" sap:unicode="false" sap:unit="WeightUoM" sap:updatable="false"/>
+				<Property MaxLength="3" Name="WeightUoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weight UoM" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Volume" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="HU Item Volum" sap:sortable="false" sap:unicode="false" sap:unit="VolumeUoM" sap:updatable="false"/>
+				<Property MaxLength="3" Name="VolumeUoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Volume UoM" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="EWMDeliveryDocumentCategory" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Document Category" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="35" Name="StockDocumentNumber" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Reference Document for Special Reference Stock" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="StockItemNumber" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Sales Order Item for Sales Order Stock" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<NavigationProperty FromRole="FromRole_ItemToSerialNumber" Name="ItemsSerialNumber" Relationship="pack_outbdlv_srv.ItemToSerialNumber" ToRole="ToRole_ItemToSerialNumber"/>
+			</EntityType>
+			<EntityType Name="ODO" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="EWMStorageBin"/>
+					<PropertyRef Name="EWMWarehouse"/>
+					<PropertyRef Name="HuId"/>
+					<PropertyRef Name="Type"/>
+					<PropertyRef Name="EWMWorkCenter"/>
+					<PropertyRef Name="DocumentReltdStockDocUUID"/>
+				</Key>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Storage Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="HuId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="HU ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Type" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Indicate Bin or HU" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="28" Name="Customer" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Busn. Partner" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="CustomerName" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Description" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Work Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1000" Name="PackInstr" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Packing Instruction" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="PackStatus" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Packing Status: 0-In Process, 1-Closed, 2-Ready for Shipping" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="PickStatus" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="pick status" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="DocumentReltdStockDocUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="Document ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="35" Name="EWMRefDeliveryDocumentNumber" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Document Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="RuntimeEnv" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="IsS4Cloud"/>
+				</Key>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="IsS4Cloud" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="TRUE" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SerialNumber" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="StockItemUUID"/>
+				</Key>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="StockItemUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="GUID Stock" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="Product" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Product" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="30" Name="EWMSerialNumber" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Serial Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="72" Name="UniqueItemIdentifier" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="UII" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="AudioURI" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="EWMWarehouse"/>
+					<PropertyRef Name="EWMWorkCenter"/>
+					<PropertyRef Name="EWMStorageBin"/>
+					<PropertyRef Name="Msgty"/>
+					<PropertyRef Name="Msgid"/>
+					<PropertyRef Name="Msgno"/>
+				</Key>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Work Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Storage Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Msgty" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="20" Name="Msgid" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="Msgno" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="AudioUri" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Web URI" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="EWMWarehouseVH_Type" sap:content-version="1" sap:value-list="true">
+				<Key>
+					<PropertyRef Name="EWMWarehouse"/>
+				</Key>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Warehouse Number" sap:text="EWMWarehouse_Text" sap:unicode="false"/>
+				<Property MaxLength="40" Name="EWMWarehouse_Text" Type="Edm.String" sap:creatable="false" sap:label="Description" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="EWMWarehouse_Type" sap:content-version="1" sap:value-list="true">
+				<Key>
+					<PropertyRef Name="EWMWarehouse"/>
+				</Key>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:label="Warehouse Number" sap:unicode="false" sap:value-list="standard"/>
+				<Property Name="MsgSuccess" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Boolean Variable (X = True, - = False, Space = Unknown)" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="EWMWarehouse_Text" Type="Edm.String" sap:creatable="false" sap:label="Description" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="ExceptionList" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Exccode"/>
+				</Key>
+				<Property MaxLength="4" Name="Exccode" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Exception Code" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="Descr" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Description" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Difty" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Diff. Cat." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="InternalProcessCode" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Int. Proc. Code" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="Descr1" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Description" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="ErrQuantifier" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weighting" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="DefaultBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Storage Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMDeliveryProcessCode" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Process Code" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="Wfstartid" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="WF Start ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Exemode" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Execution Ctrl" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="DataType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Data Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="EWMPhysicalInventoryType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="PI Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="PhysicalInventoryIsBlock" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Phys.Inv. Block" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMPhysInvtryDifferenceReason" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Reason" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Work Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="HUIDENT" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Lgnum"/>
+					<PropertyRef Name="Huident"/>
+				</Key>
+				<Property MaxLength="4" Name="Lgnum" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="20" Name="Huident" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Handling Unit" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="PackingStation" sap:content-version="1" sap:value-list="true">
+				<Key>
+					<PropertyRef Name="EWMWarehouse"/>
+					<PropertyRef Name="EWMWorkCenter"/>
+					<PropertyRef Name="EWMStorageBin"/>
+				</Key>
+				<Property MaxLength="1" Name="CheckConsGrp" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Check Consol. Grp" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="12" Name="Packer" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="User Name" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:label="Warehouse Number" sap:unicode="false" sap:value-list="standard"/>
+				<Property MaxLength="4" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:label="Work Center" sap:unicode="false" sap:value-list="standard"/>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:label="Storage Bin" sap:unicode="false" sap:value-list="standard"/>
+				<Property Name="IsUIAsync" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Is UI Async" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="ScaleEnabled" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Scale enabled or not" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="20" Name="MsgId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="220" Name="MsgVar" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="MsgKey" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="MsgType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="MsgSuccess" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Boolean Variable (X = True, - = False, Space = Unknown)" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="EWMWorkCenterDescription" Nullable="false" Type="Edm.String" sap:label="Description" sap:unicode="false"/>
+				<NavigationProperty FromRole="FromRole_PackingStationToPackMats" Name="PackMats" Relationship="pack_outbdlv_srv.PackingStationToPackMats" ToRole="ToRole_PackingStationToPackMats"/>
+			</EntityType>
+			<EntityType Name="ValidateAction" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="SourceId"/>
+					<PropertyRef Name="EWMWarehouse"/>
+					<PropertyRef Name="EWMWorkCenter"/>
+					<PropertyRef Name="EWMStorageBin"/>
+					<PropertyRef Name="SourceType"/>
+					<PropertyRef Name="IsPickHU"/>
+				</Key>
+				<Property Name="Closed" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="HU Step Completed" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="20" Name="MsgId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="220" Name="MsgVar" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="MsgKey" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="MsgType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="MsgSuccess" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Boolean Variable (X=true, -=false, space=unknown)" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="PackagingMaterial" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Product" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="255" Name="SourceId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="HU/Bin/ODO" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Work Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Storage Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="SourceType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Type: HU or Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="IsPickHU" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Single-Character Flag" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="PackMat" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="PackagingMaterialUUID"/>
+					<PropertyRef Name="EWMWarehouse"/>
+					<PropertyRef Name="EWMWorkCenter"/>
+					<PropertyRef Name="EWMStorageBin"/>
+				</Key>
+				<Property Name="GrossWeight" Nullable="false" Precision="13" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Gross Weight" sap:sortable="false" sap:unicode="false" sap:unit="GrossWeightUoM" sap:updatable="false"/>
+				<Property MaxLength="3" Name="GrossWeightUoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weight Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="PackagingMaterialUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="Product" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Work Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Storage Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="HandlingUnitMaxLength" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Length" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="HandlingUnitMaxWidth" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Width" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="HandlingUnitMaxHeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Height" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="HandlingUnitMaxDimensionUnit" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="HandlingUnitMaxWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Maximum Weight" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="MaxWeightTol" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Maximum Weight with tolerance" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="MaxWeightUoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weight Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="HandlingUnitMaxVolume" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Max. Volume" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="HandlingUnitVolumeTolerance" Nullable="false" Precision="3" Scale="1" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Excess Volume Tol." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="MaxVolumeUoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Volume Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="PackagingMaterial" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Product" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="PackagingMaterialDescription" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Product Descr." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="5" Name="DisplayCode" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Descprition" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="IsDefault" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Boolean Variable (X = True, - = False, Space = Unknown)" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="IsFavorite" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:label="Boolean Variable (X = True, - = False, Space = Unknown)" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="IsInternalNR" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Single-Character Flag" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="PackMessage" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="MsgId"/>
+					<PropertyRef Name="MsgKey"/>
+				</Key>
+				<Property Name="SrcWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Loading Weight" sap:sortable="false" sap:unicode="false" sap:unit="SrcUnitGw" sap:updatable="false"/>
+				<Property Name="StockItemUUID" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="GUID Stock" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="SrcQuan" Nullable="false" Precision="31" Scale="14" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Quantity" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="SrcUnitGw" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weight Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="SrcAlterQuan" Nullable="false" Precision="31" Scale="14" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Quantity" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="SrcVolume" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Loading Volume" sap:sortable="false" sap:unicode="false" sap:unit="SrcUnitGv" sap:updatable="false"/>
+				<Property Name="DesQuan" Nullable="false" Precision="31" Scale="14" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Quantity" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="SrcUnitGv" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Volume Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="DesAlterQuan" Nullable="false" Precision="31" Scale="14" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Quantity" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="DesWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Loading Weight" sap:sortable="false" sap:unicode="false" sap:unit="DesUnitGw" sap:updatable="false"/>
+				<Property MaxLength="3" Name="DesBaseUoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Base Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="DesUnitGw" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weight Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="DesAlterUoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Alternatve Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="DesVolume" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Loading Volume" sap:sortable="false" sap:unicode="false" sap:unit="DesUnitGv" sap:updatable="false"/>
+				<Property MaxLength="3" Name="DesUnitGv" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Volume Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="PackagingMaterialDescription" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Pack.Mat.Descr." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="PackagingMaterial" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Pack. Material" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="ProductName" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Product" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="20" Name="HuId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Handling Unit" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="NetWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Loading Weight" sap:sortable="false" sap:unicode="false" sap:unit="WeightUoM" sap:updatable="false"/>
+				<Property MaxLength="3" Name="WeightUoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weight Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="20" Name="MsgId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="220" Name="MsgVar" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="MsgKey" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="MsgType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="MsgSuccess" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Boolean Variable (X=true, -=false, space=unknown)" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="HU" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="HuId"/>
+					<PropertyRef Name="EWMStorageBin"/>
+					<PropertyRef Name="EWMWarehouse"/>
+					<PropertyRef Name="EWMWorkCenter"/>
+					<PropertyRef Name="Type"/>
+				</Key>
+				<Property MaxLength="40" Name="HuId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Handling Unit" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Work Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="PackagingMaterial" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Product" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="35" Name="EWMRefDeliveryDocumentNumber" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Document Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="IsPickHu" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Is Pick HU" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="TotalWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Total Weight" sap:sortable="false" sap:unicode="false" sap:unit="WeightUoM" sap:updatable="false"/>
+				<Property MaxLength="3" Name="WeightUoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weight Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="NetWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Loading Weight" sap:sortable="false" sap:unicode="false" sap:unit="WeightUoM" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Type" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Indicate Bin or HU" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Closed" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="TRUE" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="20" Name="MsgId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="220" Name="MsgVar" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="MsgKey" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="MsgType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Message Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="MsgSuccess" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Boolean Variable (X=true, -=false, space=unknown)" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="255" Name="HuIdInput" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Input HU ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<NavigationProperty FromRole="FromRole_HuToItems" Name="Items" Relationship="pack_outbdlv_srv.HuToItems" ToRole="ToRole_HuToItems"/>
+				<NavigationProperty FromRole="FromRole_HuToODOs" Name="ODOs" Relationship="pack_outbdlv_srv.HuToODOs" ToRole="ToRole_HuToODOs"/>
+			</EntityType>
+			<EntityType Name="ScaleWeight" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Huid"/>
+					<PropertyRef Name="EWMWarehouse"/>
+					<PropertyRef Name="EWMWorkCenter"/>
+				</Key>
+				<Property MaxLength="20" Name="Huid" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Handling Unit" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="GrossWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Total Weight" sap:sortable="false" sap:unicode="false" sap:unit="UoM" sap:updatable="false"/>
+				<Property Name="NetWeight" Nullable="false" Precision="15" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Loading Weight" sap:sortable="false" sap:unicode="false" sap:unit="UoM" sap:updatable="false"/>
+				<Property MaxLength="3" Name="UoM" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Weight Unit" sap:semantics="unit-of-measure" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWarehouse" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Warehouse No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="EWMWorkCenter" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Work Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="EWMStorageBin" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Bin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SAP__Currency" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="CurrencyCode"/>
+				</Key>
+				<Property MaxLength="5" Name="CurrencyCode" Nullable="false" Type="Edm.String" sap:label="Currency" sap:semantics="currency-code"/>
+				<Property MaxLength="3" Name="ISOCode" Nullable="false" Type="Edm.String" sap:label="ISO Code"/>
+				<Property MaxLength="15" Name="Text" Nullable="false" Type="Edm.String" sap:label="Short Text"/>
+				<Property Name="DecimalPlaces" Nullable="false" Type="Edm.Byte" sap:label="Decimals"/>
+			</EntityType>
+			<EntityType Name="SAP__UnitOfMeasure" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="UnitCode"/>
+				</Key>
+				<Property MaxLength="3" Name="UnitCode" Nullable="false" Type="Edm.String" sap:label="Internal UoM" sap:semantics="unit-of-measure"/>
+				<Property MaxLength="3" Name="ISOCode" Nullable="false" Type="Edm.String" sap:label="ISO Code"/>
+				<Property MaxLength="3" Name="ExternalCode" Nullable="false" Type="Edm.String" sap:label="Commercial"/>
+				<Property MaxLength="30" Name="Text" Nullable="false" Type="Edm.String" sap:label="Meas. Unit Text"/>
+				<Property Name="DecimalPlaces" Type="Edm.Int16" sap:label="Decimal Places"/>
+			</EntityType>
+			<EntityType Name="SAP__DocumentDescription" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Id" Nullable="false" Type="Edm.Guid" sap:label="UUID"/>
+				<Property MaxLength="12" Name="CreatedBy" Nullable="false" Type="Edm.String"/>
+				<Property Name="CreatedAt" Nullable="false" Precision="0" Type="Edm.DateTime" sap:label="Time Stamp"/>
+				<Property MaxLength="256" Name="FileName" Nullable="false" Type="Edm.String"/>
+				<Property MaxLength="256" Name="Title" Nullable="false" Type="Edm.String"/>
+				<NavigationProperty FromRole="FromRole_to_format" Name="Format" Relationship="pack_outbdlv_srv.to_format" ToRole="ToRole_to_format"/>
+				<NavigationProperty FromRole="FromRole_to_tablecolumns" Name="TableColumns" Relationship="pack_outbdlv_srv.to_tablecolumns" ToRole="ToRole_to_tablecolumns"/>
+				<NavigationProperty FromRole="FromRole_to_coverpage" Name="CoverPage" Relationship="pack_outbdlv_srv.to_coverpage" ToRole="ToRole_to_coverpage"/>
+				<NavigationProperty FromRole="FromRole_to_signature" Name="Signature" Relationship="pack_outbdlv_srv.to_signature" ToRole="ToRole_to_signature"/>
+				<NavigationProperty FromRole="FromRole_to_pdfstandard" Name="PDFStandard" Relationship="pack_outbdlv_srv.to_pdfstandard" ToRole="ToRole_to_pdfstandard"/>
+				<NavigationProperty FromRole="FromRole_to_Hierarchy" Name="Hierarchy" Relationship="pack_outbdlv_srv.to_Hierarchy" ToRole="ToRole_to_Hierarchy"/>
+				<NavigationProperty FromRole="FromRole_to_header" Name="Header" Relationship="pack_outbdlv_srv.to_header" ToRole="ToRole_to_header"/>
+				<NavigationProperty FromRole="FromRole_to_Footer" Name="Footer" Relationship="pack_outbdlv_srv.to_Footer" ToRole="ToRole_to_Footer"/>
+			</EntityType>
+			<EntityType Name="SAP__Format" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="FitToPage" Nullable="false" Type="pack_outbdlv_srv.SAP__FitToPage"/>
+				<Property Name="Id" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="UUID" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="FontSize" Nullable="false" Type="Edm.Int32" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="Orientation" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="PaperSize" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="BorderSize" Nullable="false" Type="Edm.Int32" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="MarginSize" Nullable="false" Type="Edm.Int32" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="255" Name="FontName" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Font Name" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="Padding" Nullable="false" Type="Edm.Int32" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SAP__PDFStandard" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Id" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="UUID" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="UsePDFAConformance" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="DoEnableAccessibility" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Indicator" sap:sortable="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SAP__TableColumns" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id"/>
+					<PropertyRef Name="Name"/>
+					<PropertyRef Name="Header"/>
+				</Key>
+				<Property Name="Format" Nullable="false" Type="pack_outbdlv_srv.SAP__TableColumnFormat"/>
+				<Property Name="Id" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="UUID" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="256" Name="Name" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="256" Name="Header" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="HorizontalAlignment" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SAP__CoverPage" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Title"/>
+					<PropertyRef Name="Id"/>
+					<PropertyRef Name="Name"/>
+				</Key>
+				<Property MaxLength="256" Name="Title" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="Id" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="UUID" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="256" Name="Name" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="256" Name="Value" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SAP__Signature" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Id" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="UUID" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="DoSign" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Indicator" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="256" Name="Reason" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SAP__Hierarchy" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Id" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="UUID" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="256" Name="DistanceFromRootElement" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="256" Name="DrillStateElement" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SAP__PDFHeader" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Right" Nullable="false" Type="pack_outbdlv_srv.SAP__HeaderFooterField"/>
+				<Property Name="Left" Nullable="false" Type="pack_outbdlv_srv.SAP__HeaderFooterField"/>
+				<Property Name="Center" Nullable="false" Type="pack_outbdlv_srv.SAP__HeaderFooterField"/>
+				<Property Name="Id" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="UUID" sap:sortable="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SAP__PDFFooter" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Right" Nullable="false" Type="pack_outbdlv_srv.SAP__HeaderFooterField"/>
+				<Property Name="Left" Nullable="false" Type="pack_outbdlv_srv.SAP__HeaderFooterField"/>
+				<Property Name="Center" Nullable="false" Type="pack_outbdlv_srv.SAP__HeaderFooterField"/>
+				<Property Name="Id" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="UUID" sap:sortable="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="SAP__ValueHelp" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="VALUEHELP"/>
+				</Key>
+				<Property Name="VALUEHELP" Nullable="false" Type="Edm.String"/>
+				<Property MaxLength="10" Name="FIELD_VALUE" Nullable="false" Type="Edm.String"/>
+				<Property Name="DESCRIPTION" Type="Edm.String"/>
+			</EntityType>
+			<ComplexType Name="SAP__FitToPage">
+				<Property MaxLength="8" Name="ErrorRecoveryBehavior" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Error behavior" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="IsEnabled" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="MinimumFontSize" Nullable="false" Type="Edm.Int32" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+			</ComplexType>
+			<ComplexType Name="SAP__TableColumnFormat">
+				<Property MaxLength="40" Name="DisplayFormat" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="IANATimezone" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="IANATimezoneProperty" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+			</ComplexType>			
+			<ComplexType Name="SAP__HeaderFooterField">
+				<Property MaxLength="256" Name="Type" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+			</ComplexType>
+			<Association Name="to_format" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_to_format" Type="pack_outbdlv_srv.SAP__DocumentDescription"/>
+				<End Multiplicity="1" Role="ToRole_to_format" Type="pack_outbdlv_srv.SAP__Format"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_to_format">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="ToRole_to_format">
+						<PropertyRef Name="Id"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="to_tablecolumns" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_to_tablecolumns" Type="pack_outbdlv_srv.SAP__DocumentDescription"/>
+				<End Multiplicity="*" Role="ToRole_to_tablecolumns" Type="pack_outbdlv_srv.SAP__TableColumns"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_to_tablecolumns">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="ToRole_to_tablecolumns">
+						<PropertyRef Name="Id"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="to_coverpage" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_to_coverpage" Type="pack_outbdlv_srv.SAP__DocumentDescription"/>
+				<End Multiplicity="*" Role="ToRole_to_coverpage" Type="pack_outbdlv_srv.SAP__CoverPage"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_to_coverpage">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="ToRole_to_coverpage">
+						<PropertyRef Name="Id"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="to_signature" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_to_signature" Type="pack_outbdlv_srv.SAP__DocumentDescription"/>
+				<End Multiplicity="1" Role="ToRole_to_signature" Type="pack_outbdlv_srv.SAP__Signature"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_to_signature">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="ToRole_to_signature">
+						<PropertyRef Name="Id"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="to_pdfstandard" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_to_pdfstandard" Type="pack_outbdlv_srv.SAP__DocumentDescription"/>
+				<End Multiplicity="1" Role="ToRole_to_pdfstandard" Type="pack_outbdlv_srv.SAP__PDFStandard"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_to_pdfstandard">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="ToRole_to_pdfstandard">
+						<PropertyRef Name="Id"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="to_Hierarchy" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_to_Hierarchy" Type="pack_outbdlv_srv.SAP__DocumentDescription"/>
+				<End Multiplicity="1" Role="ToRole_to_Hierarchy" Type="pack_outbdlv_srv.SAP__Hierarchy"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_to_Hierarchy">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="ToRole_to_Hierarchy">
+						<PropertyRef Name="Id"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="to_header" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_to_header" Type="pack_outbdlv_srv.SAP__DocumentDescription"/>
+				<End Multiplicity="1" Role="ToRole_to_header" Type="pack_outbdlv_srv.SAP__PDFHeader"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_to_header">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="ToRole_to_header">
+						<PropertyRef Name="Id"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="to_Footer" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_to_Footer" Type="pack_outbdlv_srv.SAP__DocumentDescription"/>
+				<End Multiplicity="1" Role="ToRole_to_Footer" Type="pack_outbdlv_srv.SAP__PDFFooter"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_to_Footer">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="ToRole_to_Footer">
+						<PropertyRef Name="Id"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ItemToSerialNumber" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_ItemToSerialNumber" Type="pack_outbdlv_srv.Item"/>
+				<End Multiplicity="*" Role="ToRole_ItemToSerialNumber" Type="pack_outbdlv_srv.SerialNumber"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_ItemToSerialNumber">
+						<PropertyRef Name="StockItemUUID"/>
+					</Principal>
+					<Dependent Role="ToRole_ItemToSerialNumber">
+						<PropertyRef Name="StockItemUUID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="HuToItems" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_HuToItems" Type="pack_outbdlv_srv.HU"/>
+				<End Multiplicity="*" Role="ToRole_HuToItems" Type="pack_outbdlv_srv.Item"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_HuToItems">
+						<PropertyRef Name="EWMStorageBin"/>
+						<PropertyRef Name="Type"/>
+						<PropertyRef Name="EWMWorkCenter"/>
+						<PropertyRef Name="EWMWarehouse"/>
+						<PropertyRef Name="HuId"/>
+					</Principal>
+					<Dependent Role="ToRole_HuToItems">
+						<PropertyRef Name="EWMStorageBin"/>
+						<PropertyRef Name="Type"/>
+						<PropertyRef Name="EWMWorkCenter"/>
+						<PropertyRef Name="EWMWarehouse"/>
+						<PropertyRef Name="HuId"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="HuToODOs" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_HuToODOs" Type="pack_outbdlv_srv.HU"/>
+				<End Multiplicity="*" Role="ToRole_HuToODOs" Type="pack_outbdlv_srv.ODO"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_HuToODOs">
+						<PropertyRef Name="HuId"/>
+						<PropertyRef Name="EWMWarehouse"/>
+						<PropertyRef Name="EWMWorkCenter"/>
+						<PropertyRef Name="Type"/>
+						<PropertyRef Name="EWMStorageBin"/>
+					</Principal>
+					<Dependent Role="ToRole_HuToODOs">
+						<PropertyRef Name="HuId"/>
+						<PropertyRef Name="EWMWarehouse"/>
+						<PropertyRef Name="EWMWorkCenter"/>
+						<PropertyRef Name="Type"/>
+						<PropertyRef Name="EWMStorageBin"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="PackingStationToPackMats" sap:content-version="1">
+				<End Multiplicity="1" Role="FromRole_PackingStationToPackMats" Type="pack_outbdlv_srv.PackingStation"/>
+				<End Multiplicity="*" Role="ToRole_PackingStationToPackMats" Type="pack_outbdlv_srv.PackMat"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_PackingStationToPackMats">
+						<PropertyRef Name="EWMWorkCenter"/>
+						<PropertyRef Name="EWMWarehouse"/>
+						<PropertyRef Name="EWMStorageBin"/>
+					</Principal>
+					<Dependent Role="ToRole_PackingStationToPackMats">
+						<PropertyRef Name="EWMWorkCenter"/>
+						<PropertyRef Name="EWMWarehouse"/>
+						<PropertyRef Name="EWMStorageBin"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="pack_outbdlv_srv_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx pdf">
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__Currency" Name="SAP__Currencies" sap:content-version="1"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__UnitOfMeasure" Name="SAP__UnitsOfMeasure" sap:content-version="1"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__DocumentDescription" Name="SAP__MyDocumentDescriptions" sap:content-version="1"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__Format" Name="SAP__FormatSet" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__PDFStandard" Name="SAP__PDFStandardSet" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__TableColumns" Name="SAP__TableColumnsSet" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__CoverPage" Name="SAP__CoverPageSet" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__Signature" Name="SAP__SignatureSet" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__Hierarchy" Name="SAP__HierarchySet" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__PDFHeader" Name="SAP__PDFHeaderSet" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__PDFFooter" Name="SAP__PDFFooterSet" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SAP__ValueHelp" Name="SAP__ValueHelpSet" sap:content-version="1"/>
+				<EntitySet EntityType="pack_outbdlv_srv.HUItemWeight" Name="HUItemWeightSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SearchHelpBin" Name="SearchHelpBinSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SearchHelpWorkCenter" Name="SearchHelpWorkCenterSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.Item" Name="ItemSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.ODO" Name="ODOSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.RuntimeEnv" Name="RuntimeEnvSet" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.SerialNumber" Name="SerialNumberSet" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.AudioURI" Name="AudioURISet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.EWMWarehouseVH_Type" Name="EWMWarehouseVH_Set" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.EWMWarehouse_Type" Name="EWMWarehouse_Set" sap:content-version="1" sap:pageable="false" sap:searchable="true"/>
+				<EntitySet EntityType="pack_outbdlv_srv.ExceptionList" Name="ExceptionListSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.HUIDENT" Name="HUIDENTCollection" sap:content-version="1"/>
+				<EntitySet EntityType="pack_outbdlv_srv.PackingStation" Name="PackingStationSet" sap:content-version="1" sap:pageable="false" sap:searchable="true"/>
+				<EntitySet EntityType="pack_outbdlv_srv.ValidateAction" Name="ValidateActionSet" sap:content-version="1" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.PackMat" Name="PackMatSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.PackMessage" Name="PackMessageSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.HU" Name="HUSet" sap:content-version="1" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="pack_outbdlv_srv.ScaleWeight" Name="ScaleWeightSet" sap:content-version="1" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<AssociationSet Association="pack_outbdlv_srv.to_Footer" Name="to_FooterSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="SAP__MyDocumentDescriptions" Role="FromRole_to_Footer"/>
+					<End EntitySet="SAP__PDFFooterSet" Role="ToRole_to_Footer"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.to_header" Name="to_headerSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="SAP__MyDocumentDescriptions" Role="FromRole_to_header"/>
+					<End EntitySet="SAP__PDFHeaderSet" Role="ToRole_to_header"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.to_format" Name="to_formatSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="SAP__MyDocumentDescriptions" Role="FromRole_to_format"/>
+					<End EntitySet="SAP__FormatSet" Role="ToRole_to_format"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.to_pdfstandard" Name="to_pdfstandardSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="SAP__MyDocumentDescriptions" Role="FromRole_to_pdfstandard"/>
+					<End EntitySet="SAP__PDFStandardSet" Role="ToRole_to_pdfstandard"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.ItemToSerialNumber" Name="ItemToSerialNumberSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="ItemSet" Role="FromRole_ItemToSerialNumber"/>
+					<End EntitySet="SerialNumberSet" Role="ToRole_ItemToSerialNumber"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.PackingStationToPackMats" Name="PackingStationToPackMatsSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="PackingStationSet" Role="FromRole_PackingStationToPackMats"/>
+					<End EntitySet="PackMatSet" Role="ToRole_PackingStationToPackMats"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.HuToItems" Name="HuToItemsSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="HUSet" Role="FromRole_HuToItems"/>
+					<End EntitySet="ItemSet" Role="ToRole_HuToItems"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.to_tablecolumns" Name="to_tablecolumnsSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="SAP__MyDocumentDescriptions" Role="FromRole_to_tablecolumns"/>
+					<End EntitySet="SAP__TableColumnsSet" Role="ToRole_to_tablecolumns"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.to_signature" Name="to_signatureSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="SAP__MyDocumentDescriptions" Role="FromRole_to_signature"/>
+					<End EntitySet="SAP__SignatureSet" Role="ToRole_to_signature"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.HuToODOs" Name="HuToODOsSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="HUSet" Role="FromRole_HuToODOs"/>
+					<End EntitySet="ODOSet" Role="ToRole_HuToODOs"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.to_coverpage" Name="to_coverpageSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="SAP__MyDocumentDescriptions" Role="FromRole_to_coverpage"/>
+					<End EntitySet="SAP__CoverPageSet" Role="ToRole_to_coverpage"/>
+				</AssociationSet>
+				<AssociationSet Association="pack_outbdlv_srv.to_Hierarchy" Name="to_HierarchySet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false">
+					<End EntitySet="SAP__MyDocumentDescriptions" Role="FromRole_to_Hierarchy"/>
+					<End EntitySet="SAP__HierarchySet" Role="ToRole_to_Hierarchy"/>
+				</AssociationSet>
+				<FunctionImport EntitySet="PackMessageSet" Name="ExecuteAccessCode" ReturnType="pack_outbdlv_srv.PackMessage" m:HttpMethod="POST">
+					<Parameter MaxLength="1" Mode="In" Name="SourceType" Nullable="true" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="PackagingMaterial" Nullable="true" Type="Edm.String"/>
+					<Parameter Mode="In" Name="DocumentReltdStockDocItemUUID" Nullable="true" Type="Edm.Guid" sap:label="UUID"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWarehouse" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWorkCenter" Type="Edm.String"/>
+					<Parameter MaxLength="20" Mode="In" Name="SourceId" Nullable="true" Type="Edm.String"/>
+					<Parameter Mode="In" Name="DocumentReltdStockDocUUID" Nullable="true" Type="Edm.Guid" sap:label="UUID"/>
+					<Parameter Mode="In" Name="ShippingHUId" Nullable="true" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="Exccode" Nullable="true" Type="Edm.String"/>
+					<Parameter Mode="In" Name="SnList" Nullable="true" Type="Edm.String"/>
+					<Parameter Mode="In" Name="Quan" Nullable="true" Precision="14" Scale="14" Type="Edm.Decimal"/>
+					<Parameter MaxLength="24" Mode="In" Name="IntScanCode" Type="Edm.String"/>
+					<Parameter MaxLength="2" Mode="In" Name="ScanStep" Nullable="true" Type="Edm.String"/>
+				</FunctionImport>
+				<FunctionImport EntitySet="PackMessageSet" Name="Print" ReturnType="pack_outbdlv_srv.PackMessage" m:HttpMethod="POST">
+					<Parameter MaxLength="4" Mode="In" Name="EWMWarehouse" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWorkCenter" Type="Edm.String"/>
+					<Parameter MaxLength="20" Mode="In" Name="HUId" Type="Edm.String"/>
+					<Parameter MaxLength="18" Mode="In" Name="EWMStorageBin" Type="Edm.String"/>
+				</FunctionImport>
+				<FunctionImport EntitySet="PackMessageSet" Name="ChangePackMat" ReturnType="pack_outbdlv_srv.PackMessage" m:HttpMethod="POST">
+					<Parameter MaxLength="4" Mode="In" Name="EWMWarehouse" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWorkCenter" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="SourceId" Type="Edm.String"/>
+					<Parameter MaxLength="20" Mode="In" Name="ShippingHUIdNew" Type="Edm.String"/>
+					<Parameter MaxLength="1" Mode="In" Name="SourceType" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="SourcePackMat" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="ShippingHUPackMat" Type="Edm.String" sap:label="New shipping HU packaging material"/>
+					<Parameter MaxLength="20" Mode="In" Name="ShippingHUIdOld" Type="Edm.String"/>
+					<Parameter Mode="In" Name="DeleteShippingHUOnly" Nullable="true" Type="Edm.Boolean" sap:label="Indicator"/>
+					<Parameter MaxLength="18" Mode="In" Name="EWMStorageBin" Type="Edm.String"/>
+				</FunctionImport>
+				<FunctionImport EntitySet="PackMessageSet" Name="ValidateProduct" ReturnType="pack_outbdlv_srv.PackMessage" m:HttpMethod="POST">
+					<Parameter MaxLength="18" Mode="In" Name="EWMStorageBin" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="ProductName" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWorkCenter" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWarehouse" Type="Edm.String"/>
+				</FunctionImport>
+				<FunctionImport EntitySet="PackMessageSet" Name="Pack" ReturnType="pack_outbdlv_srv.PackMessage" m:HttpMethod="POST">
+					<Parameter Mode="In" Name="OrdReduction" Nullable="true" Type="Edm.Boolean" sap:label="Indicator"/>
+					<Parameter MaxLength="3" Mode="In" Name="AlternativeUnit" Nullable="true" Type="Edm.String" sap:label="Alternatve Unit"/>
+					<Parameter Mode="In" Name="StockItemUUID" Nullable="true" Type="Edm.Guid" sap:label="UUID"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWarehouse" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWorkCenter" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="SourceId" Type="Edm.String"/>
+					<Parameter Mode="In" Name="ShippingHUId" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="Exccode" Nullable="true" Type="Edm.String"/>
+					<Parameter Mode="In" Name="SnList" Nullable="true" Type="Edm.String"/>
+					<Parameter Mode="In" Name="Quan" Nullable="true" Precision="14" Scale="14" Type="Edm.Decimal"/>
+					<Parameter MaxLength="18" Mode="In" Name="EWMStorageBin" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="PackagingMaterial" Nullable="true" Type="Edm.String"/>
+					<Parameter Mode="In" Name="IsPackAll" Type="Edm.Boolean" sap:label="Indicator"/>
+					<Parameter MaxLength="1" Mode="In" Name="SourceType" Type="Edm.String"/>
+					<Parameter Mode="In" Name="Huident" Type="Edm.String"/>
+				</FunctionImport>
+				<FunctionImport EntitySet="PackMessageSet" Name="ValidateSn" ReturnType="pack_outbdlv_srv.PackMessage" m:HttpMethod="POST">
+					<Parameter Mode="In" Name="StockItemUUID" Type="Edm.Guid" sap:label="UUID"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWarehouse" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="SourceId" Type="Edm.String"/>
+					<Parameter MaxLength="1" Mode="In" Name="SourceType" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWorkCenter" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="ProductName" Type="Edm.String"/>
+					<Parameter Mode="In" Name="DocumentReltdStockDocItemUUID" Type="Edm.Guid" sap:label="UUID"/>
+					<Parameter Mode="In" Name="DocumentReltdStockDocUUID" Type="Edm.Guid" sap:label="UUID"/>
+					<Parameter Mode="In" Name="EWMSerialNumber" Type="Edm.String"/>
+					<Parameter MaxLength="18" Mode="In" Name="EWMStorageBin" Type="Edm.String"/>
+				</FunctionImport>
+				<FunctionImport EntitySet="PackMessageSet" Name="LeavePackStation" ReturnType="pack_outbdlv_srv.PackMessage" m:HttpMethod="POST"/>
+				<FunctionImport EntitySet="PackMessageSet" Name="Close" ReturnType="pack_outbdlv_srv.PackMessage" m:HttpMethod="POST">
+					<Parameter MaxLength="4" Mode="In" Name="EWMWarehouse" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWorkCenter" Type="Edm.String"/>
+					<Parameter MaxLength="20" Mode="In" Name="ShippingHUId" Type="Edm.String"/>
+					<Parameter MaxLength="18" Mode="In" Name="EWMStorageBin" Type="Edm.String"/>
+				</FunctionImport>
+				<FunctionImport EntitySet="HUIDENTCollection" Name="ConvertHUID" ReturnType="pack_outbdlv_srv.HUIDENT" m:HttpMethod="GET" sap:action-for="pack_outbdlv_srv.HUIDENT">
+					<Parameter MaxLength="4" Mode="In" Name="EWMWarehouse" Type="Edm.String" sap:label="Warehouse No."/>
+					<Parameter MaxLength="255" Mode="In" Name="HandlingUnitNumber" Type="Edm.String" sap:label="Handling Unit"/>
+				</FunctionImport>
+				<FunctionImport EntitySet="PackMessageSet" Name="UnPack" ReturnType="pack_outbdlv_srv.PackMessage" m:HttpMethod="POST">
+					<Parameter Mode="In" Name="Quan" Nullable="true" Precision="14" Scale="14" Type="Edm.Decimal"/>
+					<Parameter MaxLength="3" Mode="In" Name="AlternativeUnit" Nullable="true" Type="Edm.String" sap:label="Alternatve Unit"/>
+					<Parameter Mode="In" Name="StockItemUUID" Nullable="true" Type="Edm.Guid" sap:label="UUID"/>
+					<Parameter MaxLength="18" Mode="In" Name="EWMStorageBin" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="PackagingMaterial" Nullable="true" Type="Edm.String"/>
+					<Parameter Mode="In" Name="IsUnPackAll" Type="Edm.Boolean" sap:label="Indicator"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWarehouse" Type="Edm.String"/>
+					<Parameter Mode="In" Name="ShippingHUId" Type="Edm.String"/>
+					<Parameter MaxLength="40" Mode="In" Name="SourceId" Type="Edm.String"/>
+					<Parameter MaxLength="1" Mode="In" Name="SourceType" Type="Edm.String"/>
+					<Parameter MaxLength="4" Mode="In" Name="EWMWorkCenter" Type="Edm.String"/>
+				</FunctionImport>
+			</EntityContainer>
+			<Annotation String="1.0.0" Term="Core.SchemaVersion"/>
+			<Annotations Target="SCWM_PACK_OUTBDLV.HU">
+				<Annotation Term="UI.HeaderInfo">
+					<Record>
+						<PropertyValue Property="TypeName" String="HU"/>
+						<PropertyValue Property="TypeNamePlural" String="HUs"/>
+						<PropertyValue Property="Title">
+							<Record Type="UI.DataField">
+								<PropertyValue Path="Lgnum" Property="Value"/>
+							</Record>
+						</PropertyValue>
+						<PropertyValue Property="Description">
+							<Record Type="UI.DataField">
+								<PropertyValue Path="HuId" Property="Value"/>
+							</Record>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.PackingStation/EWMStorageBin">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="CollectionPath" String="SearchHelpBinSet"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="EWMStorageBin"/>
+									<PropertyValue Property="ValueListProperty" String="EWMStorageBin"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="EWMWarehouse"/>
+									<PropertyValue Property="ValueListProperty" String="EWMWarehouse"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="EWMStorageType"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.PackingStation/EWMWorkCenter">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="CollectionPath" String="SearchHelpWorkCenterSet"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="EWMWorkCenter"/>
+									<PropertyValue Property="ValueListProperty" String="EWMWorkCenter"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="EWMWarehouse"/>
+									<PropertyValue Property="ValueListProperty" String="EWMWarehouse"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Description"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+					<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+						<PropertyValue Property="LocalDataProperty" PropertyPath="Default_Bin"/>
+						<PropertyValue Property="ValueListProperty" String="Default_Bin"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.PackingStation/EWMWarehouse">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="CollectionPath" String="EWMWarehouseVH_Set"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="EWMWarehouse"/>
+									<PropertyValue Property="ValueListProperty" String="EWMWarehouse"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="EWMWarehouse_Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.EWMWarehouse_Type/EWMWarehouse">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="CollectionPath" String="EWMWarehouseVH_Set"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="EWMWarehouse"/>
+									<PropertyValue Property="ValueListProperty" String="EWMWarehouse"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="EWMWarehouse_Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.PackingStation/EWMWorkCenter">
+				<Annotation EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextFirst" Term="com.sap.vocabularies.UI.v1.TextArrangement"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.pack_outbdlv_srv_Entities">
+				<Annotation Term="SAP__CodeList.CurrencyCodes">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__Currencies"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__CodeList.UnitsOfMeasure">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__UnitsOfMeasure"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__PDF.Features">
+					<Record>
+						<PropertyValue Property="DocumentDescriptionReference" String="./$metadata"/>
+						<PropertyValue Property="DocumentDescriptionCollection" String="SAP__MyDocumentDescriptions"/>
+						<PropertyValue Bool="true" Property="ArchiveFormat"/>
+						<PropertyValue Bool="true" Property="CoverPage"/>
+						<PropertyValue Bool="true" Property="Signature"/>
+						<PropertyValue Bool="true" Property="FitToPage"/>
+						<PropertyValue Bool="true" Property="FontName"/>
+						<PropertyValue Bool="true" Property="FontSize"/>
+						<PropertyValue Bool="true" Property="Margin"/>
+						<PropertyValue Bool="true" Property="Border"/>
+						<PropertyValue Bool="true" Property="Padding"/>
+						<PropertyValue Bool="true" Property="HeaderFooter"/>
+						<PropertyValue Bool="true" Property="IANATimezoneFormat"/>
+						<PropertyValue Int="20000" Property="ResultSizeDefault"/>
+						<PropertyValue Int="20000" Property="ResultSizeMaximum"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__CodeList.SAP__DocumentDescription">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__MyDocumentDescriptions"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__Currency/CurrencyCode">
+				<Annotation Path="Text" Term="SAP__common.Text"/>
+				<Annotation Path="DecimalPlaces" Term="SAP__common.UnitSpecificScale"/>
+				<Annotation Path="ISOCode" Term="SAP__CodeList.StandardCode"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__UnitOfMeasure/UnitCode">
+				<Annotation Path="Text" Term="SAP__common.Text"/>
+				<Annotation Path="DecimalPlaces" Term="SAP__common.UnitSpecificScale"/>
+				<Annotation Path="ISOCode" Term="SAP__CodeList.StandardCode"/>
+				<Annotation Path="ExternalCode" Term="SAP__CodeList.ExternalCode"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__UnitOfMeasure">
+				<Annotation Term="SAP__core.AlternateKeys">
+					<Collection>
+						<Record>
+							<PropertyValue Property="Key">
+								<Collection>
+									<Record>
+										<PropertyValue Path="ExternalCode" Property="Name"/>
+										<PropertyValue Property="Alias" String="ExternalCode"/>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__DocumentDescription/CreatedBy">
+				<Annotation Term="SAP__core.Computed"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__DocumentDescription/CreatedAt">
+				<Annotation Term="SAP__core.Computed"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__Format/FitToPage/ErrorRecoveryBehavior">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="../../../../SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27ErrorRecoveryBehaviour%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__Format/FontName">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27FontName%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__Format/PaperSize">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27PaperSize%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__PDFHeader/Left">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27HeaderFooter%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__PDFHeader/Right">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27HeaderFooter%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__PDFHeader/Center">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27HeaderFooter%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__PDFFooter/Left">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27HeaderFooter%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__PDFFooter/Right">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27HeaderFooter%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__PDFFooter/Center">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27HeaderFooter%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__Format/Orientation">
+			<Annotations Target="pack_outbdlv_srv.SAP__TableColumns/Format/Display_Format">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27TableColumnFormat%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27FontName%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<Annotations Target="pack_outbdlv_srv.SAP__TableColumns/HorizontalAlignment">
+				<Annotation Term="SAP__common.ValueListReferences">
+					<Record>
+						<PropertyValue Property="Url" String="./$metadata"/>
+						<PropertyValue Property="CollectionPath" String="SAP__ValueHelpSet?$filter=VALUEHELP%20eq%20%27HorizontalAlignment%27"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="SAP__common.ValueListWithFixedValues"/>
+			</Annotations>
+			<atom:link href="/sap/opu/odata/SCWM/PACK_OUTBDLV_SRV/$metadata" rel="self" xmlns:atom="http://www.w3.org/2005/Atom"/>
+			<atom:link href="/sap/opu/odata/SCWM/PACK_OUTBDLV_SRV/$metadata" rel="latest-version" xmlns:atom="http://www.w3.org/2005/Atom"/>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
