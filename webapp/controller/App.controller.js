@@ -3,13 +3,13 @@
  */
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"scm/ewm/packoutbdlvs1/modelHelper/Items",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Items",
 	"sap/ui/model/json/JSONModel",
-	"scm/ewm/packoutbdlvs1/control/Audio",
+	"zcogna/ewm/packoutbdlvs1/control/Audio",
 	"sap/suite/ui/commons/collaboration/CollaborationHelper"
 ], function (Controller, TableItemsHelper, JSONModel, Audio, CollaborationHelper) {
 	"use strict";
-	return Controller.extend("scm.ewm.packoutbdlvs1.controller.App", {
+	return Controller.extend("zcogna.ewm.packoutbdlvs1.controller.App", {
 		onInit: function () {
 			var oExpandHashPromise = CollaborationHelper.processAndExpandHash();
 			oExpandHashPromise.then(function () {

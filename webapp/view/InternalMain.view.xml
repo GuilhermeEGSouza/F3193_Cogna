@@ -3,7 +3,7 @@
     Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
 
 -->
-<mvc:View id="pod---internalmain--view" controllerName="scm.ewm.packoutbdlvs1.controller.InternalMain"
+<mvc:View id="pod---internalmain--view" controllerName="zcogna.ewm.packoutbdlvs1.controller.InternalMain"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" displayBlock="true" xmlns="sap.m"
 	xmlns:l="sap.ui.layout">
 	<Page showHeader="false" id="appPage" busy="{global>/busy}" floatingFooter="true">
@@ -27,12 +27,12 @@
 		</OverflowToolbar>
 		<content>
 			<l:Grid id="pod---internalmain-page--grid" class="sapUiTinyMargin">
-				<mvc:XMLView viewName="scm.ewm.packoutbdlvs1.view.InternalSource" id="id-source-view" type="XML">
+				<mvc:XMLView viewName="zcogna.ewm.packoutbdlvs1.view.InternalSource" id="id-source-view" type="XML">
 					<mvc:layoutData>
 						<l:GridData id="pod---internalmain-page--grid--layout" span="XL6 L6 M12 S12"></l:GridData>
 					</mvc:layoutData>
 				</mvc:XMLView>
-				<mvc:XMLView viewName="scm.ewm.packoutbdlvs1.view.InternalShip" id="id-ship-view" type="XML">
+				<mvc:XMLView viewName="zcogna.ewm.packoutbdlvs1.view.InternalShip" id="id-ship-view" type="XML">
 					<mvc:layoutData id="pod---internalmain-page--grid--internalship--layoutdata">
 						<l:GridData id="pod---internalmain-page--grid--internalship" span="XL6 L6 M12 S12"></l:GridData>
 					</mvc:layoutData>

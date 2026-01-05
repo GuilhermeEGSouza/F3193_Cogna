@@ -2,20 +2,20 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/controller/BaseController",
+	"zcogna/ewm/packoutbdlvs1/controller/BaseController",
 	"sap/m/MessageBox",
-	"scm/ewm/packoutbdlvs1/service/ODataService",
-	"scm/ewm/packoutbdlvs1/modelHelper/Global",
-	"scm/ewm/packoutbdlvs1/utils/Util",
-	"scm/ewm/packoutbdlvs1/modelHelper/Material",
+	"zcogna/ewm/packoutbdlvs1/service/ODataService",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
+	"zcogna/ewm/packoutbdlvs1/utils/Util",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Material",
 	"sap/ui/model/json/JSONModel",
-	"scm/ewm/packoutbdlvs1/utils/Const",
-	"scm/ewm/packoutbdlvs1/modelHelper/PackingMode",
-	"scm/ewm/packoutbdlvs1/model/PackingMode",
+	"zcogna/ewm/packoutbdlvs1/utils/Const",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/PackingMode",
+	"zcogna/ewm/packoutbdlvs1/model/PackingMode",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"scm/ewm/packoutbdlvs1/utils/CustomError",
-	"scm/ewm/packoutbdlvs1/modelHelper/OData"
+	"zcogna/ewm/packoutbdlvs1/utils/CustomError",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/OData"
 ], function (Controller, MessageBox, Service, Global, Util, Material, JSONModel, Const, PackingModeHelper, PackingMode, Filter,
 	FilterOperator, CustomError, OData) {
 	"use strict";
@@ -25,7 +25,7 @@ sap.ui.define([
 	var workCenterInputId = "pod---defaultbin--workcenter--input";
 	var storageBinInputId = "pod---defaultbin--storagebin--input";
 	var warehouseInputId = "pod---defaultbin--warehouse--input";
-	return Controller.extend("scm.ewm.packoutbdlvs1.controller.DefaultBin", {
+	return Controller.extend("zcogna.ewm.packoutbdlvs1.controller.DefaultBin", {
 		sRouteName: "default",
 		init: function () {
 			this.setModel(PackingMode, "packingMode");

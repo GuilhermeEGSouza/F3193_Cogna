@@ -2,27 +2,27 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/controller/WorkFlowController",
-	"scm/ewm/packoutbdlvs1/utils/CustomError",
-	"scm/ewm/packoutbdlvs1/utils/Const",
-	"scm/ewm/packoutbdlvs1/modelHelper/Global",
-	"scm/ewm/packoutbdlvs1/modelHelper/Cache",
-	"scm/ewm/packoutbdlvs1/utils/Util",
+	"zcogna/ewm/packoutbdlvs1/controller/WorkFlowController",
+	"zcogna/ewm/packoutbdlvs1/utils/CustomError",
+	"zcogna/ewm/packoutbdlvs1/utils/Const",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Cache",
+	"zcogna/ewm/packoutbdlvs1/utils/Util",
 	"sap/tl/ewm/lib/reuses1/controllers/Base.controller",
-	"scm/ewm/packoutbdlvs1/modelHelper/OData",
-	"scm/ewm/packoutbdlvs1/modelHelper/Items",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/OData",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Items",
 	"sap/ui/model/json/JSONModel",
-	"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/SerialNumber",
 	"sap/m/ListMode",
-	"scm/ewm/packoutbdlvs1/service/ODataService",
+	"zcogna/ewm/packoutbdlvs1/service/ODataService",
 	"sap/ui/core/ValueState",
-	"scm/ewm/packoutbdlvs1/modelHelper/PackingMode",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/PackingMode",
 	"sap/m/MessageBox",
-	"scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting",
-	"scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings",
-	"scm/ewm/packoutbdlvs1/model/PackingMode",
-	"scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting",
-	"scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting"
+	"zcogna/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/ColumnSettings",
+	"zcogna/ewm/packoutbdlvs1/model/PackingMode",
+	"zcogna/ewm/packoutbdlvs1/model/BasicSourceTableSetting",
+	"zcogna/ewm/packoutbdlvs1/model/InternalSourceTableSetting"
 ], function (Controller, CustomError, Const, Global, Cache, Util, CommonBase, ODataHelper, TableItemsHelper, JSONModel, SerialNumber,
 	ListMode, Service, ValueState, PackingModeHelper, MessageBox, AdvancedSourceTableSetting, ColumnSettingsHelper, PackingModeModel,
 	BasicSourceTableSetting, InternalSourceTableSetting) {
@@ -40,7 +40,7 @@ sap.ui.define([
 	var serialNumberPartialPackInputId = "id-input-serialNumber-partial-pack";
 	var serialNumberDamageInputId = "id-input-serialNumber-damage-pack";
 	var reductionDialogId = "reductionDialog";
-	return Controller.extend("scm.ewm.packoutbdlvs1.controller.Left", {
+	return Controller.extend("zcogna.ewm.packoutbdlvs1.controller.Left", {
 		oItemHelper: new TableItemsHelper(new JSONModel([])),
 		oColumnSettingsHelper: new ColumnSettingsHelper(new JSONModel([])),
 		bLoaded: false,
@@ -169,7 +169,7 @@ sap.ui.define([
 			return Const.VIEW_SOURCE;
 		},
 		getTableSettingDialogName: function () {
-			return "scm.ewm.packoutbdlvs1.view.SourceTableSettingDialog";
+			return "zcogna.ewm.packoutbdlvs1.view.SourceTableSettingDialog";
 		},
 		initSubscription: function () {
 			this.subscribe(Const.EVENT_BUS.CHANNELS.USER_SETTING, Const.EVENT_BUS.EVENTS.SUCCESS, function () {
@@ -553,7 +553,7 @@ sap.ui.define([
 			if (this.oItemHelper.isSerialNumberEnableItem()) {
 				oDialog = oView.byId("serialNumberPartialPackDialog");
 				if (!oDialog) {
-					oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.SerialNumberPartialPackDialog", this);
+					oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.SerialNumberPartialPackDialog", this);
 					oView.addDependent(oDialog);
 				}
 				this.updateInputWithDefault(serialNumberPartialPackInputId, "");
@@ -561,7 +561,7 @@ sap.ui.define([
 			} else {
 				oDialog = oView.byId("partialDialog");
 				if (!oDialog) {
-					oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.PartialPackDialog", this);
+					oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.PartialPackDialog", this);
 					oView.addDependent(oDialog);
 				}
 			}
@@ -719,7 +719,7 @@ sap.ui.define([
 
 			oDialog = oView.byId("damageDialog");
 			if (!oDialog) {
-				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.DamageDialog", this);
+				oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.DamageDialog", this);
 				oView.addDependent(oDialog);
 			}
 			oDialog.setTitle(sText);
@@ -737,7 +737,7 @@ sap.ui.define([
 
 			oDialog = oView.byId("serialNumberDamageDialog");
 			if (!oDialog) {
-				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.SerialNumberDamageDialog", this);
+				oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.SerialNumberDamageDialog", this);
 				oView.addDependent(oDialog);
 			}
 			this.updateInputWithDefault(serialNumberDamageInputId, "");
@@ -758,7 +758,7 @@ sap.ui.define([
 			if (this.oItemHelper.isSerialNumberEnableItem()) {
 				oDialog = oView.byId("serialNumberDifferenceDialog");
 				if (!oDialog) {
-					oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.SerialNumberDifferenceDialog", this);
+					oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.SerialNumberDifferenceDialog", this);
 					oView.addDependent(oDialog);
 				}
 				this.updateInputWithDefault(serialNumberDifferenceInputId, "");
@@ -766,7 +766,7 @@ sap.ui.define([
 			} else {
 				oDialog = oView.byId("differenceDialog");
 				if (!oDialog) {
-					oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.DifferenceDialog", this);
+					oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.DifferenceDialog", this);
 					oView.addDependent(oDialog);
 				}
 			}
@@ -987,7 +987,7 @@ sap.ui.define([
 			var oDialog = oView.byId(serialNumberDialogId);
 
 			if (!oDialog) {
-				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.SerialNumberDialog", this);
+				oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.SerialNumberDialog", this);
 				oView.addDependent(oDialog);
 			}
 			this.updateInputWithDefault(serialNumberInputId, "");
@@ -998,7 +998,7 @@ sap.ui.define([
 			var oView = this.getView();
 			var oDialog = oView.byId(stockLevleSnDialogId);
 			if (!oDialog) {
-				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.StockLevelSnDialog", this);
+				oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.StockLevelSnDialog", this);
 				oView.addDependent(oDialog);
 			}
 			oDialog.removeAllCustomData();
@@ -1099,7 +1099,7 @@ sap.ui.define([
 			var oView = this.getView();
 			var oDialog = oView.byId(batchDialogId);
 			if (!oDialog) {
-				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.BatchNumberDialog", this);
+				oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.BatchNumberDialog", this);
 				oView.addDependent(oDialog);
 			}
 			oDialog.removeAllCustomData();
@@ -1160,7 +1160,7 @@ sap.ui.define([
 			var sWarningText;
 
 			if (!oDialog) {
-				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.ChangePackingQuantityDialog", this);
+				oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.ChangePackingQuantityDialog", this);
 				oView.addDependent(oDialog);
 			}
 			oDialog.removeAllCustomData();
@@ -1234,7 +1234,7 @@ sap.ui.define([
 				var oView = this.getView();
 				var oNewDialog = oView.byId("partialDialog");
 				if (!oNewDialog) {
-					oNewDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.PartialPackDialog", this);
+					oNewDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.PartialPackDialog", this);
 					oView.addDependent(oNewDialog);
 				}
 				this.openDialog(oNewDialog).catch(function (sError) {});

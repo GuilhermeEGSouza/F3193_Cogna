@@ -6,7 +6,7 @@
 	], function(Control) {
 		"use strict";
 
-		var Container = Control.extend("scm.ewm.packoutbdlvs1.control.Container", {
+		var Container = Control.extend("zcogna.ewm.packoutbdlvs1.control.Container", {
 			metadata: {
 				properties: {
 

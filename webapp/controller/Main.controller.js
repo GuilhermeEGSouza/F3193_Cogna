@@ -2,29 +2,29 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/controller/BaseMain",
+	"zcogna/ewm/packoutbdlvs1/controller/BaseMain",
 	"sap/tl/ewm/lib/reuses1/controllers/Base.controller",
-	"scm/ewm/packoutbdlvs1/utils/Util",
-	"scm/ewm/packoutbdlvs1/service/ODataService",
-	"scm/ewm/packoutbdlvs1/modelHelper/OData",
-	"scm/ewm/packoutbdlvs1/utils/Const",
+	"zcogna/ewm/packoutbdlvs1/utils/Util",
+	"zcogna/ewm/packoutbdlvs1/service/ODataService",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/OData",
+	"zcogna/ewm/packoutbdlvs1/utils/Const",
 	"sap/ui/model/json/JSONModel",
-	"scm/ewm/packoutbdlvs1/model/Message",
-	"scm/ewm/packoutbdlvs1/modelHelper/Message",
+	"zcogna/ewm/packoutbdlvs1/model/Message",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Message",
 	"sap/m/MessagePopoverItem",
 	"sap/m/MessagePopover",
 	"sap/m/MessageBox",
-	"scm/ewm/packoutbdlvs1/modelHelper/Global",
-	"scm/ewm/packoutbdlvs1/model/SerialNumber",
-	"scm/ewm/packoutbdlvs1/workflows/SimpleFactory",
-	"scm/ewm/packoutbdlvs1/workflows/AdvancedFactory",
-	"scm/ewm/packoutbdlvs1/modelHelper/PackingMode",
-	"scm/ewm/packoutbdlvs1/modelHelper/Material"
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
+	"zcogna/ewm/packoutbdlvs1/model/SerialNumber",
+	"zcogna/ewm/packoutbdlvs1/workflows/SimpleFactory",
+	"zcogna/ewm/packoutbdlvs1/workflows/AdvancedFactory",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/PackingMode",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Material"
 ], function (Controller, CommonBase, Util, Service, ODataHelper, Const, JSONModel, MessageModel, MessageHelper,
 	MessagePopoverItem,
 	MessagePopover, MessageBox, Global, SerialNumberModel, SimpleFactory, AdvancedFactory, PackingMode, Material) {
 	"use strict";
-	return Controller.extend("scm.ewm.packoutbdlvs1.controller.Main", {
+	return Controller.extend("zcogna.ewm.packoutbdlvs1.controller.Main", {
 		sRouteName: "main",
 		init: function () {
 			CommonBase.prototype.initAccessCode.call(this);

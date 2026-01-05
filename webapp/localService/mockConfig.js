@@ -2,9 +2,9 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/utils/Util"
+	"zcogna/ewm/packoutbdlvs1/utils/Util"
 ], function (Util) {
-	var _sJsonFilesModulePath = "scm/ewm/packoutbdlvs1/localService/mockdata";
+	var _sJsonFilesModulePath = "zcogna/ewm/packoutbdlvs1/localService/mockdata";
 
 	function getParameterByName(name, url) {
 		var match = RegExp("[?&]" + name + "=([^&]*)").exec(url);

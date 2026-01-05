@@ -2,7 +2,7 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/utils/Const",
+	"zcogna/ewm/packoutbdlvs1/utils/Const",
 	"sap/ui/core/format/NumberFormat"
 ], function (Const, NumberFormat) {
 	"use strict";

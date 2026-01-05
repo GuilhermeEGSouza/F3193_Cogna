@@ -2,8 +2,8 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/model/Material",
-	"scm/ewm/packoutbdlvs1/utils/Util"
+	"zcogna/ewm/packoutbdlvs1/model/Material",
+	"zcogna/ewm/packoutbdlvs1/utils/Util"
 ], function (Model, Util) {
 	"use strict";
 	var _mMaterialIndexByName; // hash object to store material info with the description field as the key

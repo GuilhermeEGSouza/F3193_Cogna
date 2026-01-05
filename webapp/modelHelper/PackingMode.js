@@ -2,9 +2,9 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/model/PackingMode",
-	"scm/ewm/packoutbdlvs1/utils/Util",
-	"scm/ewm/packoutbdlvs1/utils/Const"
+	"zcogna/ewm/packoutbdlvs1/model/PackingMode",
+	"zcogna/ewm/packoutbdlvs1/utils/Util",
+	"zcogna/ewm/packoutbdlvs1/utils/Const"
 ], function (Model, Util, Const) {
 	"use strict";
 	return {

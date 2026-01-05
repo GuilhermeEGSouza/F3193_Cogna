@@ -4,20 +4,20 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"scm/ewm/packoutbdlvs1/utils/Const",
-	"scm/ewm/packoutbdlvs1/model/Models",
-	"scm/ewm/packoutbdlvs1/modelHelper/Global",
-	"scm/ewm/packoutbdlvs1/service/ODataService",
-	"scm/ewm/packoutbdlvs1/modelHelper/OData",
-	"scm/ewm/packoutbdlvs1/utils/Util",
-	"scm/ewm/packoutbdlvs1/utils/ErrorHandler",
+	"zcogna/ewm/packoutbdlvs1/utils/Const",
+	"zcogna/ewm/packoutbdlvs1/model/Models",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
+	"zcogna/ewm/packoutbdlvs1/service/ODataService",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/OData",
+	"zcogna/ewm/packoutbdlvs1/utils/Util",
+	"zcogna/ewm/packoutbdlvs1/utils/ErrorHandler",
 	"sap/tl/ewm/lib/reuses1/controllers/AccessCode",
 	"sap/m/MessageBox",
-	"scm/ewm/packoutbdlvs1/modelHelper/PackingMode"
+	"zcogna/ewm/packoutbdlvs1/modelHelper/PackingMode"
 ], function (BaseComponent, Device, Const, Model, Global, Service, ODataHelper, Util, PackErrorHandler, AccessCodePart, MessageBox,
 	PackingMode) {
 	"use strict";
-	return BaseComponent.extend("scm.ewm.packoutbdlvs1.Component", {
+	return BaseComponent.extend("zcogna.ewm.packoutbdlvs1.Component", {
 		metadata: {
 			manifest: "json"
 		},

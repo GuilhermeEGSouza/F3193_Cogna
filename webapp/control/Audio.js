@@ -4,7 +4,7 @@
 sap.ui.define(['sap/ui/core/Control'],
     function(Control) {
         "use strict";
-        var Audio = Control.extend("scm.ewm.packoutbdlvs1.control.Audio", {
+        var Audio = Control.extend("zcogna.ewm.packoutbdlvs1.control.Audio", {
             metadata: {
                 properties: {
                     src: {

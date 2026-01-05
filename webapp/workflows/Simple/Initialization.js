@@ -2,9 +2,9 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/workflows/WorkFlow",
-	"scm/ewm/packoutbdlvs1/modelHelper/Material",
-	"scm/ewm/packoutbdlvs1/utils/Util"
+	"zcogna/ewm/packoutbdlvs1/workflows/WorkFlow",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Material",
+	"zcogna/ewm/packoutbdlvs1/utils/Util"
 ], function(WorkFlow, Material, Util) {
 	"use strict";
 	return function(oSourceController, oShipController) {

@@ -30,7 +30,7 @@
 					<layout:GridData span="L2 M2 S2" id="pod---snpartialpack--count--layout"/>
 				</layoutData>
 			</Label>
-			<!--<core:Fragment fragmentName="scm.ewm.packoutbdlvs1.view.SerialNumberList" type="XML"></core:Fragment>-->
+			<!--<core:Fragment fragmentName="zcogna.ewm.packoutbdlvs1.view.SerialNumberList" type="XML"></core:Fragment>-->
 			<List id="pod---snpartialpack--snlist" mode="{path:'itemModel>/0', formatter:'.formatSNListMode'}" delete="onDeleteSerialNumber"
 				items="{path: 'serialNum>/serialNumbers' }" visible="true">
 				<StandardListItem id="pod---snpartialpack--snlist--item" title="{serialNum>key}"/>

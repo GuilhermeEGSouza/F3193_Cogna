@@ -4,11 +4,11 @@
 sap.ui.define([
 	"sap/ui/base/Object",
 	"sap/ui/base/Interface",
-	"scm/ewm/packoutbdlvs1/modelHelper/Global"
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global"
 	], function(BaseObject, Interface, Global) {
 	"use strict";
 	function dummyFunction () {};
-	return BaseObject.extend("scm.ewm.packoutbdlvs1.workflows.Factory", {
+	return BaseObject.extend("zcogna.ewm.packoutbdlvs1.workflows.Factory", {
 		//todo:: remove the dependency to controller
 		constructor: function(oSourceController, oShipController) {
 			BaseObject.call(this);

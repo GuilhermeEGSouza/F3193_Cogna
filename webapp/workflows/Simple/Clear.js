@@ -2,14 +2,14 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/workflows/WorkFlow",
-	"scm/ewm/packoutbdlvs1/modelHelper/Global",
-	"scm/ewm/packoutbdlvs1/utils/Util",
-	"scm/ewm/packoutbdlvs1/service/ODataService",
-	"scm/ewm/packoutbdlvs1/utils/Const",
-	"scm/ewm/packoutbdlvs1/modelHelper/Message",
-	"scm/ewm/packoutbdlvs1/modelHelper/Material",
-	"scm/ewm/packoutbdlvs1/modelHelper/PackingMode"
+	"zcogna/ewm/packoutbdlvs1/workflows/WorkFlow",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
+	"zcogna/ewm/packoutbdlvs1/utils/Util",
+	"zcogna/ewm/packoutbdlvs1/service/ODataService",
+	"zcogna/ewm/packoutbdlvs1/utils/Const",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Message",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Material",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/PackingMode"
 ], function (WorkFlow, Global, Util, Service, Const, Message, Material, PackingMode) {
 	"use strict";
 	return function (oSourceController, oShipController) {

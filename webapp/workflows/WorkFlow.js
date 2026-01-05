@@ -2,8 +2,8 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/utils/ErrorHandler",
-	"scm/ewm/packoutbdlvs1/utils/Util"
+	"zcogna/ewm/packoutbdlvs1/utils/ErrorHandler",
+	"zcogna/ewm/packoutbdlvs1/utils/Util"
 ], function(ErrorHandler, Util) {
 	"use strict";
 

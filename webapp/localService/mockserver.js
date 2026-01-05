@@ -1,13 +1,13 @@
 /*
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-sap.ui.define(["sap/ui/core/util/MockServer", "scm/ewm/packoutbdlvs1/utils/Util", "scm/ewm/packoutbdlvs1/localService/mockConfig",
-		"scm/ewm/packoutbdlvs1/Component", "sap/ui/thirdparty/sinon"
+sap.ui.define(["sap/ui/core/util/MockServer", "zcogna/ewm/packoutbdlvs1/utils/Util", "zcogna/ewm/packoutbdlvs1/localService/mockConfig",
+		"zcogna/ewm/packoutbdlvs1/Component", "sap/ui/thirdparty/sinon"
 	],
 	function (MockServer, Util, mockConfig, Component, sinon) {
 		"use strict";
 		var oMockServer,
-			_sAppModulePath = "scm/ewm/packoutbdlvs1/",
+			_sAppModulePath = "zcogna/ewm/packoutbdlvs1/",
 			_sJsonFilesModulePath = _sAppModulePath + "localService/mockdata";
 		return {
 			/**

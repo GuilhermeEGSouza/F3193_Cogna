@@ -2,14 +2,14 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/controller/BaseMain",
+	"zcogna/ewm/packoutbdlvs1/controller/BaseMain",
 	"sap/tl/ewm/lib/reuses1/controllers/Base.controller",
-	"scm/ewm/packoutbdlvs1/workflows/SimpleFactory",
-	"scm/ewm/packoutbdlvs1/modelHelper/Material",
-	"scm/ewm/packoutbdlvs1/utils/Const"
+	"zcogna/ewm/packoutbdlvs1/workflows/SimpleFactory",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Material",
+	"zcogna/ewm/packoutbdlvs1/utils/Const"
 ], function (Controller, CommonBase, SimpleFactory, Material, Const) {
 	"use strict";
-	return Controller.extend("scm.ewm.packoutbdlvs1.controller.Simple", {
+	return Controller.extend("zcogna.ewm.packoutbdlvs1.controller.Simple", {
 		sRouteName: "simple",
 		init: function () {
 			CommonBase.prototype.initAccessCode.call(this);

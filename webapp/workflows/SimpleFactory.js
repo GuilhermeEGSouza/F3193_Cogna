@@ -2,30 +2,30 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/workflows/Factory",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/Initialization",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/ChangeMaterial",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/CloseShipHU",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/CreateShipHU",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/DeleteShipHU",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/PackAll",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/PackItem",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/PackPartial",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/PackWithDifference",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/ProductChange",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/SelectShipHU",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/SourceChange",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackAll",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/UnpackItem",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/QuantityChange",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/Leave",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/RestoreShipHU",
-	"scm/ewm/packoutbdlvs1/workflows/Simple/Clear",
-	"scm/ewm/packoutbdlvs1/workflows/Advanced/Print"
+	"zcogna/ewm/packoutbdlvs1/workflows/Factory",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/Initialization",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/ChangeMaterial",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/CloseShipHU",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/CreateShipHU",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/DeleteShipHU",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/PackAll",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/PackItem",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/PackPartial",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/PackWithDifference",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/ProductChange",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/SelectShipHU",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/SourceChange",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/UnpackAll",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/UnpackItem",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/QuantityChange",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/Leave",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/RestoreShipHU",
+	"zcogna/ewm/packoutbdlvs1/workflows/Simple/Clear",
+	"zcogna/ewm/packoutbdlvs1/workflows/Advanced/Print"
 ], function(BaseObject, Initialization, ChangeMaterial, CloseShipHU, CreateShipHU, DeleteShipHU, PackAll, PackItem, PackPartial,
 	PackWithDifference, ProductChange, SelectShipHU, SourceChange, UnpackAll, UnpackItem, QuantityChange, Leave, RestoreShipHU, Clear, Print) {
 	"use strict";
-	var Factory = BaseObject.extend("scm.ewm.packoutbdlvs1.workflows.SimpleFactory", {
+	var Factory = BaseObject.extend("zcogna.ewm.packoutbdlvs1.workflows.SimpleFactory", {
 		aImplemention: [
 			Initialization,
 			SourceChange,

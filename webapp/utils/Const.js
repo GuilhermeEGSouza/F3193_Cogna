@@ -123,8 +123,8 @@ sap.ui.define([], function () {
 			"NOT_SUPPORT_MULTI_SOURCE_LOCATION": "NOT_SUPPORT_MULTI_SOURCE_LOCATION"
 		},
 		TAB: {
-			"ADVANCED": "scm.ewm.packoutbdlvs1.view.TabContent",
-			"BASIC": "scm.ewm.packoutbdlvs1.view.SimpleTabContent"
+			"ADVANCED": "zcogna.ewm.packoutbdlvs1.view.TabContent",
+			"BASIC": "zcogna.ewm.packoutbdlvs1.view.SimpleTabContent"
 		},
 		ID: {
 			"SOURCE_INPUT": "source-hu-input",

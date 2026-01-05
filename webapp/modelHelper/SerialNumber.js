@@ -2,8 +2,8 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/model/SerialNumber",
-	"scm/ewm/packoutbdlvs1/utils/Util"
+	"zcogna/ewm/packoutbdlvs1/model/SerialNumber",
+	"zcogna/ewm/packoutbdlvs1/utils/Util"
 ], function (Model, Util) {
 	"use strict";
 	return {

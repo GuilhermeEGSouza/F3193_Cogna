@@ -2,29 +2,29 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/controller/WorkFlowController",
-	"scm/ewm/packoutbdlvs1/modelHelper/Global",
-	"scm/ewm/packoutbdlvs1/service/ODataService",
-	"scm/ewm/packoutbdlvs1/modelHelper/Message",
-	"scm/ewm/packoutbdlvs1/utils/Util",
-	"scm/ewm/packoutbdlvs1/model/Material",
-	"scm/ewm/packoutbdlvs1/modelHelper/Material",
-	"scm/ewm/packoutbdlvs1/modelHelper/Items",
+	"zcogna/ewm/packoutbdlvs1/controller/WorkFlowController",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
+	"zcogna/ewm/packoutbdlvs1/service/ODataService",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Message",
+	"zcogna/ewm/packoutbdlvs1/utils/Util",
+	"zcogna/ewm/packoutbdlvs1/model/Material",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Material",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Items",
 	"sap/ui/model/json/JSONModel",
-	"scm/ewm/packoutbdlvs1/modelHelper/OData",
-	"scm/ewm/packoutbdlvs1/utils/Const",
-	"scm/ewm/packoutbdlvs1/modelHelper/Cache",
-	"scm/ewm/packoutbdlvs1/utils/CustomError",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/OData",
+	"zcogna/ewm/packoutbdlvs1/utils/Const",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Cache",
+	"zcogna/ewm/packoutbdlvs1/utils/CustomError",
 	"sap/m/ValueColor",
 	"sap/ui/core/ValueState",
 	"sap/m/MessageBox",
-	"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight",
-	"scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting",
-	"scm/ewm/packoutbdlvs1/modelHelper/ColumnSettings",
-	"scm/ewm/packoutbdlvs1/modelHelper/PackingMode",
-	"scm/ewm/packoutbdlvs1/model/PackingMode",
-	"scm/ewm/packoutbdlvs1/model/BasicShipTableSetting",
-	"scm/ewm/packoutbdlvs1/model/InternalShipTableSetting"
+	"zcogna/ewm/packoutbdlvs1/modelHelper/ItemWeight",
+	"zcogna/ewm/packoutbdlvs1/model/AdvancedShipTableSetting",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/ColumnSettings",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/PackingMode",
+	"zcogna/ewm/packoutbdlvs1/model/PackingMode",
+	"zcogna/ewm/packoutbdlvs1/model/BasicShipTableSetting",
+	"zcogna/ewm/packoutbdlvs1/model/InternalShipTableSetting"
 ], function (Controller, Global, Service, Message, Util, MaterialModel, MaterialHelper, TableItemsHelper,
 	JSONModel, ODataHelper, Const, Cache, CustomError, ValueColor, ValueState, MessageBox, ItemWeight, AdvancedShipTableSetting,
 	ColumnSettingsHelper, PackingMode, PackingModeModel, BasicShipTableSetting, InternalShipTableSetting) {
@@ -38,7 +38,7 @@ sap.ui.define([
 	var noChangeStripId = "no-change-strip";
 	var emptyMaterialStripId = "empty-material-strip";
 	var materialTableId = "packaging-material-table";
-	return Controller.extend("scm.ewm.packoutbdlvs1.controller.Right", {
+	return Controller.extend("zcogna.ewm.packoutbdlvs1.controller.Right", {
 		oItemHelper: new TableItemsHelper(new JSONModel([])),
 		oColumnSettingsHelper: new ColumnSettingsHelper(new JSONModel([])),
 		init: function () {
@@ -128,7 +128,7 @@ sap.ui.define([
 			return Const.VIEW_SHIP;
 		},
 		getTableSettingDialogName: function () {
-			return "scm.ewm.packoutbdlvs1.view.ShipTableSettingDialog";
+			return "zcogna.ewm.packoutbdlvs1.view.ShipTableSettingDialog";
 		},
 
 		onAfterRendering: function () {
@@ -362,7 +362,7 @@ sap.ui.define([
 			return new Promise(function (resolve, reject) {
 				var oView = this.getView();
 				if (!this.oHandlingUnitDialog) {
-					this.oHandlingUnitDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.CreateDialog", this);
+					this.oHandlingUnitDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.CreateDialog", this);
 					this.initiateMaterialTable(materialTableId, 2);
 					oView.addDependent(this.oHandlingUnitDialog);
 				}
@@ -667,7 +667,7 @@ sap.ui.define([
 			var oView = this.getView();
 			var oDialog = oView.byId("change-material-dialog");
 			if (!oDialog) {
-				oDialog = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.ChangeMaterialDialog", this);
+				oDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.ChangeMaterialDialog", this);
 				this.initiateMaterialTable("pack-material-table", 2);
 				oView.addDependent(oDialog);
 			}
@@ -782,9 +782,9 @@ sap.ui.define([
 					oTab.destroy();
 					var oContent;
 					if (bSimple) {
-						oContent = sap.ui.xmlfragment(this.getTabId(sNewTabName), "scm.ewm.packoutbdlvs1.view.SimpleTabContent", this);
+						oContent = sap.ui.xmlfragment(this.getTabId(sNewTabName), "zcogna.ewm.packoutbdlvs1.view.SimpleTabContent", this);
 					} else {
-						oContent = sap.ui.xmlfragment(this.getTabId(sNewTabName), "scm.ewm.packoutbdlvs1.view.TabContent", this);
+						oContent = sap.ui.xmlfragment(this.getTabId(sNewTabName), "zcogna.ewm.packoutbdlvs1.view.TabContent", this);
 					}
 					oContent.setKey(sNewTabName);
 					oContent.setText(sNewTabName);
@@ -945,7 +945,7 @@ sap.ui.define([
 			var oView = this.getView();
 			var oQuickView = oView.byId("material-quick-view");
 			if (!oQuickView) {
-				oQuickView = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.MaterialQuickView", this);
+				oQuickView = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.MaterialQuickView", this);
 				oView.addDependent(oQuickView);
 			}
 			oQuickView.openBy(oLink);

@@ -3,7 +3,7 @@
     Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
 
 -->
-<mvc:View id="pod---simplemode--view" controllerName="scm.ewm.packoutbdlvs1.controller.Simple" xmlns:html="http://www.w3.org/1999/xhtml"
+<mvc:View id="pod---simplemode--view" controllerName="zcogna.ewm.packoutbdlvs1.controller.Simple" xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" displayBlock="true" xmlns="sap.m" xmlns:l="sap.ui.layout">
 	<Page showHeader="false" id="appPage" busy="{global>/busy}" floatingFooter="true">
 		<OverflowToolbar design="Transparent" height="3rem" id="pod---simplemode--toolbar">
@@ -26,12 +26,12 @@
 		</OverflowToolbar>
 		<content id="pod---ship--content">
 			<l:Grid id="pod---simplemode--grid" class="sapUiTinyMargin">
-				<mvc:XMLView viewName="scm.ewm.packoutbdlvs1.view.SimpleSource" id="id-source-view" type="XML">
+				<mvc:XMLView viewName="zcogna.ewm.packoutbdlvs1.view.SimpleSource" id="id-source-view" type="XML">
 					<mvc:layoutData>
 						<l:GridData span="XL6 L6 M12 S12" id="pod---simplemode--source--layout"></l:GridData>
 					</mvc:layoutData>
 				</mvc:XMLView>
-				<mvc:XMLView viewName="scm.ewm.packoutbdlvs1.view.SimpleShip" id="id-ship-view" type="XML">
+				<mvc:XMLView viewName="zcogna.ewm.packoutbdlvs1.view.SimpleShip" id="id-ship-view" type="XML">
 					<mvc:layoutData>
 						<l:GridData span="XL6 L6 M12 S12" id="pod---simplemode--ship--layout"></l:GridData>
 					</mvc:layoutData>

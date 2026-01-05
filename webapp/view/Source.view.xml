@@ -3,9 +3,9 @@
     Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
 
 -->
-<mvc:View id="pod---source--view" controllerName="scm.ewm.packoutbdlvs1.controller.Left" height="100%" xmlns:l="sap.ui.layout"
+<mvc:View id="pod---source--view" controllerName="zcogna.ewm.packoutbdlvs1.controller.Left" height="100%" xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:d="sap.f" xmlns:chart="sap.suite.ui.microchart"
-	xmlns:core="sap.ui.core" xmlns:custom="scm.ewm.packoutbdlvs1.control">
+	xmlns:core="sap.ui.core" xmlns:custom="zcogna.ewm.packoutbdlvs1.control">
 	<ScrollContainer id="pod---source--scrollcontainer">
 		<!--<custom:Container id="left-container">-->
 		<VBox id="left-container">

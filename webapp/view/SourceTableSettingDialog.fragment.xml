@@ -4,7 +4,7 @@
 
 -->
 <core:FragmentDefinition id="pod---sourcetablesetting--fragmentdefinition" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form"
-	xmlns:custom="scm.ewm.packoutbdlvs1.control">
+	xmlns:custom="zcogna.ewm.packoutbdlvs1.control">
 	<P13nDialog id="pod---sourcesetting--p13dialog" showReset="true" ok="onConfirmColumnSettingsChange" cancel="onCancelColumnSettingsChange" class="sapUiSizeCompact" showResetEnabled="{path: 'columnModel>/enableRestore/'}" reset="onRestoreColumnSettings">
 		<panels>
 			<P13nColumnsPanel id="pod---sourcesetting--p13panel" changeColumnsItems="onChangeColumnsItems" items="{path: 'columnModel>/columnSettings/'}"

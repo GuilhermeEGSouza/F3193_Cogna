@@ -2,20 +2,20 @@
  * Copyright (C) 2009-2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 sap.ui.define([
-	"scm/ewm/packoutbdlvs1/controller/BaseController",
-	"scm/ewm/packoutbdlvs1/modelHelper/Items",
+	"zcogna/ewm/packoutbdlvs1/controller/BaseController",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Items",
 	"sap/ui/model/json/JSONModel",
-	"scm/ewm/packoutbdlvs1/utils/Util",
-	"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight",
-	"scm/ewm/packoutbdlvs1/modelHelper/Material",
-	"scm/ewm/packoutbdlvs1/service/ODataService",
-	"scm/ewm/packoutbdlvs1/modelHelper/Message",
-	"scm/ewm/packoutbdlvs1/utils/Const",
+	"zcogna/ewm/packoutbdlvs1/utils/Util",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/ItemWeight",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Material",
+	"zcogna/ewm/packoutbdlvs1/service/ODataService",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Message",
+	"zcogna/ewm/packoutbdlvs1/utils/Const",
 	"sap/m/MessageBox",
-	"scm/ewm/packoutbdlvs1/modelHelper/Global"
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global"
 ], function (Controller, TableItemsHelper, JSONModel, Util, ItemWeight, MaterialHelper, Service, Message, Const, MessageBox, Global) {
 	"use strict";
-	return Controller.extend("scm.ewm.packoutbdlvs1.controller.WorkFlowController", {
+	return Controller.extend("zcogna.ewm.packoutbdlvs1.controller.WorkFlowController", {
 		getWorkFlowFactory: function () {
 			return this.oView.getParent().getParent().getParent().getController().oWorkFlowFactory;
 		},

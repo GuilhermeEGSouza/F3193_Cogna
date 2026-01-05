@@ -4,11 +4,11 @@
 sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"scm/ewm/packoutbdlvs1/utils/Util",
-	"scm/ewm/packoutbdlvs1/utils/Response",
-	"scm/ewm/packoutbdlvs1/modelHelper/OData",
-	"scm/ewm/packoutbdlvs1/modelHelper/Global",
-	"scm/ewm/packoutbdlvs1/utils/Const"
+	"zcogna/ewm/packoutbdlvs1/utils/Util",
+	"zcogna/ewm/packoutbdlvs1/utils/Response",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/OData",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
+	"zcogna/ewm/packoutbdlvs1/utils/Const"
 ], function (Filter, FilterOperator, Util, Response, ODataHelper, Global, Const) {
 	"use strict";
 	var _oModel;

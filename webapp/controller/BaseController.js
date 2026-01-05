@@ -5,14 +5,14 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/m/MessageBox",
 	"sap/ui/core/ValueState",
-	"scm/ewm/packoutbdlvs1/model/Global",
-	"scm/ewm/packoutbdlvs1/modelHelper/Global",
-	"scm/ewm/packoutbdlvs1/utils/Util",
-	"scm/ewm/packoutbdlvs1/modelHelper/SerialNumber",
-	"scm/ewm/packoutbdlvs1/modelHelper/Cache",
-	"scm/ewm/packoutbdlvs1/utils/Const",
-	"scm/ewm/packoutbdlvs1/model/PackingMode",
-	"scm/ewm/packoutbdlvs1/modelHelper/PackingMode",
+	"zcogna/ewm/packoutbdlvs1/model/Global",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
+	"zcogna/ewm/packoutbdlvs1/utils/Util",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/SerialNumber",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Cache",
+	"zcogna/ewm/packoutbdlvs1/utils/Const",
+	"zcogna/ewm/packoutbdlvs1/model/PackingMode",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/PackingMode",
 	"sap/ui/core/CustomData",
 	"sap/ushell/ui/footerbar/AddBookmarkButton",
 	"sap/suite/ui/commons/collaboration/ServiceContainer",
@@ -20,17 +20,17 @@ sap.ui.define([
 	'sap/ui/performance/trace/FESRHelper',
 	"sap/ui/model/json/JSONModel",
 	"sap/fe/navigation/NavigationHandler",
-	"scm/ewm/packoutbdlvs1/model/Material",
-	"scm/ewm/packoutbdlvs1/modelHelper/Material",
-	"scm/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting",
-	"scm/ewm/packoutbdlvs1/model/BasicSourceTableSetting",
-	"scm/ewm/packoutbdlvs1/model/InternalSourceTableSetting",
-	"scm/ewm/packoutbdlvs1/model/AdvancedShipTableSetting",
-	"scm/ewm/packoutbdlvs1/model/BasicShipTableSetting",
-	"scm/ewm/packoutbdlvs1/model/InternalShipTableSetting",
-	"scm/ewm/packoutbdlvs1/modelHelper/ItemWeight",
-	"scm/ewm/packoutbdlvs1/modelHelper/Message",
-	"scm/ewm/packoutbdlvs1/service/ODataService"
+	"zcogna/ewm/packoutbdlvs1/model/Material",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Material",
+	"zcogna/ewm/packoutbdlvs1/model/AdvancedSourceTableSetting",
+	"zcogna/ewm/packoutbdlvs1/model/BasicSourceTableSetting",
+	"zcogna/ewm/packoutbdlvs1/model/InternalSourceTableSetting",
+	"zcogna/ewm/packoutbdlvs1/model/AdvancedShipTableSetting",
+	"zcogna/ewm/packoutbdlvs1/model/BasicShipTableSetting",
+	"zcogna/ewm/packoutbdlvs1/model/InternalShipTableSetting",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/ItemWeight",
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Message",
+	"zcogna/ewm/packoutbdlvs1/service/ODataService"
 ], function (Controller, MessageBox, ValueState, GlobalModel, GlobalHelper, Util, SerialNumber, Cache, Const, PackingModeModel,
 	PackingMode, CustomData,
 	AddBookmarkButton,
@@ -46,7 +46,7 @@ sap.ui.define([
 	var sInternal_MainView_PostFix = "internal";
 	var sBasic_MainView_PostFix = "simple";
 	var sDefaultViewId_PostFix = "default";
-	return Controller.extend("scm.ewm.packoutbdlvs1.controller.BaseController", {
+	return Controller.extend("zcogna.ewm.packoutbdlvs1.controller.BaseController", {
 
 		bCollaborationInitialized: false,
 
@@ -338,7 +338,7 @@ sap.ui.define([
 			if (iuidActive) {
 				SerialNumber.setSerialNumberUiisList(oItemHelper.getItemSerialNumberUii(oItem));
 				if (!oPopoverUii) {
-					oPopoverUii = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.SerialNumberUiiPopover", this);
+					oPopoverUii = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.SerialNumberUiiPopover", this);
 					oView.addDependent(oPopoverUii);
 				}
 				if (oPopover) {
@@ -348,7 +348,7 @@ sap.ui.define([
 			} else {
 				SerialNumber.setSerialNumbersList(oItemHelper.getItemSerialNumber(oItem));
 				if (!oPopover) {
-					oPopover = sap.ui.xmlfragment(oView.getId(), "scm.ewm.packoutbdlvs1.view.SerialNumberPopover", this);
+					oPopover = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.SerialNumberPopover", this);
 					oView.addDependent(oPopover);
 				}
 				if (oPopoverUii) {
@@ -451,8 +451,8 @@ sap.ui.define([
 			}.bind(this));
 		},
 		getContainerId: function () {
-			return PackingMode.getSelectedMode() !== Const.INTERNAL_MODE ? "scm.ewm.packoutbdlvs1" :
-				"scm.ewm.packoutbdlvs1.av1";
+			return PackingMode.getSelectedMode() !== Const.INTERNAL_MODE ? "zcogna.ewm.packoutbdlvs1" :
+				"zcogna.ewm.packoutbdlvs1.av1";
 		},
 
 		//Below are functions for Share Functions "Send as Email", "Save as Tile" and "Microsoft Teams" 		
