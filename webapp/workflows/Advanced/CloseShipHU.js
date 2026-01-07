@@ -8,8 +8,9 @@ sap.ui.define([
 	"zcogna/ewm/packoutbdlvs1/modelHelper/Message",
 	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
 	"zcogna/ewm/packoutbdlvs1/modelHelper/Cache",
-	"zcogna/ewm/packoutbdlvs1/service/ODataService"
-], function (WorkFlow, Util, Const, Message, Global, Cache, Service) {
+	"zcogna/ewm/packoutbdlvs1/service/ODataService",
+	"sap/m/MessageBox"
+], function (WorkFlow, Util, Const, Message, Global, Cache, Service, MessageBox) {
 	"use strict";
 	return function (oSourceController, oShipController) {
 		var oWorkFlow = new WorkFlow()
@@ -35,6 +36,13 @@ sap.ui.define([
 						var sCurrentHU = Global.getCurrentShipHandlingUnit();
 						var sSuccessMessage = this.getTextAccordingToMode("closeHU", "closeShippingHU", [sCurrentHU]);
 						Message.addSuccess(sSuccessMessage);
+
+						if (oSourceController.oItemHelper.isEmpty()) {
+							var sSourceId = Global.getSourceId();
+							var sConfMsg = this.getI18nText("conferenceCompleted", [sSourceId]);
+							MessageBox.success(sConfMsg);
+						}
+
 						this.playAudio(Const.INFO);
 					}
 				}

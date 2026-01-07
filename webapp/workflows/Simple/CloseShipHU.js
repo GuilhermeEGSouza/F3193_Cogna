@@ -8,8 +8,9 @@ sap.ui.define([
 	"zcogna/ewm/packoutbdlvs1/modelHelper/Message",
 	"zcogna/ewm/packoutbdlvs1/service/ODataService",
 	"zcogna/ewm/packoutbdlvs1/modelHelper/Cache",
-	"zcogna/ewm/packoutbdlvs1/modelHelper/Global"
-], function (WorkFlow, Util, Const, Message, Service, Cache, Global) {
+	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
+	"sap/m/MessageBox"
+], function (WorkFlow, Util, Const, Message, Service, Cache, Global, MessageBox) {
 	"use strict";
 	return function (oSourceController, oShipController) {
 		var oWorkFlow = new WorkFlow()
@@ -24,9 +25,16 @@ sap.ui.define([
 			}, oShipController)
 			.then(function (preResult, mSession) {
 				if (preResult.MsgVar === "") {
-					var sCurrentHU = Global.getCurrentShipHandlingUnit();
-					var sSuccessMessage = this.getTextAccordingToMode("closeHU", "closeShippingHU", [sCurrentHU]);
+					let sCurrentHU = Global.getCurrentShipHandlingUnit();
+					let sSuccessMessage = this.getTextAccordingToMode("closeHU", "closeShippingHU", [sCurrentHU]);
 					Message.addSuccess(sSuccessMessage);
+
+					if (oSourceController.oItemHelper.isEmpty()) {
+						let sSourceId = Global.getSourceId();
+						let sConfMsg = this.getI18nText("conferenceCompleted", [sSourceId]);
+						MessageBox.success(sConfMsg);
+					}
+
 					this.playAudio(Const.INFO);
 				}
 			}, oShipController, "show success message only when the ship hu is already closed before displayed on the ui ")
