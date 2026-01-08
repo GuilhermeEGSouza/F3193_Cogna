@@ -32,7 +32,11 @@ sap.ui.define([
 			}, oShipController, "send close request to backend only when the hu is open.")
 			.then(function (preResult, mSession) {
 				if (!mSession.bClosed) {
-					if (preResult.MsgVar === "") {
+					if (preResult.MsgType === "S" && preResult.MsgId === "ZVSSEWM_MSG") {
+						MessageBox.success(preResult.MsgVar);
+						this.playAudio(Const.INFO);
+					}
+					else if (preResult.MsgVar === "") {
 						var sCurrentHU = Global.getCurrentShipHandlingUnit();
 						var sSuccessMessage = this.getTextAccordingToMode("closeHU", "closeShippingHU", [sCurrentHU]);
 						Message.addSuccess(sSuccessMessage);

@@ -24,7 +24,11 @@ sap.ui.define([
 					.closeShipHandlingUnit();
 			}, oShipController)
 			.then(function (preResult, mSession) {
-				if (preResult.MsgVar === "") {
+				if (preResult.MsgType === "S" && preResult.MsgId === "ZVSSEWM_MSG") {
+					MessageBox.success(preResult.MsgVar);
+					this.playAudio(Const.INFO);
+				}
+				else if (preResult.MsgVar === "") {
 					let sCurrentHU = Global.getCurrentShipHandlingUnit();
 					let sSuccessMessage = this.getTextAccordingToMode("closeHU", "closeShippingHU", [sCurrentHU]);
 					Message.addSuccess(sSuccessMessage);
