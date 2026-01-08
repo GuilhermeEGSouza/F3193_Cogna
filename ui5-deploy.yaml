@@ -18,8 +18,8 @@ builder:
           url: https://vhediwddwd01.cogna.com.br:44380
           client: '100'
         app:
-          name: zcogna.ewm.packoutbdlvs1
-          package: ZFIORIAPPS
-          transport: S4DK955638
+          name: zcogpackdlv
+          package: ZEWM
+          transport: S4DK974145
         exclude:
           - /test/

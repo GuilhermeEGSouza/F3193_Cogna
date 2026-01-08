@@ -167,6 +167,20 @@ sap.ui.define([
 								if (sAction === MessageBox.Action.YES) {
 									that.exceptionPack(oProduct, iQty, sExccode, sUoM, 'X').then(resolve).catch(reject);
 								} else {
+									oError.setProcessed(true);
+									reject(oError);
+								}
+							}
+						});
+					}
+					else if (oError.getKey() === 'ZVSSEWM_MSG-006') {
+						MessageBox.confirm(oError.getDescription(), {
+							actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+							onClose: function (sAction) {
+								if (sAction === MessageBox.Action.YES) {
+									that.exceptionPack(oProduct, iQty, sExccode, sUoM, 'X').then(resolve).catch(reject);
+								} else {
+									oError.setProcessed(true);
 									reject(oError);
 								}
 							}
@@ -195,6 +209,19 @@ sap.ui.define([
 								if (sAction === MessageBox.Action.YES) {
 									that.pack(oProduct, fQuantity, sUoM, 'X').then(resolve).catch(reject);
 								} else {
+									oError.setProcessed(true);
+									reject(oError);
+								}
+							}
+						});
+					} else if (oError.getKey() === 'ZVSSEWM_MSG-006') {
+						MessageBox.confirm(oError.getDescription(), {
+							actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+							onClose: function (sAction) {
+								if (sAction === MessageBox.Action.YES) {
+									that.pack(oProduct, fQuantity, sUoM, 'X').then(resolve).catch(reject);
+								} else {
+									oError.setProcessed(true);
 									reject(oError);
 								}
 							}
@@ -222,6 +249,19 @@ sap.ui.define([
 								if (sAction === MessageBox.Action.YES) {
 									that.packAll(aProducts, 'X').then(resolve).catch(reject);
 								} else {
+									oError.setProcessed(true);
+									reject(oError);
+								}
+							}
+						});
+					} else if (oError.getKey() === 'ZVSSEWM_MSG-006') {
+						MessageBox.confirm(oError.getDescription(), {
+							actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+							onClose: function (sAction) {
+								if (sAction === MessageBox.Action.YES) {
+									that.packAll(aProducts, 'X').then(resolve).catch(reject);
+								} else {
+									oError.setProcessed(true);
 									reject(oError);
 								}
 							}
