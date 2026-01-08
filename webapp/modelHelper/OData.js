@@ -76,7 +76,7 @@ sap.ui.define([
 			var oMaterial = Material.getCurrentMaterial();
 			return oMaterial.PackagingMaterial;
 		},
-		getExceptionPackParameters: function (oProduct, iQty, sExccode, sUoM) {
+		getExceptionPackParameters: function (oProduct, iQty, sExccode, sUoM, sExecEmb) {
 			return {
 				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
 				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
@@ -91,7 +91,8 @@ sap.ui.define([
 				"SnList": "'" + oProduct.SnList + "'",
 				"StockItemUUID": "guid'" + oProduct.StockItemUUID + "'",
 				"AlternativeUnit": sUoM ? "'" + sUoM + "'" : "''",
-				"Huident": oProduct.Huident === Global.getBin() ? "''" : "'" + oProduct.Huident + "'"
+				"Huident": oProduct.Huident === Global.getBin() ? "''" : "'" + oProduct.Huident + "'",
+				"ExecEmb": sExecEmb ? "'" + sExecEmb + "'" : "''"
 			};
 		},
 		getPackParameters: function (oProduct, fQuantity, sUoM, sExecEmb) {
@@ -117,7 +118,7 @@ sap.ui.define([
 			return oParamater;
 		},
 
-		getPackAllParameters: function (aProducts) {
+		getPackAllParameters: function (aProducts, sExecEmb) {
 			return {
 				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
 				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
@@ -127,7 +128,8 @@ sap.ui.define([
 				"SourceType": "'" + Global.getSourceType() + "'",
 				"IsPackAll": true,
 				"PackagingMaterial": "'" + this.getPackageMaterial() + "'",
-				"Huident": "''"
+				"Huident": "''",
+				"ExecEmb": sExecEmb ? "'" + sExecEmb + "'" : "''"
 			};
 		},
 

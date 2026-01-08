@@ -151,10 +151,30 @@ sap.ui.define([
 			return this.getPromise("/HUSet", CREATE, mData);
 		},
 
-		exceptionPack: function (oProduct, iQty, sExccode, sUoM) {
-			var oURLParameters = ODataHelper.getExceptionPackParameters(oProduct, iQty, sExccode, sUoM);
-			return this.getPromise("/Pack", CREATE, {}, {
-				urlParameters: oURLParameters
+		exceptionPack: function (oProduct, iQty, sExccode, sUoM, sExecEmb) {
+			var oURLParameters = ODataHelper.getExceptionPackParameters(oProduct, iQty, sExccode, sUoM, sExecEmb);
+			var that = this;
+			return new Promise(function (resolve, reject) {
+				that.getPromise("/Pack", CREATE, {}, {
+					urlParameters: oURLParameters
+				}).then(function (oData) {
+					resolve(oData);
+				}).catch(function (oError) {
+					if (oError.getKey() === 'zvssewm_msg-021') {
+						MessageBox.confirm(oError.getDescription(), {
+							actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+							onClose: function (sAction) {
+								if (sAction === MessageBox.Action.YES) {
+									that.exceptionPack(oProduct, iQty, sExccode, sUoM, 'X').then(resolve).catch(reject);
+								} else {
+									reject(oError);
+								}
+							}
+						});
+					} else {
+						reject(oError);
+					}
+				});
 			});
 		},
 
@@ -186,10 +206,30 @@ sap.ui.define([
 			});
 		},
 
-		packAll: function (aProducts) {
-			var oURLParameters = ODataHelper.getPackAllParameters(aProducts);
-			return this.getPromise("/Pack", CREATE, {}, {
-				urlParameters: oURLParameters
+		packAll: function (aProducts, sExecEmb) {
+			var oURLParameters = ODataHelper.getPackAllParameters(aProducts, sExecEmb);
+			var that = this;
+			return new Promise(function (resolve, reject) {
+				that.getPromise("/Pack", CREATE, {}, {
+					urlParameters: oURLParameters
+				}).then(function (oData) {
+					resolve(oData);
+				}).catch(function (oError) {
+					if (oError.getKey() === 'zvssewm_msg-021') {
+						MessageBox.confirm(oError.getDescription(), {
+							actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+							onClose: function (sAction) {
+								if (sAction === MessageBox.Action.YES) {
+									that.packAll(aProducts, 'X').then(resolve).catch(reject);
+								} else {
+									reject(oError);
+								}
+							}
+						});
+					} else {
+						reject(oError);
+					}
+				});
 			});
 		},
 
