@@ -94,7 +94,7 @@ sap.ui.define([
 				"Huident": oProduct.Huident === Global.getBin() ? "''" : "'" + oProduct.Huident + "'"
 			};
 		},
-		getPackParameters: function (oProduct, fQuantity, sUoM) {
+		getPackParameters: function (oProduct, fQuantity, sUoM, sExecEmb) {
 			var oParamater = {
 				"EWMWarehouse": "'" + Global.getWarehouseNumber() + "'",
 				"EWMWorkCenter": "'" + Global.getPackStation() + "'",
@@ -108,7 +108,8 @@ sap.ui.define([
 				"OrdReduction": Util.parseNumber(oProduct.QtyReduced) !== 0 ? true : false,
 				"StockItemUUID": "guid'" + oProduct.StockItemUUID + "'",
 				"AlternativeUnit": sUoM ? "'" + sUoM + "'" : "''",
-				"Huident": oProduct.Huident === Global.getBin() ? "''" : "'" + oProduct.Huident + "'"
+				"Huident": oProduct.Huident === Global.getBin() ? "''" : "'" + oProduct.Huident + "'",
+				"ExecEmb": sExecEmb ? "'" + sExecEmb + "'" : "''"
 			};
 			if (fQuantity) {
 				oParamater.Quan = fQuantity + "M";

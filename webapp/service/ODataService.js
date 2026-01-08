@@ -8,8 +8,9 @@ sap.ui.define([
 	"zcogna/ewm/packoutbdlvs1/utils/Response",
 	"zcogna/ewm/packoutbdlvs1/modelHelper/OData",
 	"zcogna/ewm/packoutbdlvs1/modelHelper/Global",
-	"zcogna/ewm/packoutbdlvs1/utils/Const"
-], function (Filter, FilterOperator, Util, Response, ODataHelper, Global, Const) {
+	"zcogna/ewm/packoutbdlvs1/utils/Const",
+	"sap/m/MessageBox"
+], function (Filter, FilterOperator, Util, Response, ODataHelper, Global, Const, MessageBox) {
 	"use strict";
 	var _oModel;
 	var READ = "read",
@@ -95,15 +96,15 @@ sap.ui.define([
 			});
 		},
 
-		verifyWorkCenterWithWarehouse:function(sWarehouseNumber, sWorkCenter) {
+		verifyWorkCenterWithWarehouse: function (sWarehouseNumber, sWorkCenter) {
 			var oWarehouseNumberFilter = new Filter("EWMWarehouse", FilterOperator.EQ, sWarehouseNumber);
 			var oWorkCenterFilter = new Filter("EWMWorkCenter", FilterOperator.EQ, sWorkCenter);
 			return this.getPromise("/SearchHelpWorkCenterSet?", READ, {}, {
-				filters: [oWarehouseNumberFilter,oWorkCenterFilter]
+				filters: [oWarehouseNumberFilter, oWorkCenterFilter]
 			});
 
 		},
-		
+
 		verifyStorageBin: function (sValue) {
 			return this.getPromise(ODataHelper.getDefaultBinPath(sValue));
 		},
@@ -157,11 +158,31 @@ sap.ui.define([
 			});
 		},
 
-		pack: function (oProduct, fQuantity, sUoM) {
-			var oURLParameters = ODataHelper.getPackParameters(oProduct, fQuantity, sUoM);
-			return this.getPromise("/Pack", CREATE, {}, {
-				urlParameters: oURLParameters,
-				changeSetId: oProduct.DocumentReltdStockDocUUID + oProduct.DocumentReltdStockDocItemUUID
+		pack: function (oProduct, fQuantity, sUoM, sExecEmb) {
+			var oURLParameters = ODataHelper.getPackParameters(oProduct, fQuantity, sUoM, sExecEmb);
+			var that = this;
+			return new Promise(function (resolve, reject) {
+				that.getPromise("/Pack", CREATE, {}, {
+					urlParameters: oURLParameters,
+					changeSetId: oProduct.DocumentReltdStockDocUUID + oProduct.DocumentReltdStockDocItemUUID
+				}).then(function (oData) {
+					resolve(oData);
+				}).catch(function (oError) {
+					if (oError.getKey() === 'zvssewm_msg-021') {
+						MessageBox.confirm(oError.getDescription(), {
+							actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+							onClose: function (sAction) {
+								if (sAction === MessageBox.Action.YES) {
+									that.pack(oProduct, fQuantity, sUoM, 'X').then(resolve).catch(reject);
+								} else {
+									reject(oError);
+								}
+							}
+						});
+					} else {
+						reject(oError);
+					}
+				});
 			});
 		},
 
@@ -213,7 +234,7 @@ sap.ui.define([
 			var oVerifyWorkCenter = this.verifyWorkCenterWithWarehouse(sWarehouse, sWorkCenter);
 			return Promise.all([oVerifyWarehouse, oVerifyWorkCenter]);
 		},
-		
+
 		closeShipHandlingUnit: function () {
 			var oURLParameters = ODataHelper.getCloseShipHandlingUnitParameters();
 			return this.getPromise("/Close", CREATE, {}, {
