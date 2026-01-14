@@ -41,11 +41,11 @@ sap.ui.define([
 						var sSuccessMessage = this.getTextAccordingToMode("closeHU", "closeShippingHU", [sCurrentHU]);
 						Message.addSuccess(sSuccessMessage);
 
-						if (oSourceController.oItemHelper.isEmpty()) {
-							var sSourceId = Global.getSourceId();
-							var sConfMsg = this.getI18nText("conferenceCompleted", [sSourceId]);
-							MessageBox.success(sConfMsg);
-						}
+						//if (oSourceController.oItemHelper.isEmpty()) {
+						//	var sSourceId = Global.getSourceId();
+						//	var sConfMsg = this.getI18nText("conferenceCompleted", [sSourceId]);
+						//	MessageBox.success(sConfMsg);
+						//}
 
 						this.playAudio(Const.INFO);
 					}
