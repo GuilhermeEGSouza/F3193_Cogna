@@ -35,6 +35,9 @@ sap.ui.define([
 				return this.updateItemWeightInNeed();
 			}, oSourceController, "check if there exists source item which is not in ItemWeight")
 			.then(function (preResult, mSession) {
+				if (!mSession.oProduct || !mSession.oProduct.StockItemUUID) {
+					return Promise.reject(new CustomError("MISSING_DATA", "Produto sem identificador único (UUID). Bipa o item novamente."));
+				}
 				return Service
 					.pack(mSession.oProduct, mSession.iQuantity, mSession.sUoM);
 			}, oSourceController)
@@ -43,23 +46,60 @@ sap.ui.define([
 				mSession.WeightUoM = preResult.WeightUoM;
 				mSession.oUpdateInfo = preResult;
 				return Service.getHUItems(Global.getSourceId());
-			}, oSourceController,"get source hu items")
-			.then(function (preResult, mSession) {
+			}, oSourceController, "refresh hu items")
+			.then(function (aItems, mSession) {
 				mSession.oDialog.setBusy(false);
 				this.closeDialog(mSession.oDialog);
-				var oSourceItem = Util.find(preResult, function (oItem) {
-					if (oItem.StockItemUUID === mSession.sStockItemUUID) {
-						return true;
+				mSession.bDialogClosed = true;
+
+				var fDialogQty = Util.parseNumber(mSession.iQuantity) || parseFloat(mSession.iQuantity) || 0;
+				var fTotalQty = Util.parseNumber(mSession.oProduct.AlterQuan) || parseFloat(mSession.oProduct.AlterQuan) || 0;
+				var bFullPack = (fDialogQty >= fTotalQty);
+
+				if (bFullPack) {
+					// Se foi embalagem total, removemos o item da lista.
+					var aFilteredItems = (aItems || []).filter(function (oItem) {
+						var bIsCurrent = oItem.StockItemUUID === mSession.sStockItemUUID;
+						var bIsAlreadyInShipHU = Global.isShipHandlingUnitExist(oItem.Huident);
+						return !bIsCurrent && !bIsAlreadyInShipHU;
+					});
+					this.oItemHelper.setItems(aFilteredItems);
+
+					Global.setProductId("");
+					Global.setExceptionEnable(false);
+					this.unbindProductInfo();
+					this.unbindImage();
+					this.unbindODOInfo();
+					this.focus(Const.ID.PRODUCT_INPUT);
+					return Util.getResolvePromise([]);
+				} else {
+					// Se foi parcial, atualizamos a lista mas também filtramos itens zumbis (já embalados em outras HUs)
+					var aFilteredItems = (aItems || []).filter(function (oItem) {
+						var bIsAlreadyInShipHU = Global.isShipHandlingUnitExist(oItem.Huident);
+						return !bIsAlreadyInShipHU;
+					});
+					this.oItemHelper.setItems(aFilteredItems);
+
+					var oSourceItem = Util.find(aFilteredItems, function (oItem) {
+						return oItem.StockItemUUID === mSession.sStockItemUUID;
+					});
+
+					if (oSourceItem) {
+						var iIndex = this.oItemHelper.getItemIndexByKey(mSession.sStockItemUUID, mSession.oProduct.Huident);
+						if (iIndex !== -1) {
+							this.oItemHelper.updateItemQuantityByIndex(iIndex, Util.parseNumber(oSourceItem.AlterQuan), Util.parseNumber(oSourceItem.Quan));
+							this.oItemHelper.updateItemWeightByIndex(iIndex, Util.parseNumber(oSourceItem.NetWeight), oSourceItem.WeightUoM);
+							this.oItemHelper.updateItemVolumeByIndex(iIndex, Util.parseNumber(oSourceItem.Volume), oSourceItem.VolumeUoM);
+						}
+						mSession.oProduct = this.getNewItemWithPartialQuantity(mSession.oProduct, mSession.oUpdateInfo);
 					}
-					return false;
-				});
-				this.oItemHelper.updateItemQuantityByIndex(0, Util.parseNumber(oSourceItem.AlterQuan), Util.parseNumber(oSourceItem.Quan));
-				this.oItemHelper.updateItemWeightByIndex(0, Util.parseNumber(oSourceItem.NetWeight), oSourceItem.WeightUoM);
-				this.oItemHelper.updateItemVolumeByIndex(0, Util.parseNumber(oSourceItem.Volume), oSourceItem.VolumeUoM);
-				mSession.oProduct = this.getNewItemWithPartialQuantity(mSession.oProduct, mSession.oUpdateInfo);
-				this.focus(Const.ID.PRODUCT_INPUT);
+					this.focus(Const.ID.PRODUCT_INPUT);
+				}
 			}, oSourceController)
 			.then(function (preResult, mSession) {
+				if (this.oItemHelper.isEmpty()) {
+					return;
+				}
 				if (this.oItemHelper.isStockLevelSerialNumber()) {
 					var aCurrentSnList = this.oItemHelper.getSerialNumberListByIndex(0);
 					this.oItemHelper.removeSerialNumberFromCurrentItem(SerialNumber.getAllSerialNumerKeys());
@@ -87,7 +127,7 @@ sap.ui.define([
 			.then(function (preResult, mSession) {
 				this.updateNetWeightRelated(mSession.NetWeight, mSession.WeightUoM);
 				this.clearGrossWeight();
-			}, oShipController,"update weight chart, color and text")
+			}, oShipController, "update weight chart, color and text")
 			.then(function () {
 				this.dehilightShipHandlingUnits();
 			}, oShipController)
@@ -97,6 +137,9 @@ sap.ui.define([
 				}
 			}, oShipController)
 			.then(function (preResult, oParam) {
+				if (this.oItemHelper.isEmpty()) {
+					return;
+				}
 				oParam.sODO = this.oItemHelper.getItemDocNoByIndex(0);
 				oParam.sPackInstr = this.oItemHelper.getItemPackInstrByIndex(0);
 			}, oSourceController)
@@ -107,33 +150,49 @@ sap.ui.define([
 				this.updateCacheIsEmptyHU();
 			}, oShipController, "update cache")
 			.then(function (preResult, mSession) {
-				this.delayCalledAdjustContainerHeight();
-			}, oShipController);
+				if (typeof oShipController.delayCalledAdjustContainerHeight === "function") {
+					oShipController.delayCalledAdjustContainerHeight();
+				}
+			})
+			.then(function (preResult, mSession) {
+				oSourceController.handleExceptionEnable();
+			});
 
 		oWorkFlow
 			.errors()
 			.default(function (sError, vPara, mSession, bCustomError) {
-				if (bCustomError) {
-					this.showErrorMessagePopup(sError);
-				}
+				var sMessage = sError || this.getI18nText("errorOccured");
+				this.showErrorMessagePopup(sMessage);
 			}, oSourceController)
 			.always(function (sError, vPara, mSession) {
 				mSession.oDialog.setBusy(false);
-				this.closeDialog(mSession.oDialog);
+				if (!mSession.bDialogClosed) {
+					this.closeDialog(mSession.oDialog);
+					mSession.bDialogClosed = true;
+				}
 				this.focus(Const.ID.PRODUCT_INPUT);
 				this.playAudio(Const.ERROR);
-				if (!Util.isEmpty(Global.getSourceId())) {
+
+				if (sError) {
+					Global.setProductId("");
+					Global.setExceptionEnable(false);
+					this.unbindProductInfo();
+					this.unbindODOInfo();
+					this.unbindImage();
+				}
+
+				if (sError && !Util.isEmpty(Global.getSourceId())) {
 					Global.setExceptionEnable(false);
 					Service.getHUItems(Global.getSourceId())
 						.then(function (aItems) {
-							if (aItems[0]) {
+							if (aItems && aItems.length > 0) {
 								this.oItemHelper.setItems(aItems);
 								this.oItemHelper.sortItemsByKey(mSession.oProduct.StockItemUUID, mSession.oProduct.Huident);
 								this.bindODOInfo();
 								this.oItemHelper.setItemsStatusByConsGrp();
 							}
-						}.bind(this))
-						.catch(function (oError) {});
+						}.bind(oSourceController))
+						.catch(function (oError) { });
 				}
 			}, oSourceController);
 		return oWorkFlow;

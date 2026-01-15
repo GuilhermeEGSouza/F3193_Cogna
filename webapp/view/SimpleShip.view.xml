@@ -27,6 +27,9 @@
 			<!--<custom:Container class="pack-cb" id="ship-toolbar-container">-->
 			<Toolbar id="shiphu-buttons-toolbar">
 				<ToolbarSpacer id="pod---simpleship--space1"/>
+				<Button id="id-weight" width="18%" text="{i18n>weigh}" type="Emphasized" visible="true"
+					enabled="{parts:[{path:'global>/currentShipHandlingUnitClosed'}, {path:'itemModel>/'},{path:'global>/pendingTaskNumber'}], formatter:'.formatWeightEnableInSimpleMode'}"
+					press="onGetScaleWeight"/>
 				<Button id="print-button" width="18%" text="{i18n>print}"
 					enabled="{parts:[{path:'global>/currentShipHandlingUnit'},{path:'global>/pendingTaskNumber'}] , formatter:'.formatPrintEnable'}"
 					type="Default" class="sapMBtnDefault" press="onPrint"/>

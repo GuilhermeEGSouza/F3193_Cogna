@@ -120,10 +120,10 @@
 		<VBox class="pack-cb" id="source-toolbar-container">
 			<Toolbar id="sourcehu-buttons-toolbar">
 				<Button id="open-partial-pack-button" text="{i18n>partialPack}" width="18%" enabled="{global>/exceptionEnable}" press="openPartialPack"></Button>
-				<Button id="pack-all-button" text="{i18n>packAll}" width="18%" enabled="{global>/packAllEnable}" press="onPackAll"></Button>
+				<Button id="pack-all-button" text="{i18n>packAll}" width="18%" enabled="{global>/packAllEnable}" press="onPackAll" visible="false"></Button>
 				<ToolbarSpacer id="pod---source--space1"/>
 				<Button id="pack-button" text="{i18n>pack}" width="18%" type="Emphasized" enabled="{path:'itemModel>/0/Status', formatter:'.formatPackBtn'}"
-					press="onPack"></Button>
+					press="onPack" visible="false"></Button>
 			</Toolbar>
 		</VBox>
 		<!--</custom:Container>-->

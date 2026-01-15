@@ -78,7 +78,7 @@
 						<OverflowToolbarLayoutData priority="NeverOverflow" id="pod---ship--unpack--button"/>
 					</layoutData>
 				</Button>
-				<Button id="id-weight" text="{i18n>weigh}" width="17%" type="Emphasized" visible="{global>/scaleEnabled}"
+				<Button id="id-weight" text="{i18n>weigh}" width="17%" type="Emphasized" visible="true"
 					enabled="{parts:[{path:'global>/currentShipHandlingUnitClosed'}, {path:'itemModel>/'},{path:'global>/pendingTaskNumber'}], formatter:'.formatWeightEnable'}"
 					press="onGetScaleWeight">
 					<layoutData>

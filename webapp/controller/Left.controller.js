@@ -94,8 +94,8 @@ sap.ui.define([
 		},
 		init: function () {
 			this.setButtonToolTip("open-partial-pack-button");
-			this.setButtonToolTip("pack-all-button");
-			this.setButtonToolTip("pack-button");
+			// this.setButtonToolTip("pack-all-button");
+			// this.setButtonToolTip("pack-button");
 			this.getRouter().attachRouteMatched(this.onRouteMatched, this);
 			if (Global.isOnCloud()) {
 				this.oProductImage.setVisible(false);
@@ -125,7 +125,7 @@ sap.ui.define([
 		removeDuplicatedId: function () {
 			var sComponentId = this.getOwnerComponent().getId();
 			var aViewIds = [Const.ID.MAIN_SOURCE_VIEW, Const.ID.MAIN_SHIP_VIEW, Const.ID.INTERNAL_SOURCE_VIEW,
-				Const.ID.INTERNAL_SHIP_VIEW
+			Const.ID.INTERNAL_SHIP_VIEW
 			];
 			var aIds = ["pod---snuii--hbox", "pod---snuii--snlabel"];
 			var oElement;
@@ -227,20 +227,20 @@ sap.ui.define([
 
 		isAccessCodeRelatedToSourceHU: function (sAccessCode) {
 			switch (sAccessCode) {
-			case Const.ACCESS_CODE.PACK_ITEM:
-			case Const.ACCESS_CODE.PACK_ALL:
-				return true;
-			default:
-				return false;
+				case Const.ACCESS_CODE.PACK_ITEM:
+				case Const.ACCESS_CODE.PACK_ALL:
+					return true;
+				default:
+					return false;
 			}
 		},
 		isAccessCodeAllowedWhenPendingExist: function (sAccessCode) {
 			switch (sAccessCode) {
-			case Const.ACCESS_CODE.PACK_ITEM:
-			case Const.ACCESS_CODE.CLOSE_HU:
-				return true;
-			default:
-				return false;
+				case Const.ACCESS_CODE.PACK_ITEM:
+				case Const.ACCESS_CODE.CLOSE_HU:
+					return true;
+				default:
+					return false;
 			}
 		},
 
@@ -262,47 +262,47 @@ sap.ui.define([
 				}
 			}
 			switch (sAccessCode) {
-			case Const.ACCESS_CODE.PACK_ITEM:
-				if (this.oItemHelper.isFirstItemHighlighted()) {
-					var oProduct = this.oItemHelper.getItemByIndex(0);
-					var oPackInfo = {
-						oProduct: oProduct,
-						sQuantity: oProduct.AlterQuan,
-						iIndex: 0,
-						bAdd: true
-					};
-					this.getWorkFlowFactory().getPackItemWorkFlow().run(oPackInfo);
-				} else {
-					sErrorCode = sErrorCode || "ACCESS_CODE_NOT_PRODUCT_SELECTED";
-				}
-				break;
-			case Const.ACCESS_CODE.PACK_ALL:
-				if (Global.getPackAllEnable()) {
-					this.onPackAll();
-				} else {
-					sErrorCode = sErrorCode || "ACCESS_CODE_PACK_ALL_DISABLE";
-				}
-				break;
-			case Const.ACCESS_CODE.CLOSE_HU:
-				if (Global.getCloseShipHUEnable()) {
-					this.updateInputWithDefault(Const.ID.PRODUCT_INPUT, "");
-					this.getWorkFlowFactory().getShipHUCloseWorkFlow().run();
-				} else {
-					sErrorCode = "ACCESS_CODE_CLOSE_HU_DISABLE";
-				}
-				break;
-			case Const.ACCESS_CODE.CREATE_HU:
-				if (PackingModeHelper.getSelectedMode() === Const.ADVANCED_MODE || PackingModeHelper.getSelectedMode() === Const.INTERNAL_MODE) {
-					var oCreateInfo = {};
-					oCreateInfo.bOpen = true;
-					this.getWorkFlowFactory().getShipHUCreationWorkFlow().run(oCreateInfo);
-				} else {
-					sErrorCode = sErrorCode || "ACCESS_CODE_CREATE_HU_DISABLE";
-				}
+				case Const.ACCESS_CODE.PACK_ITEM:
+					if (this.oItemHelper.isFirstItemHighlighted()) {
+						var oProduct = this.oItemHelper.getItemByIndex(0);
+						var oPackInfo = {
+							oProduct: oProduct,
+							sQuantity: oProduct.AlterQuan,
+							iIndex: 0,
+							bAdd: true
+						};
+						this.getWorkFlowFactory().getPackItemWorkFlow().run(oPackInfo);
+					} else {
+						sErrorCode = sErrorCode || "ACCESS_CODE_NOT_PRODUCT_SELECTED";
+					}
+					break;
+				case Const.ACCESS_CODE.PACK_ALL:
+					if (Global.getPackAllEnable()) {
+						this.onPackAll();
+					} else {
+						sErrorCode = sErrorCode || "ACCESS_CODE_PACK_ALL_DISABLE";
+					}
+					break;
+				case Const.ACCESS_CODE.CLOSE_HU:
+					if (Global.getCloseShipHUEnable()) {
+						this.updateInputWithDefault(Const.ID.PRODUCT_INPUT, "");
+						this.getWorkFlowFactory().getShipHUCloseWorkFlow().run();
+					} else {
+						sErrorCode = "ACCESS_CODE_CLOSE_HU_DISABLE";
+					}
+					break;
+				case Const.ACCESS_CODE.CREATE_HU:
+					if (PackingModeHelper.getSelectedMode() === Const.ADVANCED_MODE || PackingModeHelper.getSelectedMode() === Const.INTERNAL_MODE) {
+						var oCreateInfo = {};
+						oCreateInfo.bOpen = true;
+						this.getWorkFlowFactory().getShipHUCreationWorkFlow().run(oCreateInfo);
+					} else {
+						sErrorCode = sErrorCode || "ACCESS_CODE_CREATE_HU_DISABLE";
+					}
 
-				break;
-			default:
-				sErrorCode = "ACCESS_CODE_INVALID";
+					break;
+				default:
+					sErrorCode = "ACCESS_CODE_INVALID";
 			}
 			if (sErrorCode) {
 				//as discussed with po, map to a single error code
@@ -548,6 +548,9 @@ sap.ui.define([
 		},
 
 		openPartialPack: function () {
+			if (Util.isEmpty(Global.getProductId())) {
+				return;
+			}
 			var oView = this.getView();
 			var oDialog;
 			if (this.oItemHelper.isSerialNumberEnableItem()) {
@@ -565,7 +568,7 @@ sap.ui.define([
 					oView.addDependent(oDialog);
 				}
 			}
-			this.openDialog(oDialog).catch(function (sError) {});
+			this.openDialog(oDialog).catch(function (sError) { });
 		},
 		onPartialPackQuantityChange: function (oEvent) {
 			var sInput = Util.trim(oEvent.getParameter("newValue"));
@@ -573,7 +576,7 @@ sap.ui.define([
 				var iQuantity = Util.parseNumber(sInput);
 				var sQuantity = Util.formatNumber(iQuantity);
 				var iProductQuantity = Util.parseNumber(this.oItemHelper.getItemQuantityByIndex(0));
-				if (Util.isEmpty(sQuantity) || iQuantity >= iProductQuantity || iQuantity <= 0) {
+				if (Util.isEmpty(sQuantity) || iQuantity > iProductQuantity || iQuantity <= 0) {
 					this.updateInputWithError(partialId);
 					this.playAudio(Const.ERROR);
 				} else {
@@ -624,6 +627,9 @@ sap.ui.define([
 		},
 
 		onPartialPack: function (oEvent) {
+			if (Util.isEmpty(Global.getProductId())) {
+				return;
+			}
 			//if user switch from SN partial dialog to partial dialog, change event may add value to SN list
 			SerialNumber.clearSerialNumbersList();
 
@@ -639,7 +645,7 @@ sap.ui.define([
 			if (!Util.isEmpty(sInput)) {
 				var fQuantity = Util.parseNumber(sInput);
 				var sQuantity = Util.formatNumber(fQuantity);
-				if (Util.isEmpty(sQuantity) || fQuantity >= fProductQuantity || fQuantity <= 0) {
+				if (Util.isEmpty(sQuantity) || fQuantity > fProductQuantity || fQuantity <= 0) {
 					bQuantityError = true;
 				} else {
 					if (this.checkQuantityOverflow(fQuantity, oInput)) {
@@ -688,9 +694,9 @@ sap.ui.define([
 				var sInternalcode = oEvent.getSource().getCustomData()[0].getValue();
 				var sExccode = oEvent.getSource().getCustomData()[0].getKey();
 				if (sInternalcode === Const.EXCCODE.DIFF) {
-					this.openDifference(sExccode, sText).catch(function (sError) {});
+					this.openDifference(sExccode, sText).catch(function (sError) { });
 				} else if (sInternalcode === Const.EXCCODE.EXPA) {
-					this.openDamage(sExccode, sText).catch(function (sError) {});
+					this.openDamage(sExccode, sText).catch(function (sError) { });
 				}
 			}.bind(this);
 			aExceptions.forEach(function (oException) {
@@ -1237,7 +1243,7 @@ sap.ui.define([
 					oNewDialog = sap.ui.xmlfragment(oView.getId(), "zcogna.ewm.packoutbdlvs1.view.PartialPackDialog", this);
 					oView.addDependent(oNewDialog);
 				}
-				this.openDialog(oNewDialog).catch(function (sError) {});
+				this.openDialog(oNewDialog).catch(function (sError) { });
 			}
 		},
 
@@ -1422,13 +1428,13 @@ sap.ui.define([
 			var bCompact = !!this.getView().$().closest(".sapUiSizeCompact").length;
 			MessageBox.error(
 				sMessage, {
-					styleClass: bCompact ? "sapUiSizeCompact" : "",
-					actions: [sap.m.MessageBox.Action.OK],
-					onClose: function () {
-						this.setBusy(true);
-						this.getWorkFlowFactory().getLeaveWorkFlow().run();
-					}.bind(this)
-				}
+				styleClass: bCompact ? "sapUiSizeCompact" : "",
+				actions: [sap.m.MessageBox.Action.OK],
+				onClose: function () {
+					this.setBusy(true);
+					this.getWorkFlowFactory().getLeaveWorkFlow().run();
+				}.bind(this)
+			}
 			);
 		},
 

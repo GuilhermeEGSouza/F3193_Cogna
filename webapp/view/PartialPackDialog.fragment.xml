@@ -18,36 +18,37 @@
 				<layout:layoutData>
 					<layout:GridData span="L10 M10 S10" id="pod---partialpack--dialog--grid-layout"/>
 				</layout:layoutData>
-				<Label id="partial-alter-label" text="{i18n>availableAlternativeUoM}" labelFor="partial-alternative-quantity">
+				<Label id="partial-alter-label" text="{i18n>availableAlternativeUoM}" labelFor="partial-alternative-quantity" visible="false">
 					<layoutData>
 						<layout:GridData span="L10 M10 S10" id="pod---partialpack--dialog--label--alternativeuom"/>
 					</layoutData>
 				</Label>
-				<Input id="partial-alternative-quantity" value="{itemModel>/0/AlterQuan}" editable="false">
+				<Input id="partial-alternative-quantity" value="{itemModel>/0/AlterQuan}" editable="false" visible="false">
 					<layoutData>
 						<layout:GridData span="L6 M6 S6" id="pod---partialpack--dialog--alternativeqty"/>
 					</layoutData>
 				</Input>
-				<Input id="partial-alternative-uom" value="{itemModel>/0/AlternativeUnit}" editable="false" ariaLabelledBy="partial-alter-label">
+				<Input id="partial-alternative-uom" value="{itemModel>/0/AlternativeUnit}" editable="false" ariaLabelledBy="partial-alter-label" visible="false">
 					<layoutData>
 						<layout:GridData span="L4 M4 S4" id="pod---partialpack--dialog--alternativeuom"/>
 					</layoutData>
 				</Input>
-				<Label id="partial-base-label" text="{i18n>availableBaseUoM}" labelFor="partial-base-quantity">
+				<Label id="partial-base-label" text="{i18n>availableBaseUoM}" labelFor="partial-base-quantity" visible="false">
 					<layoutData>
 						<layout:GridData span="L10 M10 S10" id="pod---partialpack--dialog--baseluom"/>
 					</layoutData>
 				</Label>
-				<Input id="partial-base-quantity" value="{itemModel>/0/Quan}" editable="false">
+				<Input id="partial-base-quantity" value="{itemModel>/0/Quan}" editable="false" visible="false">
 					<layoutData>
 						<layout:GridData span="L6 M6 S6" id="pod---partialpack--dialog--baseqty"/>
 					</layoutData>
 				</Input>
-				<Input id="partial-base-uom" value="{itemModel>/0/BaseUnit}" editable="false" ariaLabelledBy="partial-base-label">
+				<Input id="partial-base-uom" value="{itemModel>/0/BaseUnit}" editable="false" ariaLabelledBy="partial-base-label" visible="false">
 					<layoutData>
 						<layout:GridData span="L4 M4 S4" id="pod---partailpack---dialog--uom--input--layout"/>
 					</layoutData>
 				</Input>
+
 				<Label id="partial-packed-quantity" text="{i18n>packedQuantity}" labelFor="partial-pack-input">
 					<layoutData>
 						<layout:GridData span="L10 M10 S10" id="pod---partialpack--dialog--packqty"/>

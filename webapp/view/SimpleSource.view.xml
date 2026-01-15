@@ -96,9 +96,9 @@
 			<!--<custom:Container class="pack-cb" id="source-toolbar-container">-->
 			<Toolbar id="sourcehu-buttons-toolbar">
 				<ToolbarSpacer id="pod---simplesource--space"/>
-				<Button id="pack-all-button" width="18%" text="{i18n>packAll}" enabled="{global>/packAllEnable}" press="onPackAll"/>
+				<Button id="pack-all-button" width="18%" text="{i18n>packAll}" enabled="{global>/packAllEnable}" press="onPackAll" visible="false"/>
 				<Button id="pack-button" text="{i18n>pack}" width="18%" type="Emphasized" enabled="{path:'itemModel>/0/Status', formatter:'.formatPackBtn'}"
-					press="onPack"></Button>
+					press="onPack" visible="false"></Button>
 			</Toolbar>
 		</VBox>
 		<!--</custom:Container>-->
