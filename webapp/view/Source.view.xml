@@ -134,7 +134,7 @@
 					<Title id="table-title" text="{parts:[{path:'global>/sourceId'}, {path:'itemModel>/'}], formatter:'.formatTableTitle'}" level="H4"
 						titleStyle="H4"></Title>
 					<ToolbarSpacer id="pod---source--space2"/>
-					<Button id="pod---source--setting--btn" tooltip="" icon="sap-icon://action-settings" press="handleSettingDialogButtonPressed"/>
+					<Button id="pod---source--setting--btn" visible="false" tooltip="" icon="sap-icon://action-settings" press="handleSettingDialogButtonPressed"/>
 				</OverflowToolbar>
 			</headerToolbar>
 			<columns>
