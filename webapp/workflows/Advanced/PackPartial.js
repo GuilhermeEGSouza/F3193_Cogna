@@ -161,8 +161,10 @@ sap.ui.define([
 		oWorkFlow
 			.errors()
 			.default(function (sError, vPara, mSession, bCustomError) {
-				var sMessage = sError || this.getI18nText("errorOccured");
-				this.showErrorMessagePopup(sMessage);
+				if (bCustomError) {
+					var sMessage = sError || this.getI18nText("errorOccured");
+					this.showErrorMessagePopup(sMessage);
+				}
 			}, oSourceController)
 			.always(function (sError, vPara, mSession) {
 				mSession.oDialog.setBusy(false);
